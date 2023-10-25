@@ -1,6 +1,6 @@
 # Web Dev Project Team Policy
 
-** Roles:
+## Roles:
 
 - Coordinator: Vasilii
 - Monitor: Simona
