@@ -30,6 +30,8 @@
     - Ask for help if we spend too long on one task (to not waste time)
 - Split the work equally
 - Do the work we promise to do on time
+    - Do code reviews within 2 days of someone requesting one, and once every week
+    - Checkups on Fridays to evaluate our progress and adjust accordingly
 - Be present for the labs and meetings unless there are extenuating circumstances
 - Be respectful
     - Of teammates' time
