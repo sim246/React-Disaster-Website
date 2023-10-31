@@ -1,25 +1,27 @@
 # Meetings Log
 
-## Wednesday, October 25 2023 @ lab time
+## Tuesday, October 31 2023 @ lab time
 
 ### Attendees
 Full attendance
 
 ### Tasks assigned
 
-- Roles assignment
-- Research Data Sets by Friday
+- Finishing up Proposal and Wireframes
+
 
 ### Topics discussed
 
-- Team Policy
-- Meetings Log
+- Project Proposal
+    - Views
+    - Functionality
+    - Features and Priorities
+        - Core Features vs Additioinal features
+    - Libraries
 
 ### Problems discussed
 
-- What Data Set to use, how to relate them
-
-
+- How we will use Leaflet Map to visualize the data, what difficulties we might encounter
 
 ## Friday, October 27 2023 @ lab time
 
@@ -39,3 +41,23 @@ Full attendance
 ### Problems discussed
 
 - What Data Set to use
+
+
+## Wednesday, October 25 2023 @ lab time
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- Roles assignment
+- Research Data Sets by Friday
+
+### Topics discussed
+
+- Team Policy
+- Meetings Log
+
+### Problems discussed
+
+- What Data Set to use, how to relate them
