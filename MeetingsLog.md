@@ -26,8 +26,8 @@ Full attendance
 ## Friday, October 27 2023 @ lab time
 
 ### Attendees
--Simona
--Sila
+- Simona
+- Sila
 
 ### Tasks assigned
 
