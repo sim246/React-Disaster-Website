@@ -46,6 +46,7 @@ In addition to those filters, it will be possible for users to move the map, and
 
 * More data filters for Natural Disasters
 * More types of Natural Disasters presented as markers on the map
+* UI tweaks: make the list of Natural Disasters collapsable, make year selection into a timeline slider.
 
 ## Dependencies
 
