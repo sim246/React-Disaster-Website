@@ -11,6 +11,8 @@ https://gitlab.com/csy3dawson23-24/520/teams/TeamF13-SilaSimonaVasilii/520-proje
 1. 
 2. 
 3. 
+World, Region, Country GDP/GDP per capita(Country Name, Year, GDP_USD, *GDP_per_capita_USD)
+ALL NATURAL DISASTERS (Year, Disaster Type, Country, Latitude, Longitude, Insured Damages ('000 US$), Total Damages ('000 US$))
 
 ## Visualizations
 
