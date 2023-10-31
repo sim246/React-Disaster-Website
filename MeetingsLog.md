@@ -18,3 +18,24 @@ Full attendance
 ### Problems discussed
 
 - What Data Set to use, how to relate them
+
+
+
+## Friday, October 27 2023 @ lab time
+
+### Attendees
+-Simona
+-Sila
+
+### Tasks assigned
+
+- Choosing Data Sets
+- Filling Out Issue
+
+### Topics discussed
+
+- Data Sets
+
+### Problems discussed
+
+- What Data Set to use
