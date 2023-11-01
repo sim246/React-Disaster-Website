@@ -19,14 +19,24 @@ let db;
 let disastersData;
 let economyData;
 
-app.get('/api/v1/:year/natural-disasters/:country?type', async (req, res) => {
+app.get('/api/v1/:year/natural-disasters/:country', async (req, res) => {
+  res.type('json');
   if (db) {
-    res.type('json');
-    //Ill change soon
-    var disastersData = await db.readDisasters();
-    res.send(disastersData);
+    if (isNaN(parseInt(req.params.year)) || req.params.year < 1960 || req.params.year > 2021) {
+      res.status(404).send({status: '404', message: '404: Not found'});
+    }
+  
+    //Getting disasters by year and country from db
+    var disastersData = await db.readDisasters(req.params.year, req.params.country);
+    
+    const typeParam = req.query.type;
+    let filteredData = disastersData;
+    if (typeParam) {
+      filteredData = filteredData.filter((disaster)=> disaster.type === typeParam);
+    }
+    res.send(filteredData);
   } else {
-    res.status(500).send('Database connection not established');
+    res.status(500).send({status: '500', message: 'Database connection not established'});
   }
 });
 
