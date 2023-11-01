@@ -11,7 +11,8 @@ module.exports = class DB {
       instance = this;
       this.client = new MongoClient(dbUrl);
       this.db = null;
-      this.collection = null;
+      this.disastersColl = null;
+      this.gdpColl = null;
     }
     return instance;
   }
@@ -20,15 +21,15 @@ module.exports = class DB {
     return await instance.collection.find().projection({ _id: 0 }).toArray();
   }
 
-  async create(quote) {
-    return await instance.collection.insertOne(quote);
+  async createManyGDP(gdp) {
+    return await instance.gdpColl.insertMany(gdp);
   }
 
-  async createMany(quotes) {
-    return await instance.collection.insertMany(quotes);
+  async createManyDisasters(disasters) {
+    return await instance.disastersColl.insertMany(disasters);
   }
     
-  async connect(dbname, collName) {
+  async connect(dbname) {
     if (instance.db){
       return;
     }
@@ -37,12 +38,14 @@ module.exports = class DB {
     // Send a ping to confirm a successful connection
     await instance.client.db(dbname).command({ ping: 1 });
     console.log('Successfully connected to MongoDB database ' + dbname);
-    instance.collection = await instance.db.collection(collName);
+    // get 2 collections for gdp and disasters
+    instance.gdpColl = await instance.db.collection('gdp');
+    instance.disastersColl = await instance.db.collection('disasters');
   }
 
-  async open(dbname, collName) {
+  async open(dbname) {
     try {
-      await instance.connect(dbname, collName);
+      await instance.connect(dbname);
     } finally {
       await instance.close();
     }
