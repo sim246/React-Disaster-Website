@@ -10,7 +10,6 @@ stages:
   - lint
   - build
   - test
-  - deploy
 
 install:
   stage: build
@@ -33,13 +32,19 @@ build-client:
   only:
     refs:
       - main
-      - master
       - staging
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
       - client/build
+
+test-server:
+  stage: test
+  dependencies:
+    - install
+  script:
+    - npm run test
 
 lint-server:
   stage: lint 
