@@ -66,4 +66,4 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
     }
     process.exit();
   }
-})();
+});
