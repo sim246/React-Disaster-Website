@@ -8,8 +8,8 @@ https://gitlab.com/csy3dawson23-24/520/teams/TeamF13-SilaSimonaVasilii/520-proje
 
 ## API
 
-1. GET /api/v1/:year/natural-disasters/:country?type=
-2. GET /api/v1/:year/natural-disasters/:type
+1. GET /api/v1/:year/natural-disasters/country/:country?type=
+2. GET /api/v1/:year/natural-disasters/type/:type
 3. GET /api/v1/:year/gdp?country=
 4. GET /api/v1/:year/gdp-per-capita?country=
 

@@ -44,7 +44,7 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   }).
   on('end', function () {
     console.log('finished');
-    //console.log(disasters);
+    console.log(disasters);
   }).
   on('error', function (error) {
     console.log(error.message);
@@ -68,4 +68,4 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
     }
     process.exit();
   }
-});
+})();
