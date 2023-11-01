@@ -24,12 +24,12 @@ module.exports = class DB {
   //Get disasters from db by year and country or by year and type
   async readDisasters(inputYear = '', inputCountry = '', inputType = '') {
     if (inputYear !== '' && inputCountry !== '') {
-      return await instance.collection.find({ 
+      return await instance.disastersColl.find({ 
         year: { $eq: inputYear },
         country: { $eq: inputCountry } 
       }).toArray();
     } else if (inputYear !== '' && inputType !== '') {
-      return await instance.collection.find({ 
+      return await instance.disastersColl.find({ 
         year: { $eq: inputYear },
         type: { $eq: inputType } 
       }).toArray();

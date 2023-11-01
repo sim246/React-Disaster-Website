@@ -3,7 +3,6 @@ const DB = require('./db/db.js');
 
 const app = express();
 const port = 3000;
-let server;
 let db;
 (async () => {
   try {
@@ -16,8 +15,8 @@ let db;
     process.exit();
   }
 })();
-let disastersData;
-let economyData;
+//let disastersData;
+//let economyData;
 
 app.get('/api/v1/:year/natural-disasters/country/:country', async (req, res) => {
   res.type('json');
@@ -77,16 +76,9 @@ app.use(function (req, res, next) {
 });
 
 // Read file and start listening only after that
-try {
-  //stationsData = await getStations();
-  if (Object.keys(disastersData).length && Object.keys(economyData)) {
-    server = app.listen(port, () => {
-      console.log(`Example app listening at http://localhost:${port}`);
-    });
-  }
-} catch (error) {
-  console.error(`Failed to start server: ${error.message}`);
-}
+const server = app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
 
 //Graceful shutdown
 process.on('SIGINT', () => {
