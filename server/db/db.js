@@ -19,7 +19,7 @@ module.exports = class DB {
   }
 
   /**
-   * Read disasters from the db, filtering using provided parameters
+   * @description Read disasters from the db, filtering using provided parameters
    * @param {string} inputYear filter disasters by year
    * @param {string} inputCountry if provided, filter disasters by country
    * @param {string} inputType if provided, filter by disaster type
@@ -40,7 +40,11 @@ module.exports = class DB {
   }
 
   //ADD ASYNC readGdp FUNCTION HERE
-
+  /**
+   * @description Add provided gdp array to the db
+   * @param {array<Object>} gdp array of gdp values objects
+   * @returns 
+   */
   async createManyGDP(gdp) {
     return await instance.gdpColl.insertMany(gdp);
   }
@@ -53,7 +57,10 @@ module.exports = class DB {
   async createManyDisasters(disasters) {
     return await instance.disastersColl.insertMany(disasters);
   }
-    
+  /**
+   * @description Connects to the db
+   * @returns if there's already an instance of db
+   */
   async connect() {
     if (instance.db){
       return;
@@ -67,7 +74,9 @@ module.exports = class DB {
     instance.gdpColl = await instance.db.collection('gdp');
     instance.disastersColl = await instance.db.collection('disasters');
   }
-
+  /**
+   * Opens db connection
+   */
   async open() {
     try {
       await instance.connect(dbName);
@@ -75,7 +84,9 @@ module.exports = class DB {
       await instance.close();
     }
   }
-
+  /**
+   * Closes db connection
+   */
   async close() {
     await instance.client.close();
     instance = null;
