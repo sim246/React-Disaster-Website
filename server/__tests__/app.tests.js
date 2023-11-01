@@ -82,6 +82,20 @@ describe('GET /api/v1/1973/natural-disasters/country/Colombia', () => {
   });
 });
 
+
+describe('GET /api/v1/2050/natural-disasters/country/Colombia', () => {
+  test('It should have failed', async () => {
+    const expectedVal = {status: '404', message: 'Not found:'};
+    jest.spyOn(DB.prototype, 'readDisasters').mockResolvedValue(expectedVal);
+    const response = await request(app).get('/api/v1/2050/natural-disasters/country/Colombia');
+    //if plain text, use text, if json use body
+    expect(response.body).toEqual(expectedVal);
+    expect(response.statusCode).toBe(404);
+    expect(response.type).toEqual('application/json');
+  });
+});
+
+
 describe('GET /api/v1/1972/natural-disasters/type/Storm', () => {
   test('It should respond with a json array', async () => {
     const expectedVal = [
