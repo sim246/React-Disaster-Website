@@ -132,3 +132,15 @@ describe('GET /api/v1/1972/natural-disasters/type/Storm', () => {
     expect(response.type).toEqual('application/json');
   });
 });
+
+describe('GET /api/v1/1972/natural-disasters/type/Whatever', () => {
+  test('It should have failed', async () => {
+    const expectedVal = { status: 404, message: 'invalid query parameters' };
+    jest.spyOn(DB.prototype, 'readDisasters').mockResolvedValue(expectedVal);
+    const response = await request(app).get('/api/v1/1972/natural-disasters/type/Whatever');
+    //if plain text, use text, if json use body
+    expect(response.body).toEqual(expectedVal);
+    expect(response.statusCode).toBe(404);
+    expect(response.type).toEqual('application/json');
+  });
+});
