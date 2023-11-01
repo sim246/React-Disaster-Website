@@ -40,8 +40,26 @@ app.get('/api/v1/:year/natural-disasters/:country', async (req, res) => {
   }
 });
 
-app.get('api/v1/year/natural-disasters/:type', (req, res)=>{
-  
+app.get('api/v1/:year/natural-disasters/:type', async (req, res)=>{
+  let year = req.params.year;
+  let type = req.params.type;
+  const types = ["Flood", "Storm", "Earthquake", "Epidemic", "Landslide"];
+  if (year < 1960 || year > 2021 || types.includes(type)) {
+    if (db) {
+      res.type('json');
+      //Ill change soon
+      var disastersData = await db.readDisastersByType(year, type);
+      if (disastersData) {
+        res.send(disastersData);
+      } else {
+        res.status(404).send({ status: 404, message: 'not found' });
+      }
+    } else {
+      res.status(500).send({status: 500, message: 'Database connection not established'});
+    }
+  } else {
+    res.status(404).send({ status: 404, message: 'invalid query parameters' });
+  }
 });
 
 app.use(express.static('../client/build'));
