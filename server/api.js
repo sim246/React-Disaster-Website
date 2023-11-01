@@ -36,7 +36,9 @@ app.get('/api/v1/:year/natural-disasters/country/:country', async (req, res) => 
     if (typeParam) {
       filteredData = filteredData.filter((disaster)=> disaster.type === typeParam);
     }
-    res.send(filteredData);
+    if (!res.headersSent){
+      res.send(filteredData);
+    }
   } else {
     res.status(500).send({status: '500', message: 'Database connection not established'});
   }
@@ -55,7 +57,9 @@ app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
       //Ill change soon
       var disastersData = await db.readDisasters(year, '', type);
       if (disastersData) {
-        res.send(disastersData);
+        if (!res.headersSent){
+          res.send(disastersData);
+        }
       } else {
         res.status(404).send({ status: 404, message: 'not found' });
       }
