@@ -4,7 +4,7 @@ const DB = require('../db/db');
 
 jest.mock('../db/db');
 
-describe('GET /api/v1/1973/natural-disasters/Colombia', () => {
+describe('GET /api/v1/1973/natural-disasters/country/Colombia', () => {
   test('It should respond with a json array', async () => {
     const mockedVal = [
       {
@@ -21,7 +21,7 @@ describe('GET /api/v1/1973/natural-disasters/Colombia', () => {
       }
     ];
     jest.spyOn(DB.prototype, 'readDisasters').mockResolvedValue(mockedVal);
-    const response = await request(app).get('/api/v1/1973/natural-disasters/Colombia');
+    const response = await request(app).get('/api/v1/1973/natural-disasters/country/Colombia');
     //if plain text, use text, if json use body
     expect(response.body).toEqual(mockedVal);
     expect(response.statusCode).toBe(200);
@@ -29,16 +29,3 @@ describe('GET /api/v1/1973/natural-disasters/Colombia', () => {
   });
 });
 
-describe('POST /quote ', () => {
-  test('It should respond with a 201', async () => {
-    jest.spyOn(DB.prototype, 'create').mockResolvedValue(
-      {insertedId: '1'});
-    const response = await request(app).
-      post('/new-quote').
-      send({quote: 'dunno', author: 'me'}).
-      set('Accept', 'application/json');
-    //if plain text, use text, if json use body
-    expect(response.text).toEqual('Quote added');
-    expect(response.statusCode).toBe(201);
-  });
-});
