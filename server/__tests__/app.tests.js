@@ -55,6 +55,9 @@ jest.mock('../db/db');
 //     damages: ''
 //   }
 // ];
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 // test disasters per year per country
 describe('GET /api/v1/1973/natural-disasters/country/Colombia', () => {
@@ -144,3 +147,6 @@ describe('GET /api/v1/1972/natural-disasters/type/Whatever', () => {
     expect(response.type).toEqual('application/json');
   });
 });
+
+
+app.close();
