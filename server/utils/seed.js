@@ -20,11 +20,11 @@ fs.createReadStream('../../data/world_country_gdp_usd.csv').
   }).
   on('end', function () {
     console.log('finished');
-    //console.log(gdp);
   }).
   on('error', function (error) {
     console.log(error.message);
   });
+  
 // get natural disasters data from file
 fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   pipe(parse({ delimiter: ',', from_line: 2 })).
@@ -44,7 +44,6 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   }).
   on('end', function () {
     console.log('finished');
-    console.log(disasters);
   }).
   on('error', function (error) {
     console.log(error.message);
