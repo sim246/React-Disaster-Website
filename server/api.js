@@ -8,7 +8,7 @@ let db;
   try {
     db = new DB();
     //CHANGE NAME OF DATA AFTER
-    await db.connect('Cluster0', 'quotes'); 
+    await db.connect(); 
   } catch (e) {
     console.error('could not connect');
     console.dir(e);
