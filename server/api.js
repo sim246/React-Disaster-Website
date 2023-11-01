@@ -19,7 +19,7 @@ let db;
 let disastersData;
 let economyData;
 
-app.get('/api/v1/:year/natural-disasters/:country', async (req, res) => {
+app.get('/api/v1/:year/natural-disasters/country/:country', async (req, res) => {
   res.type('json');
   if (db) {
     if (isNaN(parseInt(req.params.year)) || req.params.year < 1960 || req.params.year > 2021) {
@@ -45,7 +45,7 @@ app.get('/api/v1/:year/natural-disasters/:country', async (req, res) => {
   }
 });
 
-app.get('api/v1/:year/natural-disasters/:type', async (req, res)=>{
+app.get('api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
 
   const year = req.params.year;
   const type = req.params.type;
@@ -55,7 +55,6 @@ app.get('api/v1/:year/natural-disasters/:type', async (req, res)=>{
   if (year < 1960 || year > 2021 || types.includes(type)) {
     if (db) {
       res.type('json');
-      //Ill change soon
       var disastersData = await db.readDisasters(year, type);
       if (disastersData) {
         res.send(disastersData);
