@@ -18,11 +18,13 @@ module.exports = class DB {
     return instance;
   }
 
-  async readAll() {
-    return await instance.collection.find().projection({ _id: 0 }).toArray();
-  }
-
-  //Get disasters from db by year and country or by year and type
+  /**
+   * Read disasters from the db, filtering using provided parameters
+   * @param {string} inputYear filter disasters by year
+   * @param {string} inputCountry if provided, filter disasters by country
+   * @param {string} inputType if provided, filter by disaster type
+   * @returns 
+   */
   async readDisasters(inputYear = '', inputCountry = '', inputType = '') {
     if (inputYear !== '' && inputCountry !== '') {
       return await instance.disastersColl.find({ 

@@ -6,7 +6,11 @@ const { parse } = require('csv-parse');
 
 const gdp = [];
 const disasters = [];
-// get GDP data from file
+/** 
+ *  get data from the world_country_gdp_usd.csv file
+ *  create objects for each row
+ *  add it to gdp array 
+ */
 fs.createReadStream('../../data/world_country_gdp_usd.csv').
   pipe(parse({ delimiter: ',', from_line: 2 })).
   on('data', function (row) {
@@ -25,7 +29,11 @@ fs.createReadStream('../../data/world_country_gdp_usd.csv').
     console.log(error.message);
   });
   
-// get natural disasters data from file
+/** 
+ *  get data from the 1970-2021_DISASTERS.csv file
+ *  create objects for each row
+ *  add it to disasters array 
+ */
 fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   pipe(parse({ delimiter: ',', from_line: 2 })).
   on('data', function (row) {
@@ -48,7 +56,9 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   on('error', function (error) {
     console.log(error.message);
   });
-
+/**
+ *  insert gdp and disasters arrays to the db
+ */
 (async () => {
   let db;
   try {
