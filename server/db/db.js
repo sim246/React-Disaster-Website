@@ -37,6 +37,8 @@ module.exports = class DB {
     }
   }
 
+  //ADD ASYNC readGdp FUNCTION HERE
+
   async createManyGDP(gdp) {
     return await instance.gdpColl.insertMany(gdp);
   }
