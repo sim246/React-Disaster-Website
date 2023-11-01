@@ -12,7 +12,7 @@ stages:
   - test
 
 install:
-  stage: build
+  stage: lint
   script:
     - npm ci --cache .npm --prefer-offline
   cache:  
