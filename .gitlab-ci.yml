@@ -27,6 +27,8 @@ install:
 
 build-client:
   stage: build
+  dependencies:
+    - install
   script:
     - cd client && npm run build
   only:
@@ -44,16 +46,21 @@ test-server:
   dependencies:
     - install
   script:
+    - cd server
     - npm run test
 
 lint-server:
-  stage: lint 
+  stage: lint
+  dependencies:
+    - install
   script:
     - cd server && ./node_modules/eslint/bin/eslint.js --ext js,mjs,cjs . 
   allow_failure: false
 
 lint-client:
   stage: lint 
+  dependencies:
+    - install
   script:
     - cd client && ./node_modules/eslint/bin/eslint.js --ext js,jsx,mjs,cjs .
   allow_failure: false
