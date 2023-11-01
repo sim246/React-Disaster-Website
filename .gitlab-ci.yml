@@ -47,7 +47,7 @@ test-server:
     - install
   script:
     - cd server
-    - npm run test
+    - npm test
 
 lint-server:
   stage: lint
