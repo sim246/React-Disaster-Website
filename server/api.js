@@ -53,7 +53,7 @@ app.get('api/v1/:year/natural-disasters/:type', async (req, res)=>{
     if (db) {
       res.type('json');
       //Ill change soon
-      var disastersData = await db.readDisastersByType(year, type);
+      var disastersData = await db.readDisasters(year, type);
       if (disastersData) {
         res.send(disastersData);
       } else {
