@@ -20,8 +20,8 @@ describe('GET /api/v1/1973/natural-disasters/Colombia', () => {
         damages: ''
       }
     ];
-    jest.spyOn(DB.prototype, 'readAll').mockResolvedValue(mockedVal);
-    const response = await request(app).get('/quotes');
+    jest.spyOn(DB.prototype, 'readDisasters').mockResolvedValue(mockedVal);
+    const response = await request(app).get('/api/v1/1973/natural-disasters/Colombia');
     //if plain text, use text, if json use body
     expect(response.body).toEqual(mockedVal);
     expect(response.statusCode).toBe(200);

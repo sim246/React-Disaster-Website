@@ -86,3 +86,5 @@ process.on('SIGINT', () => {
     debug('HTTP server closed');
   });
 });
+
+module.exports = app;
