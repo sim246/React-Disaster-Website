@@ -21,6 +21,21 @@ module.exports = class DB {
     return await instance.collection.find().projection({ _id: 0 }).toArray();
   }
 
+  //Get disasters from db by year and country or by year and type
+  async readDisasters(inputYear = '', inputCountry = '', inputType = '') {
+    if (inputYear !== '' && inputCountry !== '') {
+      return await instance.collection.find({ 
+        year: { $eq: inputYear },
+        country: { $eq: inputCountry } 
+      }).toArray();
+    } else if (inputYear !== '' && inputType !== '') {
+      return await instance.collection.find({ 
+        year: { $eq: inputYear },
+        type: { $eq: inputType } 
+      }).toArray();
+    }
+  }
+
   async createManyGDP(gdp) {
     return await instance.gdpColl.insertMany(gdp);
   }

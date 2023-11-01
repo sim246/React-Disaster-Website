@@ -1,3 +1,5 @@
+require('dotenv').config({ path: require('find-config')('.env') });
+const dbName = process.env.DB_NAME;
 const DB = require('../db/db.js');
 const fs = require('fs');
 const { parse } = require('csv-parse');
@@ -52,7 +54,7 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   let db;
   try {
     const db = new DB();
-    await db.connect('520db');
+    await db.connect(dbName);
     const num = await db.createManyGDP(gdp);
     console.log(`Inserted ${num} gdp rows`);
     const num2 = await db.createManyDisasters(disasters);
