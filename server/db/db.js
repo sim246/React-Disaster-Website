@@ -45,6 +45,11 @@ module.exports = class DB {
     return await instance.gdpColl.insertMany(gdp);
   }
 
+  /**
+   * @description Creates many disasters
+   * @param {array} disasters 
+   * @returns {num} number of rows that were inserted
+   */
   async createManyDisasters(disasters) {
     return await instance.disastersColl.insertMany(disasters);
   }
