@@ -16,6 +16,8 @@ let db;
   }
 })();
 
+app.use(express.static('../client/build'));
+
 app.get('/api/v1/:year/natural-disasters/country/:country', async (req, res) => {
   res.type('json');
   if (db) {
@@ -66,8 +68,6 @@ app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
     res.status(404).send({ status: 404, message: 'invalid query parameters' });
   }
 });
-
-app.use(express.static('../client/build'));
 
 app.use(function (req, res, next) {
   res.status(404).send('Sorry cant find that!');
