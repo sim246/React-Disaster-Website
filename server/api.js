@@ -44,8 +44,7 @@ app.get('/api/v1/:year/natural-disasters/country/:country', async (req, res) => 
   }
 });
 
-app.get('api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
-
+app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res) => {
   const year = req.params.year;
   const type = req.params.type;
   const types = ['Flood', 'Storm', 'Earthquake', 'Epidemic', 'Landslide', 'Wildfire', 
@@ -88,3 +87,5 @@ process.on('SIGINT', () => {
     debug('HTTP server closed');
   });
 });
+
+module.exports = app;
