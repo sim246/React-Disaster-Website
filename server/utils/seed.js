@@ -52,10 +52,10 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   let db;
   try {
     const db = new DB();
-    await db.connect('520db', 'gdp');
-    const num = await db.createMany(gdp);
+    await db.connect('520db');
+    const num = await db.createManyGDP(gdp);
     console.log(`Inserted ${num} gdp rows`);
-    const num2 = await db.createMany(disasters);
+    const num2 = await db.createManyDisasters(disasters);
     console.log(`Inserted ${num2} disaster rows`);
   } catch (e) {
     console.error('could not seed');
