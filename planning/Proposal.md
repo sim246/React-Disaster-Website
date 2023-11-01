@@ -1,4 +1,4 @@
-# <our title>
+# Impact of Natural Disaster on the Economy
 
 ## Data
 
@@ -8,9 +8,11 @@ https://gitlab.com/csy3dawson23-24/520/teams/TeamF13-SilaSimonaVasilii/520-proje
 
 ## API
 
-1. 
-2. 
-3. 
+1. GET /api/v1/:year/natural-disasters/:country?type=
+2. GET /api/v1/:year/natural-disasters/:type
+3. GET /api/v1/:year/gdp?country=
+4. GET /api/v1/:year/gdp-per-capita?country=
+
 World, Region, Country GDP/GDP per capita(Country Name, Year, GDP_USD, *GDP_per_capita_USD)
 ALL NATURAL DISASTERS (Year, Disaster Type, Country, Latitude, Longitude, Insured Damages ('000 US$), Total Damages ('000 US$))
 
