@@ -1,6 +1,34 @@
 # Meetings Log
 
-## Tuesday, October 31 2023 @ lab time
+## Wednesday November 1 2023 @ lab time
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- Project setup
+    - API endpoints
+    - DB seeding
+    - Simple client-side app
+- Tests
+    - API
+    - Seeding script
+- CI
+
+### Topics discussed
+
+- API endpoints
+- Querying the db
+- Filtering data
+
+### Problems discussed
+
+- Setup problems
+- Using .env file
+- Test cases
+
+## Tuesday, October 31 2023 @ 11:30
 
 ### Attendees
 Full attendance
