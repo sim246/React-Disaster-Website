@@ -15,8 +15,6 @@ let db;
     process.exit();
   }
 })();
-//let disastersData;
-//let economyData;
 
 app.get('/api/v1/:year/natural-disasters/country/:country', async (req, res) => {
   res.type('json');
@@ -44,7 +42,7 @@ app.get('/api/v1/:year/natural-disasters/country/:country', async (req, res) => 
   }
 });
 
-app.get('api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
+app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
 
   const year = req.params.year;
   const type = req.params.type;
@@ -55,7 +53,7 @@ app.get('api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
     if (db) {
       res.type('json');
       //Ill change soon
-      var disastersData = await db.readDisasters(year, type);
+      var disastersData = await db.readDisasters(year, '', type);
       if (disastersData) {
         res.send(disastersData);
       } else {
