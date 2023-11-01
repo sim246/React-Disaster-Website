@@ -95,6 +95,7 @@ describe('GET /api/v1/1972/natural-disasters/type/Whatever', () => {
   });
 });
 
+<<<<<<< HEAD
 fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   pipe(parse({ delimiter: ',', from_line: 2 })).
   on('data', function (row) {
@@ -132,3 +133,7 @@ describe('GET ../../data/1970-2021_DISASTERS.csv', () => {
     expect(response.type).toEqual('application/json');
   });
 });
+=======
+
+app.close();
+>>>>>>> 06b5b89a450783bcb143738c6c67d10f86d5aaf4
