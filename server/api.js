@@ -144,4 +144,4 @@ process.on('SIGINT', () => {
   });
 });
 
-module.exports = app;
+module.exports = server;
