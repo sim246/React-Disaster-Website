@@ -43,7 +43,8 @@ app.get('/api/v1/:year/natural-disasters/:country', async (req, res) => {
 app.get('api/v1/:year/natural-disasters/:type', async (req, res)=>{
   let year = req.params.year;
   let type = req.params.type;
-  const types = ["Flood", "Storm", "Earthquake", "Epidemic", "Landslide"];
+  const types = ["Flood", "Storm", "Earthquake", "Epidemic", "Landslide", "Wildfire", "Volcanic activity", 
+                  "Mass movement (dry)", "Insect infestation", "Animal accident", "Drought", "Extreme temperature"];
   if (year < 1960 || year > 2021 || types.includes(type)) {
     if (db) {
       res.type('json');
