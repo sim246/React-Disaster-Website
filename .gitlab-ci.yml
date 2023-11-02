@@ -15,6 +15,7 @@ stages:
 install:
   stage: install
   script:
+    - npm install
     - npm ci --cache .npm --prefer-offline
   cache:  
     key: $CI_COMMIT_REF_SLUG
