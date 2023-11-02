@@ -51,12 +51,21 @@ test-server:
     - cd server
     - npm test
 
+<<<<<<< HEAD
 # lint-server:
 #   stage: lint
 #   script:
 #     - npm install -g eslint
 #     - cd server && ./node_modules/eslint/bin/eslint.js --ext js,mjs,cjs . 
 #   allow_failure: false
+=======
+lint-server:
+  stage: lint
+  script:
+    - npm install -g eslint
+    - cd server && eslint --ext .js .
+  allow_failure: false
+>>>>>>> 768e0e09106fd49f04631a3b1a5ada0455420eda
 
 # lint-client:
 #   stage: lint 
@@ -74,5 +83,10 @@ test-server:
   before_script:
     - cd server && npm ci --cache .npm --prefer-offline && cd ../metro-map-client && npm ci --cache .npm --prefer-offline
   script:
+<<<<<<< HEAD
     - ./node_modules/eslint/bin/eslint.js --ext .js,.jsx,.mjs,.cjs 
+=======
+    - npm install -g eslint
+    - cd client && eslint --ext .js .
+>>>>>>> 768e0e09106fd49f04631a3b1a5ada0455420eda
   allow_failure: false
