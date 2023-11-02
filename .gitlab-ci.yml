@@ -53,10 +53,9 @@ test-server:
 
 lint-server:
   stage: lint
-  dependencies:
-    - install
   script:
-    - cd server && ./node_modules/eslint/bin/eslint.js --ext js,mjs,cjs . 
+    - npm install -g eslint
+    - cd server && eslint --ext .js .
   allow_failure: false
 
 lint-client:
@@ -64,5 +63,6 @@ lint-client:
   dependencies:
     - install
   script:
-    - cd client && ./node_modules/eslint/bin/eslint.js --ext js,jsx,mjs,cjs .
+    - npm install -g eslint
+    - cd client && eslint --ext .js .
   allow_failure: false

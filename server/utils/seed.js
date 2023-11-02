@@ -19,7 +19,7 @@ fs.createReadStream('../../data/world_country_gdp_usd.csv').
     obj['countryCode'] = row[1];
     obj['year'] = row[2];
     obj['gdp'] = row[3];
-    obj['gdpPerCapita'] = row[3];
+    obj['gdpPerCapita'] = row[4];
     gdp.push(obj);
   }).
   on('end', function () {
