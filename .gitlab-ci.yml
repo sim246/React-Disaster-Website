@@ -50,6 +50,7 @@ test-server:
   before_script:
     - npm install jest
     - npm install supertest
+    - npm install find-config
   script:
     - cd server
     - npm test
