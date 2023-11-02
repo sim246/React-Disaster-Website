@@ -48,7 +48,8 @@ test-server:
   dependencies:
     - install
   before_script:
-    - npm install
+    - npm install jest
+    - npm install supertest
   script:
     - cd server
     - npm test
