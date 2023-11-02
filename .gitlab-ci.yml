@@ -67,8 +67,9 @@ test-server:
 #     - cd client && ./node_modules/eslint/bin/eslint.js --ext js,jsx,mjs,cjs .
 #   allow_failure: false
 
-  lint:
-  stage: lint
+lint-server-client:
+  stage: 
+    - lint
   dependencies:
     - install
   before_script:
