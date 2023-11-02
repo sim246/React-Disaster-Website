@@ -1,0 +1,16 @@
+{
+  "name": "520-project-benkhelifa-dragomir-iurev",
+  "version": "1.0.0",
+  "description": "An interactive map will be used to present differences in GDP per capita in different countries, as well as natural disasters. Users will be able to select a year and see data visualization.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node bin/www",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sila Ben Khelifa, Simona Dagomir\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Cragomir, Vasilii Iurev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
