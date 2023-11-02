@@ -47,25 +47,11 @@ test-server:
   stage: test
   dependencies:
     - install
+  before-script:
+    - npm install jest
   script:
     - cd server
     - npm test
-
-# lint-server:
-#   stage: lint
-#   script:
-#     - npm install -g eslint
-#     - cd server && ./node_modules/eslint/bin/eslint.js --ext js,mjs,cjs . 
-#   allow_failure: false
-
-# lint-client:
-#   stage: lint 
-#   dependencies:
-#     - install
-#   script:
-#     - npm install -g eslint
-#     - cd client && ./node_modules/eslint/bin/eslint.js --ext js,jsx,mjs,cjs .
-#   allow_failure: false
 
   lint:
   stage: lint
