@@ -68,8 +68,7 @@ test-server:
 #   allow_failure: false
 
 lint-server-client:
-  stage: 
-    - lint
+  stage: lint
   dependencies:
     - install
   before_script:
