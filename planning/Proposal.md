@@ -22,6 +22,8 @@ An interactive map will be used to present differences in GDP per capita in diff
 
 ## Views
 
+![wireframe](./wireframe.jpg)
+
 Above the fold, the app will have the controls for data filters, and the map taking up the whole screen width.
 
 Below the fold, detailed information about the selected country will be shown, such as the number of natural disasters occured and GDP/GDP per capita values. Additionally, we might implement displaying the complete list of Natural Disaster for the country/year selected.
