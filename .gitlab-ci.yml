@@ -47,18 +47,18 @@ test-server:
   stage: test
   dependencies:
     - install
-  before-script:
+  before_script:
     - npm install jest
   script:
     - cd server
     - npm test
 
-  lint:
+lint:
   stage: lint
   dependencies:
     - install
   before_script:
     - cd server && npm ci --cache .npm --prefer-offline && cd ../metro-map-client && npm ci --cache .npm --prefer-offline
   script:
-    - ./node_modules/eslint/bin/eslint.js --ext .js,.jsx,.mjs,.cjs 
+  - ./node_modules/eslint/bin/eslint.js --ext .js,.jsx,.mjs,.cjs 
   allow_failure: false
