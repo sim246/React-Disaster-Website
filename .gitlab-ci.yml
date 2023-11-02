@@ -52,6 +52,7 @@ test-server:
     - npm install supertest
     - npm install find-config
     - npm install dotenv
+    - npm install mongodb
   script:
     - cd server
     - npm test
