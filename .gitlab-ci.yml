@@ -51,6 +51,7 @@ test-server:
     - npm install jest
     - npm install supertest
     - npm install find-config
+    - npm install dotenv
   script:
     - cd server
     - npm test
