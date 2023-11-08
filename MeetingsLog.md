@@ -23,6 +23,7 @@ Full attendance
 - React components
 - React state
 - Filtering data
+- Tentative plan for phase 2
 
 ### Problems discussed
 
