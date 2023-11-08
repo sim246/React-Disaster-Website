@@ -1,0 +1,8 @@
+.App {
+  text-align: center;
+}
+
+.disaster {
+  border: 4px dotted rgb(19, 19, 51);
+  margin-bottom: 30px;
+}
