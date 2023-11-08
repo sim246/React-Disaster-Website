@@ -2,22 +2,7 @@ const express = require('express');
 const DB = require('./db/db.js');
 
 const app = express();
-const port = 3000;
-let db;
-
-/**
- * Connecting to db
- */
-(async () => {
-  try {
-    db = new DB();
-    await db.connect(); 
-  } catch (e) {
-    console.error('could not connect');
-    console.dir(e);
-    process.exit();
-  }
-})();
+const db = new DB();
 
 app.use(express.static('../client/build'));
 
@@ -127,21 +112,4 @@ app.use(function (req, res, next) {
   next();
 });
 
-/**
- * @description Read file and start listening only after that
-*/
-const server = app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
-
-/**
- * @description Graceful shutdown
- */
-process.on('SIGINT', () => {
-  debug('SIGINT signal received: closing HTTP server');
-  server.close(() => {
-    debug('HTTP server closed');
-  });
-});
-
-module.exports = server;
+module.exports = app;

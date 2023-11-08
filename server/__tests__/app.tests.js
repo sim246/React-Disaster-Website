@@ -93,5 +93,3 @@ describe('GET /api/v1/1972/natural-disasters/type/Whatever', () => {
     expect(response.type).toEqual('application/json');
   });
 });
-
-app.close();
