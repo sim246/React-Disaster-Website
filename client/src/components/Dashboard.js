@@ -14,18 +14,6 @@ export default function Dashboard() {
     //Get country options
   }, []);*/
 
-  const naturalDisasterOptions = [];
-  for (let disaster in naturalDisasters) {
-    const option = <option value={disaster} key={disaster}>{disaster}</option>;
-    naturalDisasterOptions.push(option);
-  }
-
-  const countryOptions = [];
-  for (let country in countries) {
-    const option = <option value={country} key={country}>{country}</option>;
-    countryOptions.push(option);
-  }
-
   return (
     <>
       <h1> Impact of Natural Disasters on Economy </h1>
@@ -35,10 +23,18 @@ export default function Dashboard() {
         <input type="number" min="1970" max="2020" value="2020" />
       </label>
       <select id="naturalDisasterSelect"> 
-        {naturalDisasterOptions}
+        {naturalDisasters.map((disaster) => {
+          return (
+            <option value={disaster} key={disaster}>{disaster}</option>
+          );
+        })}
       </select>
       <select id="countrySelect">
-        {countryOptions}
+        {countries.map((country) => {
+          return (
+            <option value={country} key={country}>{country}</option>
+          );
+        })}
       </select>
     </>
   );
