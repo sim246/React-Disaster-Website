@@ -39,9 +39,10 @@ module.exports = class DB {
     } else {
       const cursor = instance.disastersColl.distinct('type');
       const disasters = [];
-      for await (const disaster of cursor) {
+      for (const disaster in cursor) {
         disasters.push(disaster);
       }
+      return cursor;
     }
   }
 
