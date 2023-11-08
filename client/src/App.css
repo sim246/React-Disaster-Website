@@ -1,8 +1,10 @@
+/* stylelint-disable-next-line selector-class-pattern */
 .App {
   text-align: center;
 }
 
 .disaster {
+  /* stylelint-disable-next-line color-function-notation */
   border: 4px dotted rgb(19, 19, 51);
   margin-bottom: 30px;
 }

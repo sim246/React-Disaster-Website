@@ -71,6 +71,22 @@ app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
   }
 });
 
+app.get('/api/v1/natural-disasters', async (req, res)=>{
+  res.type('json');
+  if (db) {
+    var disastersData = await db.readDisasters();
+    if (disastersData) {
+      if (!res.headersSent){
+        res.send(disastersData);
+      }
+    } else {
+      res.status(404).send({ status: 404, message: 'not found' });
+    }
+  } else {
+    res.status(500).send({status: 500, message: 'Database connection not established'});
+  }
+});
+
 /**
  * @description Gets from db the gdp by parameter year 
  * @param {num} year

@@ -36,6 +36,12 @@ module.exports = class DB {
         year: { $eq: inputYear },
         type: { $eq: inputType } 
       }).toArray();
+    } else {
+      const cursor = instance.disastersColl.distinct('type');
+      const disasters = [];
+      for await (const disaster of cursor) {
+        disasters.push(disaster);
+      }
     }
   }
 
