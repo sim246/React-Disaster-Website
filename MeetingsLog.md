@@ -1,5 +1,33 @@
 # Meetings Log
 
+## Tuesday November 7 2023 @ 19:20
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- client side tasks
+    - displaying data (Marker, TitleLayout, MapContainer)
+    - implement filters (Dashboard component)
+    - displaying details (DisplayInfo component)
+- server side tasks
+    - more api routes
+    - more db methods
+    - swagger
+- tests
+    - for new api routes
+
+### Topics discussed
+
+- React components
+- React state
+- Filtering data
+
+### Problems discussed
+
+- Possible performance issues to fix in the future
+
 ## Wednesday November 1 2023 @ lab time
 
 ### Attendees
