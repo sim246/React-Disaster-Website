@@ -67,7 +67,7 @@ app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
       res.status(500).send({status: 500, message: 'Database connection not established'});
     }
   } else {
-    res.status(404).send({ status: 404, message: 'invalid query parameters' });
+    res.status(404).send({ status: 404, message: 'invalid request parameters' });
   }
 });
 
@@ -79,7 +79,7 @@ app.get('/api/v1/:year/gdp', async (req, res)=>{
   res.type('json');
   if (db) {
     if (isNaN(parseInt(req.params.year)) || req.params.year < 1960 || req.params.year > 2021) {
-      res.status(404).send({status: '404', message: 'Not found:'});
+      res.status(404).send({status: 404, message: 'invalid request parameters'});
     }
     const countryParam = req.query.country;
     if (!countryParam) {
