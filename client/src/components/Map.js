@@ -3,7 +3,8 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup
+  Popup,
+  Polygon
 } from 'react-leaflet';
 import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
@@ -33,6 +34,7 @@ function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Legend map={map} />
+        {/* <Polygon pathOptions={{fillColor: 'blue'}} positions={} /> */}
         
       </MapContainer>
     </div>
