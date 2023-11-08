@@ -32,11 +32,7 @@ function DisplayApi() {
       }
       return response.json();
     }).then((data) => {
-      const info = [];
-      for (let i = 0; i < data.length; i++){
-        info[i] = data[i];
-      }
-      setApiInfoGDP(info);
+      setApiInfoGDP(data[0]);
     }).catch((error) => {
       console.log(error);
     });
@@ -62,6 +58,8 @@ function DisplayApi() {
       </div>;
     });
     return<>
+      <p>{apiInfoGDP.gdp}</p>
+      <p>{apiInfoGDP.gdpPerCapita}</p>
       {apis}
     </>;
   } else {
