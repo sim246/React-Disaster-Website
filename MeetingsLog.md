@@ -1,5 +1,26 @@
 # Meetings Log
 
+## Wednesday November 8 2023 @ lab time
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- start working on tasks assigned the day before
+
+### Topics discussed
+
+- Additional api routes
+- Specifics of presenting the data in react app
+    - filters
+    - map
+
+### Problems discussed
+
+- Optimizing the number of fetch requests
+- Optimizing the map
+
 ## Tuesday November 7 2023 @ 19:20
 
 ### Attendees
