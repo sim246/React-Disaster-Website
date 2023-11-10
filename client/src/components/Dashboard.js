@@ -19,11 +19,7 @@ export default function Dashboard() {
       }
       return response.json();
     }).then((data) => {
-      const info = [];
-      for (let i = 0; i < 20; i++){
-        info[i] = data[i];
-      }
-      setDisasters(info);
+      setDisasters(data);
     }).catch((error) => {
       //find some way to display error
       return error;
