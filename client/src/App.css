@@ -4,5 +4,16 @@
 
 .disaster {
   border: 4px dotted rgb(19, 19, 51);
-  margin-bottom: 30px;
+  text-align: left;
+  background-color: rgb(223, 230, 241);
+  padding-top: 1em;
+  padding-right: 10em;
+  padding-bottom: 1em;
+  padding-left: 10em;
+  width: 15%;
+}
+
+.displayinfo{
+  display: flex;
+  justify-content:center ;
 }

@@ -6,7 +6,7 @@ function DisplayApi() {
   const [apiInfoGDP, setApiInfoGDP] = useState(null);
 
   async function fetchData1() {
-    fetch('/api/v1/2001/natural-disasters/country/Canada', {
+    fetch('/api/v1/2019/natural-disasters/country/Canada', {
       method: 'GET',
     }).then((response) => {
       if (!response.ok) {
@@ -25,7 +25,7 @@ function DisplayApi() {
   }
 
   async function fetchData2() {
-    fetch('/api/v1/2012/gdp?country=Canada', {
+    fetch('/api/v1/2019/gdp?country=Canada', {
       method: 'GET',
     }).then((response) => {
       if (!response.ok) {
@@ -60,9 +60,11 @@ function DisplayApi() {
     });
     return<>
       {/* <p>{apiInfoGDP.gdp}</p>
-      <p>{apiInfoGDP.gdpPerCapita}</p>
-      {apis} */}
-      <DisplayInfo disasters={apiInfoDisaster} gdp={apiInfoGDP} />
+      <p>{apiInfoGDP.gdpPerCapita}</p> */}
+      {/* {apis} */}
+      <div className="displayinfo">
+        <DisplayInfo disasters={apiInfoDisaster} gdp={apiInfoGDP} />
+      </div>
     </>;
   } else {
     return<p>Lodading Api Information...</p>;

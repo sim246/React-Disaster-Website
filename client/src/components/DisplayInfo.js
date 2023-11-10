@@ -1,31 +1,53 @@
+import React, { useState, useEffect } from 'react';
 
 function DisplayInfo({disasters, gdp}) {
-  const [insuredGDP, setInsuredGDP] = useState(0);
-  const [damagesGDP, setDamagesGDP] = useState(0);
+  // const [insuredGDP, setInsuredGDP] = useState(0);
+  // const [damagesGDP, setDamagesGDP] = useState(0);
 
   if (disasters !== null && gdp !== null){
     
     const groupTypes = disasters.map((disaster) => {
-      setInsuredGDP(insuredGDP + disaster.insuredDamages);
-      setDamagesGDP(damagesGDP + disaster.damages);
       return <>
-        <li>Subgroup: {disaster.subgroup}</li>
-        <li>Type: {disaster.type}</li>
+        <li>Subgroup: {disaster.subgroup}
+          <ul>
+            <li>Type: {disaster.type}</li>
+          </ul>
+        </li>
       </>;
     });
 
+    function addInsuredDamages(){
+      let insured = 0;
+      for (let i = 0; i < disasters.length; i++){
+        if(disasters[i].insuredDamages) {
+          insured = insured + parseInt(disasters[i].insuredDamages);
+        }
+      }
+      return insured;
+    }
+
+    function addDamages(){
+      let damages = 0;
+      for (let i = 0; i < disasters.length; i++){
+        if(disasters[i].damages) {
+          damages = damages + parseInt(disasters[i].damages);
+        }
+      }
+      return damages;
+    }
+
     return(
       <div className="disaster">
-        <h3>Country Name: {disasters[0].country}</h3>
-        <p>Year: {disasters[0].year}</p>
+        <h3>{disasters[0].country}</h3>
+        <p><b>Year: </b>{disasters[0].year}</p>
         {/* Total Number of Disasters: {} */}
         <ul>
           {groupTypes}
         </ul>
-        <p>GDP: {gdp.gdp}</p>
-        <p>GDP per Capita: {gdp.gdpPerCapita}</p>
-        <p>Total Insured Damages: {insuredGDP}</p>
-        <p>Total Damages: {damagesGDP}</p>
+        <p><b>GDP: </b>{gdp.gdp} USD</p>
+        <p><b>GDP per Capita: </b>{gdp.gdpPerCapita} USD</p>
+        <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
+        <p><b>Total Damages: </b>{addDamages()} USD</p>
       </div>);
   } else {
     return<p>Select a year and country!</p>;
