@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DisplayInfo from  './DisplayInfo.js';
 
 function DisplayApi() {
   const [apiInfoDisaster, setApiInfoDisaster] = useState(null);
@@ -58,9 +59,10 @@ function DisplayApi() {
       </div>;
     });
     return<>
-      <p>{apiInfoGDP.gdp}</p>
+      {/* <p>{apiInfoGDP.gdp}</p>
       <p>{apiInfoGDP.gdpPerCapita}</p>
-      {apis}
+      {apis} */}
+      <DisplayInfo disasters={apiInfoDisaster} gdp={apiInfoGDP} />
     </>;
   } else {
     return<p>Lodading Api Information...</p>;
