@@ -42,6 +42,25 @@ module.exports = class DB {
     }
   }
 
+  /**
+   * @description Read GDPs from the db, filtering using provided parameters
+   * @param {string} inputYear filter GDPs by year
+   * @param {string} inputCountry if provided, filter GDPs by country
+   * @returns 
+   */
+  async readGDPs(inputYear = '', inputCountry = '') {
+    if (inputYear !== '' && inputCountry !== '') {
+      return await instance.gdpColl.find({ 
+        year: { $eq: inputYear },
+        conutry: { $eq: inputCountry } 
+      }).toArray();
+    } else if (inputYear !== '' && inputCountry === '') {
+      return await instance.gdpColl.find({ 
+        year: { $eq: inputYear },
+      }).toArray();
+    }
+  }
+
   //ADD ASYNC readGdp FUNCTION HERE
   /**
    * @description Add provided gdp array to the db
