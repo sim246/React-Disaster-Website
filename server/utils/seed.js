@@ -56,18 +56,32 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   on('error', function (error) {
     console.log(error.message);
   });
+
+let countriesObj;
+(async () => {
+  try {
+    const data = await fs.promises.readFile('../../data/countries.geojson', 'utf-8');
+    countriesObj = await JSON.parse(data);
+  } catch (err) {
+    console.error(err.message);
+    process.exit(9);
+  }
+})();
+
 /**
- *  insert gdp and disasters arrays to the db
+ *  insert gdp, disasters and countries arrays to the db
  */
 (async () => {
   let db;
   try {
-    const db = new DB();
+    db = new DB();
     await db.connect(dbName);
-    const num = await db.createManyGDP(gdp);
-    console.log(`Inserted ${num} gdp rows`);
-    const num2 = await db.createManyDisasters(disasters);
-    console.log(`Inserted ${num2} disaster rows`);
+    const gdpRowsInserted = await db.createManyGDP(gdp);
+    console.log(`Inserted ${gdpRowsInserted} gdp rows`);
+    const disasterRowsInserted = await db.createManyDisasters(disasters);
+    console.log(`Inserted ${disasterRowsInserted} disaster rows`);
+    const countriesRowsInserted = await db.createManyCountries(countriesObj['features']);
+    console.log(`Inserted ${disasterRowsInserted} countries rows`);
   } catch (e) {
     console.error('could not seed');
     console.dir(e);
