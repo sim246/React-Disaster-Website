@@ -7,7 +7,8 @@ function App() {
   return (
     <div className="app">
       {/* Pass in setSelectedCountry, setSelectedDisaster, setSelectedYear once defined*/}
-      <Dashboard></Dashboard>
+      <Dashboard setSelectedCountry={()=>{}} setSelectedDisaster={()=>{}} setSelectedYear={()=>{}}>
+      </Dashboard>
       
     </div>
   );
