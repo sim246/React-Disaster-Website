@@ -71,6 +71,9 @@ app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
   }
 });
 
+/**
+ * @description Gets from db the natural disaster types
+ */
 app.get('/api/v1/natural-disasters', async (req, res)=>{
   res.type('json');
   if (db) {

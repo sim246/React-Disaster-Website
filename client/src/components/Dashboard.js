@@ -3,9 +3,6 @@ import React, { useState, useEffect } from 'react';
 export default function Dashboard() {
   //Logic for populating selects with option
   const countries = ['Canada', 'Argentina', 'France'];
-  //const naturalDisasters = ['Flood', 'Storm', 'Earthquake', 'Epidemic', 'Landslide', 'Wildfire', 
-  //'Volcanic activity', 'Mass movement (dry)', 'Insect infestation', 'Animal accident', 
-  //'Drought', 'Extreme temperature'];
 
   const [disasters, setDisasters] = useState([]);
   //const [countries, setCountries] = useState([]);
@@ -27,8 +24,6 @@ export default function Dashboard() {
   }
 
   useEffect(()=> {
-    //Get year min & max
-
     //Get natural disasters options
     fetchNaturalDisasters();
 
