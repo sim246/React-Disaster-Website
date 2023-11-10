@@ -113,7 +113,7 @@ app.get('/api/v1/:year/gdp', async (req, res)=>{
       }
     } else if (countryParam) {
       try {
-        gdpData = await db.readGDPs(req.params.year, countryParam);
+        const gdpData = await db.readGDPs(req.params.year, countryParam);
         if (!res.headersSent){
           res.send(gdpData);
         }
@@ -130,7 +130,7 @@ app.get('/api/v1/:year/gdp', async (req, res)=>{
  * @default Default page if not any of the other routes is looked up
  */
 app.use(function (req, res, next) {
-  res.status(404).send('Sorry cant find that!');
+  res.status(404).send({status: '404', message: 'Sorry cant find that!'});
   next();
 });
 
