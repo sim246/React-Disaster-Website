@@ -37,9 +37,8 @@ module.exports = class DB {
         type: { $eq: inputType } 
       }).toArray();
     } else {
-      const cursor = await instance.disastersColl.distinct('type');
-      const disasters = Array.from(cursor).filter(value => value);
-      return disasters;
+      // Return distinct types of disasters
+      return await instance.disastersColl.distinct('type');
     }
   }
 
