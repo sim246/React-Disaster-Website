@@ -5,7 +5,8 @@ import Dashboard from './components/Dashboard.js';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
+      {/* Pass in setSelectedCountry, setSelectedDisaster, setSelectedYear once defined*/}
       <Dashboard></Dashboard>
       
     </div>
