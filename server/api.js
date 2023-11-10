@@ -67,7 +67,7 @@ app.get('/api/v1/:year/natural-disasters/type/:type', async (req, res)=>{
       res.status(500).send({status: 500, message: 'Database connection not established'});
     }
   } else {
-    res.status(404).send({ status: 404, message: 'invalid query parameters' });
+    res.status(404).send({ status: 404, message: 'invalid request parameters' });
   }
 });
 
@@ -79,25 +79,28 @@ app.get('/api/v1/:year/gdp', async (req, res)=>{
   res.type('json');
   if (db) {
     if (isNaN(parseInt(req.params.year)) || req.params.year < 1960 || req.params.year > 2021) {
-      res.status(404).send({status: '404', message: 'Not found:'});
+      res.status(404).send({status: 404, message: 'invalid request parameters'});
     }
-  
-    //Getting gdp by year 
-    let gdpData;
-    try {
-      gdpData = await db.readGdp(req.params.year);
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-    
-    //Optionally getting gdp by country too
     const countryParam = req.query.country;
-    let filteredData = gdpData;
-    if (countryParam) {
-      filteredData = filteredData.filter((economy)=> economy.country === countryParam);
-    }
-    if (!res.headersSent){
-      res.send(filteredData);
+    if (!countryParam) {
+      let gdpData;
+      try {
+        gdpData = await db.readGDPs(req.params.year);
+        if (!res.headersSent){
+          res.send(gdpData);
+        }
+      } catch (error) {
+        res.status(404).send({status: '404', message: 'Not found: ' + error});
+      }
+    } else if (countryParam) {
+      try {
+        gdpData = await db.readGDPs(req.params.year, countryParam);
+        if (!res.headersSent){
+          res.send(gdpData);
+        }
+      } catch (error) {
+        res.status(404).send({status: '404', message: 'Not found: ' + error});
+      }
     }
   } else {
     res.status(500).send({status: '500', message: 'Database connection not established'});
