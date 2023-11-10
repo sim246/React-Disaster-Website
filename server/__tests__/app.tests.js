@@ -94,6 +94,7 @@ describe('GET /api/v1/1972/natural-disasters/type/Whatever', () => {
   });
 });
 
+<<<<<<< HEAD
 // test gdp per year
 describe('GET /api/v1/2012/gdp', () => {
   test('It should respond with a json array', async () => {
@@ -109,6 +110,16 @@ describe('GET /api/v1/2012/gdp', () => {
     ];
     jest.spyOn(DB.prototype, 'readGDPs').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/2012/gdp');
+=======
+describe('GET /api/v1/natural-disasters', () => {
+  test('It should respond with a json array', async () => {
+    const expectedVal = ["Animal accident","Drought","Earthquake","Epidemic",
+      "Extreme temperature ","Flood","Glacial lake outburst","Impact",
+      "Insect infestation","Landslide","Mass movement (dry)","Storm",
+      "Volcanic activity","Wildfire"]
+    jest.spyOn(DB.prototype, 'readDisasters').mockResolvedValue(expectedVal);
+    const response = await request(app).get('/api/v1/natural-disasters');
+>>>>>>> c6bd6f7326b5c82e1db8db4b951e6d41aa48c48c
     //if plain text, use text, if json use body
     expect(response.body).toEqual(expectedVal);
     expect(response.statusCode).toBe(200);
@@ -116,6 +127,7 @@ describe('GET /api/v1/2012/gdp', () => {
   });
 });
 
+<<<<<<< HEAD
 // test gdp per year and conutry
 describe('GET /api/v1/2012/gdp?country=Canada', () => {
   test('It should respond with a json array', async () => {
@@ -155,6 +167,13 @@ describe('GET /api/v1/5012/gdp?country=Whatever', () => {
     const expectedVal = { status: 404, message: 'invalid request parameters' };
     jest.spyOn(DB.prototype, 'readDisasters').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/5012/gdp');
+=======
+describe('GET /api/v1/natural-disastersoinon', () => {
+  test('It should have failed', async () => {
+    const expectedVal = {status: '404', message: 'Sorry cant find that!'};
+    jest.spyOn(DB.prototype, 'readDisasters').mockResolvedValue(expectedVal);
+    const response = await request(app).get('/api/v1/natural-disastersoinon');
+>>>>>>> c6bd6f7326b5c82e1db8db4b951e6d41aa48c48c
     //if plain text, use text, if json use body
     expect(response.body).toEqual(expectedVal);
     expect(response.statusCode).toBe(404);

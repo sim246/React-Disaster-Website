@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function DisplayInfo({disasters, gdp}) {
-  // const [insuredGDP, setInsuredGDP] = useState(0);
-  // const [damagesGDP, setDamagesGDP] = useState(0);
 
   if (disasters !== null && gdp !== null){
-    
     const groupTypes = disasters.map((disaster) => {
       return <>
         <li>Subgroup: {disaster.subgroup}
@@ -40,7 +37,7 @@ function DisplayInfo({disasters, gdp}) {
       <div className="disaster">
         <h3>{disasters[0].country}</h3>
         <p><b>Year: </b>{disasters[0].year}</p>
-        {/* Total Number of Disasters: {} */}
+        <p><b>Total Number of Disasters: </b>{disasters.length}</p>
         <ul>
           {groupTypes}
         </ul>

@@ -36,6 +36,9 @@ module.exports = class DB {
         year: { $eq: inputYear },
         type: { $eq: inputType } 
       }).toArray();
+    } else {
+      // Return distinct types of disasters
+      return await instance.disastersColl.distinct('type');
     }
   }
 
