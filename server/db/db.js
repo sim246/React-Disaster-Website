@@ -37,12 +37,9 @@ module.exports = class DB {
         type: { $eq: inputType } 
       }).toArray();
     } else {
-      const cursor = instance.disastersColl.distinct('type');
-      const disasters = [];
-      for (const disaster in cursor) {
-        disasters.push(disaster);
-      }
-      return cursor;
+      const cursor = await instance.disastersColl.distinct('type');
+      const disasters = Array.from(cursor).filter(value => value);
+      return disasters;
     }
   }
 
