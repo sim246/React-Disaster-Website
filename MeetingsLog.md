@@ -1,5 +1,25 @@
 # Meetings Log
 
+## Friday November 10 2023 @ lab time
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- continue working on tasks assigned earlier this week
+
+### Topics discussed
+
+- Additional api routes for countries' borders data
+- Additional tests
+- Map elements
+- Putting everything together: filters, map and detailed view
+
+### Problems discussed
+
+- Converting geojson to leaflet-compatible coordinate system
+
 ## Wednesday November 8 2023 @ lab time
 
 ### Attendees
