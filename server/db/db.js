@@ -93,6 +93,7 @@ module.exports = class DB {
     instance.db = await instance.client.db(dbName);
     // Send a ping to confirm a successful connection
     await instance.client.db(dbName).command({ ping: 1 });
+    // eslint-disable-next-line no-console
     console.log('Successfully connected to MongoDB database ' + dbName);
     // get collections for gdp, disasters and countries
     instance.gdpColl = await instance.db.collection('gdp');

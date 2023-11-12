@@ -84,12 +84,10 @@ let countriesObj;
  */
 function swapCoordinates(geometry) {
   if (geometry.type === 'Polygon') {
-    // For Polygons
     geometry.coordinates = geometry.coordinates.map(ring =>
       ring.map(coord => [coord[1], coord[0]])
     );
   } else if (geometry.type === 'MultiPolygon') {
-    // For MultiPolygons
     geometry.coordinates = geometry.coordinates.map(polygon =>
       polygon.map(ring =>
         ring.map(coord => [coord[1], coord[0]])

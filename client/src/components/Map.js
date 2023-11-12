@@ -2,16 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {
   MapContainer,
   TileLayer,
-  Marker,
-  Popup,
   Polygon
 } from 'react-leaflet';
-import L from 'leaflet';
 import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
-
-
 
 function Map({selectedCountry}) {
   const [map, setMap] = useState(null);
