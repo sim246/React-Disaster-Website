@@ -23,7 +23,7 @@ fs.createReadStream('../../data/world_country_gdp_usd.csv').
     gdp.push(obj);
   }).
   on('end', function () {
-    console.log('finished');
+    console.log('finished constructing gdp obj');
   }).
   on('error', function (error) {
     console.log(error.message);
@@ -51,23 +51,67 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
     disasters.push(obj);
   }).
   on('end', function () {
-    console.log('finished');
+    console.log('finished constructing disasters obj');
   }).
   on('error', function (error) {
     console.log(error.message);
   });
+
+let countriesObj;
 /**
- *  insert gdp and disasters arrays to the db
+ *  get data from countries.geojson file
+ *  parse into JSON obj
+ *  swap coordinates for leaflet-compatible format
+ */
+(async () => {
+  try {
+    const data = await fs.promises.readFile('../../data/countries.geojson', 'utf-8');
+    countriesObj = await JSON.parse(data);
+    console.log('finished parsing countries json')
+    countriesObj.features.forEach(feature => {
+      swapCoordinates(feature.geometry);
+    });
+    console.log('finished swapping coordinates')
+  } catch (err) {
+    console.error(err.message);
+    process.exit(9);
+  }
+})();
+
+/**
+ * @description swaps lng and lat coordinates position
+ * @param {Object} geometry geojson geometry object
+ */
+function swapCoordinates(geometry) {
+  if (geometry.type === 'Polygon') {
+    geometry.coordinates = geometry.coordinates.map(ring =>
+      ring.map(coord => [coord[1], coord[0]])
+    );
+  } else if (geometry.type === 'MultiPolygon') {
+    geometry.coordinates = geometry.coordinates.map(polygon =>
+      polygon.map(ring =>
+        ring.map(coord => [coord[1], coord[0]])
+      )
+    );
+  } else {
+    console.error('Unsupported geometry type:', geometry.type);
+  }
+}
+
+/**
+ *  insert gdp, disasters and countries arrays to the db
  */
 (async () => {
   let db;
   try {
-    const db = new DB();
+    db = new DB();
     await db.connect(dbName);
-    const num = await db.createManyGDP(gdp);
-    console.log(`Inserted ${num} gdp rows`);
-    const num2 = await db.createManyDisasters(disasters);
-    console.log(`Inserted ${num2} disaster rows`);
+    const gdpRowsInserted = await db.createManyGDP(gdp);
+    console.log(`Inserted ${gdpRowsInserted.insertedCount} gdp rows`);
+    const disasterRowsInserted = await db.createManyDisasters(disasters);
+    console.log(`Inserted ${disasterRowsInserted.insertedCount} disaster rows`);
+    const countriesRowsInserted = await db.createManyCountries(countriesObj['features']);
+    console.log(`Inserted ${countriesRowsInserted.insertedCount} countries rows`);
   } catch (e) {
     console.error('could not seed');
     console.dir(e);
