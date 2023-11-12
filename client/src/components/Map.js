@@ -6,14 +6,32 @@ import {
   Popup,
   Polygon
 } from 'react-leaflet';
+import L from 'leaflet';
 import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
 
 
-function Map() {
+function Map({selectedCountry}) {
   const [map, setMap] = useState(null);
+  const [borders, setBorders] = useState([]);
+
+  useEffect(() => {
+    async function fetchCountry() {
+      try {
+        const response = await fetch(`/api/v1/countries/${selectedCountry}`);
+        if (!response.ok) {
+          throw new Error(`Got response ${response.status}`);
+        }
+        const data = await response.json();
+        setBorders(data[0].geometry.coordinates);
+      } catch (error) {
+        console.error(`Fetch error: ${error.message}`);
+      }
+    }
+    fetchCountry();
+  }, [selectedCountry]);
 
   return (
     <div id="map-container">
@@ -34,7 +52,12 @@ function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Legend map={map} />
-        {/* <Polygon pathOptions={{fillColor: 'blue'}} positions={} /> */}
+        {borders &&
+          <Polygon
+            pathOptions={{fillColor: 'blue'}}
+            positions={borders}
+          />
+        }
         
       </MapContainer>
     </div>

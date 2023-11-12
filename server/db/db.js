@@ -46,14 +46,14 @@ module.exports = class DB {
     return await instance.countriesColl.find().toArray();
   }
 
-    /**
+  /**
    * @description Read a given country from the db
    */
-    async readCountry(country) {
-      return await instance.countriesColl.find({
-        'properties.ADMIN': { $eq: country } 
-      }).toArray();
-    }
+  async readCountry(country) {
+    return await instance.countriesColl.find({
+      'properties.ADMIN': { $eq: country } 
+    }).toArray();
+  }
 
   //ADD ASYNC readGdp FUNCTION HERE
   /**

@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <h1>project</h1>
       {/* <DisplayApi /> */}
-      <Map />
+      <Map selectedCountry={'Canada'} />
     </div>
   );
 }

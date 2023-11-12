@@ -114,7 +114,6 @@ app.get('/api/v1/countries/:country', async (req, res) => {
     let countryData;
     try {
       countryData = await db.readCountry(req.params.country);
-      console.log(countryData)
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
     }
