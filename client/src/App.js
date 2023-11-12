@@ -1,7 +1,9 @@
 import './App.css';
+
 import React, { useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard.js';
 import DisplayInfo from  './components/DisplayInfo.js';
+import Map from './components/Map.js';
 
 function App() {
   const [apiInfoDisaster, setApiInfoDisaster] = useState(null);
@@ -53,6 +55,9 @@ function App() {
         <Dashboard setSelectedCountry={()=>{}} setSelectedDisaster={()=>{}} 
           setSelectedYear={()=>{}}>
         </Dashboard>
+      </div>
+      <div>
+        <Map />
       </div>
 
       <div className="displayinfo">

@@ -1,0 +1,16 @@
+.leaflet-container {
+  width: 100wh; 
+  height: 80vh;
+}
+/* #map-container {
+  height: 90%;
+} */
+
+@media (orientation: portrait) {
+  .ui-container {
+    flex-direction: column;
+  }
+  .leaflet-container {
+    width: 100%;
+  }
+}
