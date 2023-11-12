@@ -14,6 +14,7 @@ module.exports = class DB {
       this.db = null;
       this.disastersColl = null;
       this.gdpColl = null;
+      this.countriesColl = null;
     }
     return instance;
   }
@@ -60,6 +61,21 @@ module.exports = class DB {
       }).toArray();
     }
   }
+  /**
+   * @description Read all countries with their borders info
+   */
+  async readCountries() {
+    return await instance.countriesColl.find().toArray();
+  }
+
+  /**
+   * @description Read a given country from the db
+   */
+  async readCountry(country) {
+    return await instance.countriesColl.find({
+      'properties.ADMIN': { $eq: country } 
+    }).toArray();
+  }
 
   //ADD ASYNC readGdp FUNCTION HERE
   /**
@@ -80,6 +96,14 @@ module.exports = class DB {
     return await instance.disastersColl.insertMany(disasters);
   }
   /**
+   * @description Creates many countries
+   * @param {array} countries
+   * @returns {num} number of rows that were inserted
+   */
+  async createManyCountries(countries) {
+    return await instance.countriesColl.insertMany(countries);
+  }
+  /**
    * @description Connects to the db
    * @returns if there's already an instance of db
    */
@@ -91,10 +115,12 @@ module.exports = class DB {
     instance.db = await instance.client.db(dbName);
     // Send a ping to confirm a successful connection
     await instance.client.db(dbName).command({ ping: 1 });
+    // eslint-disable-next-line no-console
     console.log('Successfully connected to MongoDB database ' + dbName);
-    // get 2 collections for gdp and disasters
+    // get collections for gdp, disasters and countries
     instance.gdpColl = await instance.db.collection('gdp');
     instance.disastersColl = await instance.db.collection('disasters');
+    instance.countriesColl = await instance.db.collection('countries');
   }
   /**
    * Opens db connection

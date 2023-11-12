@@ -1,4 +1,5 @@
 # Ignore built files except build/index.js
 **/build/*
 /server/utils/seed.js
+/server/utils/read.js
 /server/__tests__/*

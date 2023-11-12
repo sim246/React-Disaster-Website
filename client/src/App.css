@@ -14,9 +14,14 @@
   padding-top: 1em;
   padding-right: 10em;
   padding-bottom: 1em;
+  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
   padding-left: 10em;
   width: 15%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
+}
+
+.map{
   margin-top: 20px;
 }

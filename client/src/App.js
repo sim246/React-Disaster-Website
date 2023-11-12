@@ -1,5 +1,6 @@
 import './App.css';
 
+
 import React, { useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard.js';
 import DisplayInfo from  './components/DisplayInfo.js';
@@ -10,7 +11,7 @@ function App() {
   const [apiInfoGDP, setApiInfoGDP] = useState(null);
 
   async function fetchData1() {
-    fetch('/api/v1/2012/natural-disasters/country/Japan', {
+    fetch('/api/v1/2012/natural-disasters/country/Canada', {
       method: 'GET',
     }).then((response) => {
       if (!response.ok) {
@@ -29,7 +30,7 @@ function App() {
   }
 
   async function fetchData2() {
-    fetch('/api/v1/2012/gdp?country=Japan', {
+    fetch('/api/v1/2012/gdp?country=Canada', {
       method: 'GET',
     }).then((response) => {
       if (!response.ok) {
@@ -56,8 +57,8 @@ function App() {
           setSelectedYear={()=>{}}>
         </Dashboard>
       </div>
-      <div>
-        <Map />
+      <div className="map">
+        <Map selectedCountry={'Canada'} />
       </div>
 
       <div className="displayinfo">
