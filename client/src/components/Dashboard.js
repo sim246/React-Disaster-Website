@@ -8,10 +8,10 @@ import React, { useState, useEffect } from 'react';
  */
 export default function Dashboard({ setSelectedCountry, setSelectedDisaster, setSelectedYear }) {
   //Logic for populating selects with option
-  const countries = ['Canada', 'Argentina', 'France'];
+  //const countries = ['Canada', 'Argentina', 'France'];
 
   const [disasters, setDisasters] = useState([]);
-  //const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState([]);
 
   async function fetchNaturalDisasters() {
     fetch('/api/v1/natural-disasters', {
@@ -29,11 +29,27 @@ export default function Dashboard({ setSelectedCountry, setSelectedDisaster, set
     });
   }
 
+  async function fetchCountries() {
+    fetch('/api/v1/countries', {
+      method: 'GET',
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error('Data not found');
+      }
+      return response.json();
+    }).then((data) => {
+      setCountries(data);
+    }).catch((error) => {
+      //find some way to display error
+      return error;
+    });
+  }
+
   useEffect(()=> {
     //Get natural disasters options
     fetchNaturalDisasters();
-
     //Get country options
+    fetchCountries();
   }, []);
 
   return (
