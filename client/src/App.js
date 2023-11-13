@@ -1,12 +1,14 @@
 import './App.css';
-import Map from './components/Map.js';
+import DisplayApi from  './components/DisplayApi.js';
+import Dashboard from './components/Dashboard.js';
 
 function App() {
   return (
-    <div className="App">
-      <h1>project</h1>
-      {/* <DisplayApi /> */}
-      <Map selectedCountry={'Canada'} />
+    <div className="app">
+      {/* Pass in setSelectedCountry, setSelectedDisaster, setSelectedYear once defined*/}
+      <Dashboard setSelectedCountry={()=>{}} setSelectedDisaster={()=>{}} setSelectedYear={()=>{}}>
+      </Dashboard>
+      
     </div>
   );
 }
