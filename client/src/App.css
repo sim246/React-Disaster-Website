@@ -1,8 +1,27 @@
 .app {
   text-align: center;
+  display: flex;
+  flex-direction:column;
 }
 
-.disaster {
-  border: 4px dotted #131333;
-  margin-bottom: 30px;
+.disaster{
+  text-align: left;
+}
+
+.displayinfo{
+  border: 4px dotted rgb(19 19 51);
+  background-color: rgb(223 230 241);
+  padding-top: 1em;
+  padding-right: 10em;
+  padding-bottom: 1em;
+  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+  padding-left: 10em;
+  width: 15%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.map{
+  margin-top: 20px;
 }
