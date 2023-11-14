@@ -1,6 +1,49 @@
 import React, { useState, useEffect } from 'react';
 
-function DisplayInfo({disasters, gdp}) {
+function DisplayInfo({year, country}) {
+  const [disasters, setApiInfoDisaster] = useState(null);
+  const [gdp, setApiInfoGDP] = useState(null);
+
+  async function fetchDataDisasters() {
+    fetch('/api/v1/' + {year} + '/natural-disasters/country/' + {country}, {
+      method: 'GET',
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error('Data not found');
+      }
+      return response.json();
+    }).then((data) => {
+      const info = [];
+      for (let i = 0; i < data.length; i++){
+        info[i] = data[i];
+      }
+      setApiInfoDisaster(info);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  async function fetchDataGDP() {
+    fetch('/api/v1/' + {year} + '/gdp?country=' + {country}, {
+      method: 'GET',
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error('Data not found');
+      }
+      return response.json();
+    }).then((data) => {
+      setApiInfoGDP(data[0]);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  useEffect(()=>{
+    if (year !== null && country !== null){
+      fetchDataDisasters();
+      fetchDataGDP();
+    }
+  }, [year, country]);
 
   if (disasters !== null && gdp !== null){
     const groupTypes = disasters.map((disaster) => {

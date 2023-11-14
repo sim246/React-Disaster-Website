@@ -7,50 +7,11 @@ import DisplayInfo from  './components/DisplayInfo.js';
 import Map from './components/Map.js';
 
 function App() {
-  const [apiInfoDisaster, setApiInfoDisaster] = useState(null);
-  const [apiInfoGDP, setApiInfoGDP] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedDisaster, setSelectedDisaster] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
 
-  async function fetchData1() {
-    fetch('/api/v1/2012/natural-disasters/country/Canada', {
-      method: 'GET',
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error('Data not found');
-      }
-      return response.json();
-    }).then((data) => {
-      const info = [];
-      for (let i = 0; i < data.length; i++){
-        info[i] = data[i];
-      }
-      setApiInfoDisaster(info);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
-  async function fetchData2() {
-    fetch('/api/v1/2012/gdp?country=Canada', {
-      method: 'GET',
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error('Data not found');
-      }
-      return response.json();
-    }).then((data) => {
-      setApiInfoGDP(data[0]);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
-  useEffect(()=>{
-    fetchData1();
-    fetchData2();
-  }, []);
+  
 
   return (
     <div className="app">
@@ -70,7 +31,7 @@ function App() {
       </div>
 
       <div className="displayinfo">
-        <DisplayInfo disasters={apiInfoDisaster} gdp={apiInfoGDP} />
+        <DisplayInfo year={selectedYear} country={selectedCountry} />
       </div>
     </div>
   );
