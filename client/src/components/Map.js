@@ -10,7 +10,7 @@ import './Map.css';
 
 function Map({selectedCountry, setSelectedCountry}) {
   const [map, setMap] = useState(null);
-  const [borders, setBorders] = useState([]);
+  const [countryData, setCountryData] = useState([]);
 
   useEffect(() => {
     async function fetchCountry() {
@@ -20,7 +20,7 @@ function Map({selectedCountry, setSelectedCountry}) {
           throw new Error(`Got response ${response.status}`);
         }
         const data = await response.json();
-        setBorders(data[0].geometry.coordinates);
+        setCountryData(data[0]);
       } catch (error) {
         console.error(`Fetch error: ${error.message}`);
       }
@@ -49,10 +49,15 @@ function Map({selectedCountry, setSelectedCountry}) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Legend map={map} />
-        {borders &&
+        {countryData &&
           <Polygon
             pathOptions={{fillColor: 'blue'}}
-            positions={borders}
+            positions={countryData.geometry.coordinates}
+            eventHandlers={{
+              click: () => {
+                setSelectedCountry(countryData.properties.ADMIN);
+              }
+            }}
           />
         }
         
