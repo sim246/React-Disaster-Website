@@ -9,6 +9,9 @@ import Map from './components/Map.js';
 function App() {
   const [apiInfoDisaster, setApiInfoDisaster] = useState(null);
   const [apiInfoGDP, setApiInfoGDP] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedDisaster, setSelectedDisaster] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(null);
 
   async function fetchData1() {
     fetch('/api/v1/2012/natural-disasters/country/Canada', {
@@ -53,12 +56,17 @@ function App() {
     <div className="app">
       {/* Pass in setSelectedCountry, setSelectedDisaster, setSelectedYear once defined*/}
       <div className="dashboard">
-        <Dashboard setSelectedCountry={()=>{}} setSelectedDisaster={()=>{}} 
-          setSelectedYear={()=>{}}>
+        <Dashboard
+          setSelectedCountry={setSelectedCountry}
+          setSelectedDisaster={setSelectedDisaster} 
+          setSelectedYear={setSelectedYear}>
         </Dashboard>
       </div>
       <div className="map">
-        <Map selectedCountry={'Canada'} />
+        <Map
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+        />
       </div>
 
       <div className="displayinfo">

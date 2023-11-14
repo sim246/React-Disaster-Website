@@ -8,7 +8,7 @@ import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
-function Map({selectedCountry}) {
+function Map({selectedCountry, setSelectedCountry}) {
   const [map, setMap] = useState(null);
   const [borders, setBorders] = useState([]);
 
@@ -25,7 +25,9 @@ function Map({selectedCountry}) {
         console.error(`Fetch error: ${error.message}`);
       }
     }
-    fetchCountry();
+    if (selectedCountry) {
+      fetchCountry();
+    }
   }, [selectedCountry]);
 
   return (
