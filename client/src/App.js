@@ -22,10 +22,10 @@ function App() {
         </Dashboard>
       </div>
       <div className="map">
-        {/* <Map
+        <Map
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
-        /> */}
+        />
       </div>
 
       <div className="displayinfo">

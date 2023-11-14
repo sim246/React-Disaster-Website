@@ -40,8 +40,10 @@ function DisplayInfo({year, country}) {
 
   useEffect(()=>{
     if (year !== null && country !== null){
-      fetchDataDisasters();
-      fetchDataGDP();
+      if (year >= 1970 && year <= 2021){
+        fetchDataDisasters();
+        fetchDataGDP();
+      }
     }
   }, [year, country]);
 
@@ -78,8 +80,8 @@ function DisplayInfo({year, country}) {
 
     return(
       <div className="disaster">
-        <h3>{disasters[0].country}</h3>
-        <p><b>Year: </b>{disasters[0].year}</p>
+        <h3>{country}</h3>
+        <p><b>Year: </b>{year}</p>
         <p><b>Total Number of Disasters: </b>{disasters.length}</p>
         <ul>
           {groupTypes}
