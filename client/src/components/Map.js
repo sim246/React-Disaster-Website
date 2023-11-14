@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { Icon  } from 'leaflet';
 import {
   MapContainer,
+  Marker,
+  Popup,
   TileLayer,
   Polygon
 } from 'react-leaflet';
 import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
+import markerImage from '../img/marker-icon.png';
 
 function Map({selectedCountry}) {
   const [map, setMap] = useState(null);
   const [borders, setBorders] = useState([]);
+  const [earthquakes, setEarthquakes] = useState([]);
+
+  const customIcon = new Icon({
+    iconUrl: markerImage,
+    iconSize: [38, 38],
+    iconAnchor: [22, 30]
+  });
+  
 
   useEffect(() => {
     async function fetchCountry() {
@@ -25,7 +37,25 @@ function Map({selectedCountry}) {
         console.error(`Fetch error: ${error.message}`);
       }
     }
+    async function fetchEarthquakes() {
+      //year set automatically for now
+      fetch('/api/v1/2012/natural-disasters/type/Earthquake', {
+        method: 'GET',
+      }).then((response) => {
+        if (!response.ok) {
+          throw Error('Data not found');
+        }
+        return response.json();
+      }).then((data) => {
+        setEarthquakes(data);
+      }).catch((error) => {
+        return error;
+      });
+    }
+
     fetchCountry();
+    fetchEarthquakes();
+
   }, [selectedCountry]);
 
   return (
@@ -46,6 +76,15 @@ function Map({selectedCountry}) {
             <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {earthquakes.length > 0 && 
+          earthquakes.map((earthquake) => {
+            return (
+              <Marker position={[earthquake.latitude, earthquake.longitude]} icon={customIcon} >
+                <Popup><p>⚠️</p></Popup>
+              </Marker>
+            );
+          })
+        }
         <Legend map={map} />
         {borders &&
           <Polygon
