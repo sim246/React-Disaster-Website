@@ -5,7 +5,7 @@ function DisplayInfo({year, country}) {
   const [gdp, setApiInfoGDP] = useState(null);
 
   async function fetchDataDisasters() {
-    fetch('/api/v1/' + {year} + '/natural-disasters/country/' + {country}, {
+    fetch('/api/v1/' + year + '/natural-disasters/country/' + country, {
       method: 'GET',
     }).then((response) => {
       if (!response.ok) {
@@ -24,7 +24,7 @@ function DisplayInfo({year, country}) {
   }
 
   async function fetchDataGDP() {
-    fetch('/api/v1/' + {year} + '/gdp?country=' + {country}, {
+    fetch('/api/v1/' + year + '/gdp?country=' + country, {
       method: 'GET',
     }).then((response) => {
       if (!response.ok) {

@@ -9,9 +9,7 @@ import Map from './components/Map.js';
 function App() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedDisaster, setSelectedDisaster] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(null);
-
-  
+  const [selectedYear, setSelectedYear] = useState(null);  
 
   return (
     <div className="app">
@@ -24,10 +22,10 @@ function App() {
         </Dashboard>
       </div>
       <div className="map">
-        <Map
+        {/* <Map
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
-        />
+        /> */}
       </div>
 
       <div className="displayinfo">
