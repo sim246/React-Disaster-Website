@@ -78,11 +78,13 @@ function Map({selectedCountry}) {
         />
         {earthquakes.length > 0 && 
           earthquakes.map((earthquake) => {
-            return (
-              <Marker position={[earthquake.latitude, earthquake.longitude]} icon={customIcon} >
-                <Popup><p>⚠️</p></Popup>
-              </Marker>
-            );
+            if (earthquake.country === selectedCountry) {
+              return (
+                <Marker position={[earthquake.latitude, earthquake.longitude]} icon={customIcon} >
+                  <Popup><p>⚠️</p></Popup>
+                </Marker>
+              );
+            }
           })
         }
         <Legend map={map} />
