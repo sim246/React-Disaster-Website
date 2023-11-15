@@ -9,8 +9,8 @@ workflow:
 default:
   cache:  
     key: $CI_COMMIT_REF_SLUG
-    prefix: $CI_COMMIT_REF_NAME
-    files:
+      prefix: $CI_COMMIT_REF_NAME
+      files:
         - server/package-lock.json
         - client/package-lock.jso
     paths:
