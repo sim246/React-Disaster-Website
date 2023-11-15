@@ -14,8 +14,8 @@ default:
         - server/package-lock.json
         - client/package-lock.jso
     paths:
-      - server/.npm/
-      - clinet/.npm/
+      - server/ .npm/
+      - clinet/ .npm/
   before_script:
   - cd server && npm ci --cache .npm --prefer-offline && cd ../client && npm ci --cache .npm --prefer-offline && cd ..
 
