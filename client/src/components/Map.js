@@ -33,26 +33,12 @@ function Map({selectedCountry, setSelectedCountry}) {
           throw new Error(`Got response ${response.status}`);
         }
         const data = await response.json();
-        setAllCountriesData(null);
         setCountryData(data[0]);
       } catch (error) {
         console.error(`Fetch error: ${error.message}`);
       }
     }
-    // slow for now
-    async function fetchAllCountries() {
-      try {
-        const response = await fetch(`/api/v1/countries/coordinates`);
-        if (!response.ok) {
-          throw new Error(`Got response ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data);
-        setAllCountriesData(data);
-      } catch (error) {
-        console.error(`Fetch error: ${error.message}`);
-      }
-    }
+    
     async function fetchEarthquakes() {
       //year set automatically for now
       fetch('/api/v1/2012/natural-disasters/type/Earthquake', {
@@ -70,12 +56,28 @@ function Map({selectedCountry, setSelectedCountry}) {
     }
     if (selectedCountry){
       fetchCountry();
-    } else {
-      fetchAllCountries();
     }
     fetchEarthquakes();
 
   }, [selectedCountry]);
+
+  useEffect(() => {
+    // slow for now
+    async function fetchAllCountries() {
+      try {
+        const response = await fetch(`/api/v1/countries/coordinates`);
+        if (!response.ok) {
+          throw new Error(`Got response ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('fetched allCountries');
+        setAllCountriesData(data);
+      } catch (error) {
+        console.error(`Fetch error: ${error.message}`);
+      }
+    }
+    fetchAllCountries();
+  }, []);
 
   // prepare polygons for each country
   const polygons = [];
@@ -129,6 +131,7 @@ function Map({selectedCountry, setSelectedCountry}) {
             positions={countryData.geometry.coordinates}
             eventHandlers={{
               click: () => {
+                setCountryData(null);
                 setSelectedCountry(null);
               }
             }}
