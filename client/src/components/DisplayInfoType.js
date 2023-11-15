@@ -56,8 +56,8 @@ function DisplayInfoType({year, type}) {
 
       return <p>The total number of disaters typed {type} 
         across the gloab in {year} was {typeCount}. 
-        The total amount of insured damages was {addInsuredDamages()} 
-        USD and the total amount of damages was {addDamages()} USD</p>;
+        The total amount of insured damages was {addInsuredDamages()} USD
+         and the total amount of damages was {addDamages()} USD</p>;
     } else {
       return <p>The total number of disaters typed {type} across 
         the gloab in {year} was {typeCount}.</p>;

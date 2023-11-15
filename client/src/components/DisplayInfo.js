@@ -49,8 +49,9 @@ function DisplayInfo({year, country, type}) {
   
   if (disasters !== null){
     const groupTypes = disasters.map((disaster) => {
+      console.log(disaster);
       return <>
-        <li>Subgroup: {disaster.subgroup}
+        <li key={disaster._id.toString()}>Subgroup: {disaster.subgroup}
           <ul>
             <li>Type: {disaster.type}</li>
           </ul>

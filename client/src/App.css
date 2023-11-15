@@ -39,3 +39,9 @@
 .child-select{
   width: 15em;
 }
+
+#intro{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}

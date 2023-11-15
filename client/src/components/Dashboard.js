@@ -55,9 +55,11 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
   return (
     <>
       <h1> Impact of Natural Disasters on the Economy </h1>
-      <p> 
-        An interactive map used for viewing different GDP and GDP per capita, 
-        as well as natural disasters in different countries. 
+      <p id="intro"> 
+        An interactive map used for viewing different GDP per countries, 
+        as well as the natural disasters that occur per year. It is meant to 
+        demonstrate the impact of natural disasters on the economy through the 
+        damages in USD they cause compared to the GDP. 
       </p>
       
       <div className="select">
