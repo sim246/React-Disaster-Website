@@ -6,7 +6,7 @@ workflow:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == "staging"
 
-install:
+default:
   cache:  
     key: $CI_COMMIT_REF_SLUG
     prefix: $CI_COMMIT_REF_NAME
