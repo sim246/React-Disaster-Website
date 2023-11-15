@@ -188,3 +188,12 @@ describe('GET /api/v1/5012/gdp?country=Whatever', () => {
     expect(response.type).toEqual('application/json');
   });
 });
+
+describe('/api/v1/countries/coordinates', () => {
+  test('It should respond with a json array', async () => {
+    const response = await request(app).get('/api/v1/countries/coordinates');
+    expect(response.statusCode).toBe(200);
+    expect(response.type).toEqual('application/json');
+  });
+});
+
