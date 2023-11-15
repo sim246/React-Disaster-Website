@@ -55,39 +55,45 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
   return (
     <>
       <h1> Impact of Natural Disasters on the Economy </h1>
-      <p> 
-        An interactive map used for viewing different GDP and GDP per capita, 
-        as well as natural disasters in different countries. 
+      <p id="intro"> 
+        An interactive map used for viewing different GDP per countries, 
+        as well as the natural disasters that occur per year. It is meant to 
+        demonstrate the impact of natural disasters on the economy through the 
+        damages in USD they cause compared to the GDP. 
       </p>
-  
-    
-      <label> Year
-        <input type="number" min="1970" max="2020" onChange={
-          (e) => setSelectedYear(e.target.value)}/>
-      </label>
-
-      <label> Natural disasters
-        <select id="naturalDisasterSelect" onChange={
-          (e) => setSelectedDisaster(e.target.value)}>
-          {disasters.map((disaster) => {
-            return (
-              <option value={disaster} key={disaster}>{disaster}</option>
-            );
-          })}
-        </select>
-      </label> 
-
-      <label> Country
-        <select id="countrySelect" value={selectedCountry}
-          onChange={
-            (e) => setSelectedCountry(e.target.value)}>
-          {countries.map((country) => {
-            return (
-              <option value={country} key={country}>{country}</option>
-            );
-          })}
-        </select>
-      </label>
+      
+      <div className="select">
+        <div>
+          <label> Year
+            <input type="number" min="1970" max="2020" onChange={
+              (e) => setSelectedYear(e.target.value)}/>
+          </label>
+        </div>
+        <div>
+          <label> Natural disasters
+            <select className="child-select" id="naturalDisasterSelect" onChange={
+              (e) => setSelectedDisaster(e.target.value)}>
+              {disasters.map((disaster) => {
+                return (
+                  <option value={disaster} key={disaster}>{disaster}</option>
+                );
+              })}
+            </select>
+          </label>
+        </div>
+        <div>
+          <label> Country
+            <select className="child-select" id="countrySelect" onChange={
+              (e) => setSelectedCountry(e.target.value)}>
+              {countries.map((country) => {
+                return (
+                  <option value={country} key={country}>{country}</option>
+                );
+              })}
+            </select>
+          </label>
+        </div>
+      </div>
     </>
   );
 }
