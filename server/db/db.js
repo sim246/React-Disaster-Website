@@ -64,6 +64,13 @@ module.exports = class DB {
   /**
    * @description Read all countries with their borders info
    */
+  async readCountriesWithCoords() {
+    const options = {
+      projection: { _id: 0, 'properties.ADMIN': 1, 'geometry.coordinates': 1 },
+    };
+    return await instance.countriesColl.find({}, options).toArray();
+  }
+
   async readCountries() {
     return await instance.countriesColl.distinct('properties.ADMIN');
   }

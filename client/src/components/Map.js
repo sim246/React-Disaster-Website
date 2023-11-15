@@ -15,6 +15,7 @@ import markerImage from '../img/marker-icon.png';
 function Map({selectedCountry, setSelectedCountry}) {
   const [map, setMap] = useState(null);
   const [countryData, setCountryData] = useState(null);
+  const [allCountriesData, setAllCountriesData] = useState(null);
   const [earthquakes, setEarthquakes] = useState([]);
 
   const customIcon = new Icon({
@@ -37,6 +38,7 @@ function Map({selectedCountry, setSelectedCountry}) {
         console.error(`Fetch error: ${error.message}`);
       }
     }
+    
     async function fetchEarthquakes() {
       //year set automatically for now
       fetch('/api/v1/2012/natural-disasters/type/Earthquake', {
@@ -52,11 +54,46 @@ function Map({selectedCountry, setSelectedCountry}) {
         return error;
       });
     }
-
-    fetchCountry();
+    if (selectedCountry){
+      fetchCountry();
+    }
     fetchEarthquakes();
 
   }, [selectedCountry]);
+
+  useEffect(() => {
+    // slow for now
+    async function fetchAllCountries() {
+      try {
+        const response = await fetch(`/api/v1/countries/coordinates`);
+        if (!response.ok) {
+          throw new Error(`Got response ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('fetched allCountries');
+        setAllCountriesData(data);
+      } catch (error) {
+        console.error(`Fetch error: ${error.message}`);
+      }
+    }
+    fetchAllCountries();
+  }, []);
+
+  // prepare polygons for each country
+  const polygons = [];
+  if (allCountriesData){
+    allCountriesData.forEach((item) => {
+      polygons.push(
+        <Polygon
+          positions={item.geometry.coordinates}
+          eventHandlers={{
+            click: () => {
+              setSelectedCountry(item.properties.ADMIN);
+            }
+          }}
+        />);
+    });
+  }
 
   return (
     <div id="map-container">
@@ -94,10 +131,14 @@ function Map({selectedCountry, setSelectedCountry}) {
             positions={countryData.geometry.coordinates}
             eventHandlers={{
               click: () => {
-                setSelectedCountry(countryData.properties.ADMIN);
+                setCountryData(null);
+                setSelectedCountry(null);
               }
             }}
           />
+        }
+        {allCountriesData &&
+          polygons
         }
         
       </MapContainer>

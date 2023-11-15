@@ -4,7 +4,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard.js';
 import DisplayInfo from  './components/DisplayInfo.js';
-import DisplayInfoType from  './components/Type.js';
+import DisplayInfoType from  './components/DisplayInfoType.js';
 import Map from './components/Map.js';
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
       {/* Pass in setSelectedCountry, setSelectedDisaster, setSelectedYear once defined*/}
       <div className="dashboard">
         <Dashboard
+          selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
           setSelectedDisaster={setSelectedDisaster} 
           setSelectedYear={setSelectedYear}>
