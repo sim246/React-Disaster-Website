@@ -1,5 +1,47 @@
 # Meetings Log
 
+## Tuseday November 14 2023 @ lab time
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- continue working on tasks assigned
+- assigne tasks and finish the app
+
+### Topics discussed
+
+- Information display
+- refactor api
+- Map
+- Putting everything together
+
+### Problems discussed
+
+- Performance issues
+- fixed some bugs
+
+## Tuseday November 14 2023 @ 12:09
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- continue working on tasks assigned
+- assigne new tasks
+
+### Topics discussed
+
+- Information display
+- Map
+- Putting everything together: useState
+
+### Problems discussed
+
+- Performance issues
+
 ## Friday November 10 2023 @ lab time
 
 ### Attendees
