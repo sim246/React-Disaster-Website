@@ -193,7 +193,8 @@ describe('GET /api/v1/5012/gdp?country=Whatever', () => {
 //Test getting country coordinates
 describe('GET /api/v1/countries/coordinates', () => {
   test('It should respond with a 200 response code', async () => {
-    const expectedVal = [{'properties':{'ADMIN':'Aruba'},'geometry':{'coordinates':[[[12.577582098000036,-69.99693762899992]]]}}];
+    const expectedVal = [{'properties':{'ADMIN':'Aruba'}, 'geometry':
+      {'coordinates':[[[12.577582098000036, -69.99693762899992]]]}}];
     jest.spyOn(DB.prototype, 'readCountriesWithCoords').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/countries/coordinates');
     expect(response.statusCode).toBe(200);
@@ -203,7 +204,7 @@ describe('GET /api/v1/countries/coordinates', () => {
 
 describe('GET /api/v1/countries/coordinatessdlkgj', () => {
   test('It should have failed', async () => {
-    const expectedVal = {status: '404', message: 'Not found: Error: 404'}
+    const expectedVal = {status: '404', message: 'Not found: Error: 404'};
     jest.spyOn(DB.prototype, 'readCountriesWithCoords').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/countries/coordinatessdlkgj');
     //if plain text, use text, if json use body
@@ -242,7 +243,7 @@ describe('GET /api/v1/countries', () => {
   test('It should respond with a json array', async () => {
     const expectedVal =
       ['Afghanistan', 'Akrotiri Sovereign Base Area', 'Aland', 'Albania', 'Algeria',
-        'American Samoa','Andorra', 'Angola', 'Anguilla', 'Antarctica',
+        'American Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antarctica',
         'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Ashmore and Cartier Islands',];
     jest.spyOn(DB.prototype, 'readCountries').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/countries');
