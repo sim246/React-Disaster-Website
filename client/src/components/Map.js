@@ -10,7 +10,7 @@ import './Map.css';
 
 function Map({selectedCountry, setSelectedCountry}) {
   const [map, setMap] = useState(null);
-  const [countryData, setCountryData] = useState([]);
+  const [countryData, setCountryData] = useState(null);
 
   useEffect(() => {
     async function fetchCountry() {
