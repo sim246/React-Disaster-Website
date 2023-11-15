@@ -1,5 +1,5 @@
-const express = require("express");
-const apioutes = require("./api/routes.js");
+const express = require('express');
+const apioutes = require('./api/routes.js');
 
 function registerMiddlewares(app) {
   app.use(express.json());
