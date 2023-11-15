@@ -8,20 +8,40 @@
   text-align: left;
 }
 
+.select{
+  display: flex;
+  flex-direction:column;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .displayinfo{
   border: 4px dotted rgb(19 19 51);
   background-color: rgb(223 230 241);
   padding-top: 1em;
-  padding-right: 10em;
+  padding-right: 5em;
   padding-bottom: 1em;
   /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
-  padding-left: 10em;
+  padding-left: 5em;
   width: 25%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
+  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+  margin-bottom: 20px;
 }
 
 .map{
   margin-top: 20px;
+}
+
+.child-select{
+  width: 15em;
+}
+
+#intro{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }

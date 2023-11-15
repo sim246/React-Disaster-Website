@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function DisplayInfo({year, country}) {
+function DisplayInfo({year, country, type}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
 
@@ -50,7 +50,7 @@ function DisplayInfo({year, country}) {
   if (disasters !== null){
     const groupTypes = disasters.map((disaster) => {
       return <>
-        <li>Subgroup: {disaster.subgroup}
+        <li key={disaster._id.toString()}>Subgroup: {disaster.subgroup}
           <ul>
             <li>Type: {disaster.type}</li>
           </ul>
