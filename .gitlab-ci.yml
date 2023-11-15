@@ -52,9 +52,6 @@ build-client:
 
 test-server:
   stage: test
-  before_script:
-    - npm ci
-    - npm install jest
   script:
-    - cd server
+    - cd server && npm ci --cache .npm --prefer-offline
     - npm test
