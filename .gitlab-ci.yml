@@ -38,8 +38,6 @@ lint-client:
 
 build-client:
   stage: build
-  dependencies:
-    - install
   script:
     - cd client && npm run build
   only:
