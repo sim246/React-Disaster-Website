@@ -127,6 +127,27 @@ app.get('/api/v1/:year/gdp', async (req, res)=>{
 });
 
 /**
+ * THIS IS VERY SLOW
+ * @description Gets from db information about geographical borders of a all countries
+ */
+app.get('/api/v1/countries/coordinates', async (req, res) => {
+  res.type('json');
+  if (db) {
+    let countryData;
+    try {
+      countryData = await db.readCountriesWithCoords();
+    } catch (error) {
+      res.status(404).send({status: '404', message: 'Not found: ' + error});
+    }
+    if (!res.headersSent){
+      res.send(countryData);
+    }
+  } else {
+    res.status(500).send({status: '500', message: 'Database connection not established'});
+  }
+});
+
+/**
  * @description Gets from db information about geographical borders of a given country
  * @param {string} country
  */
@@ -148,27 +169,6 @@ app.get('/api/v1/countries/:country', async (req, res) => {
 });
 
 app.get('/api/v1/countries', async (req, res) => {
-  res.type('json');
-  if (db) {
-    let countryData;
-    try {
-      countryData = await db.readCountries();
-    } catch (error) {
-      res.status(404).send({status: '404', message: 'Not found: ' + error});
-    }
-    if (!res.headersSent){
-      res.send(countryData);
-    }
-  } else {
-    res.status(500).send({status: '500', message: 'Database connection not established'});
-  }
-});
-
-/**
- * THIS IS VERY SLOW
- * @description Gets from db information about geographical borders of a all countries
- */
-app.get('/api/v1/countries/', async (req, res) => {
   res.type('json');
   if (db) {
     let countryData;
