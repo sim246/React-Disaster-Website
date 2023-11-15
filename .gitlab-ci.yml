@@ -31,7 +31,7 @@ lint-client:
     - cd client && ./node_modules/eslint/bin/eslint.js --ext js,jsx,mjs,cjs .
   allow_failure: false
 
-  stages:
+stages:
   - lint
   - build
   - test
