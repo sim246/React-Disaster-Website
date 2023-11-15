@@ -6,10 +6,10 @@ import React, { useState, useEffect } from 'react';
  * @param {function} setSelectedYear
  * @returns {component} Dashboard, where the filters, title and description are
  */
-export default function Dashboard({ setSelectedCountry, setSelectedDisaster, setSelectedYear }) {
-  //Logic for populating selects with option
-  //const countries = ['Canada', 'Argentina', 'France'];
+export default function Dashboard({ selectedCountry, setSelectedCountry, 
+  setSelectedDisaster, setSelectedYear }) {
 
+  //Logic for populating selects with option
   const [disasters, setDisasters] = useState([]);
   const [countries, setCountries] = useState([]);
 
@@ -78,8 +78,9 @@ export default function Dashboard({ setSelectedCountry, setSelectedDisaster, set
       </label> 
 
       <label> Country
-        <select id="countrySelect" onChange={
-          (e) => setSelectedCountry(e.target.value)}>
+        <select id="countrySelect" value={selectedCountry}
+          onChange={
+            (e) => setSelectedCountry(e.target.value)}>
           {countries.map((country) => {
             return (
               <option value={country} key={country}>{country}</option>

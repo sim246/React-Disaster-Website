@@ -16,6 +16,7 @@ function App() {
       {/* Pass in setSelectedCountry, setSelectedDisaster, setSelectedYear once defined*/}
       <div className="dashboard">
         <Dashboard
+          selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
           setSelectedDisaster={setSelectedDisaster} 
           setSelectedYear={setSelectedYear}>
