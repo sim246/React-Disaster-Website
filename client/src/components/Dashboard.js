@@ -86,7 +86,7 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
             <select 
               className="child-select"
               id="countrySelect"
-              value={selectedCountry}
+              value={selectedCountry ? selectedCountry : undefined}
               onChange={
                 (e) => setSelectedCountry(e.target.value)}>
               {countries.map((country) => {

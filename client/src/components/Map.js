@@ -91,6 +91,7 @@ function Map({selectedCountry, setSelectedCountry}) {
               setSelectedCountry(item.properties.ADMIN);
             }
           }}
+          key={item.properties.ADMIN}
         />);
     });
   }
@@ -117,7 +118,10 @@ function Map({selectedCountry, setSelectedCountry}) {
           earthquakes.map((earthquake) => {
             if (earthquake.country === selectedCountry) {
               return (
-                <Marker position={[earthquake.latitude, earthquake.longitude]} icon={customIcon} >
+                <Marker
+                  position={[earthquake.latitude, earthquake.longitude]}
+                  icon={customIcon}
+                  key={earthquake} >
                   <Popup><p>⚠️</p></Popup>
                 </Marker>
               );
