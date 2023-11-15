@@ -44,6 +44,7 @@ describe('GET /api/v1/2050/natural-disasters/country/Colombia', () => {
 });
 
 
+//Test disasters per year per type of disaster
 describe('GET /api/v1/1972/natural-disasters/type/Storm', () => {
   test('It should respond with a json array', async () => {
     const expectedVal = [
@@ -93,6 +94,7 @@ describe('GET /api/v1/1972/natural-disasters/type/Whatever', () => {
   });
 });
 
+//Test getting natural disasters
 describe('GET /api/v1/natural-disasters', () => {
   test('It should respond with a json array', async () => {
     const expectedVal = ['Animal accident', 'Drought', 'Earthquake', 'Epidemic',
@@ -188,6 +190,7 @@ describe('GET /api/v1/5012/gdp?country=Whatever', () => {
   });
 });
 
+//Test getting country coordinates
 describe('GET /api/v1/countries/coordinates', () => {
   test('It should respond with a 200 response code', async () => {
     const expectedVal = [{"properties":{"ADMIN":"Aruba"},"geometry":{"coordinates":[[[12.577582098000036,-69.99693762899992]]]}}];
@@ -210,6 +213,7 @@ describe('GET /api/v1/countries/coordinatessdlkgj', () => {
   });
 });
 
+//Test getting coordinates for specific countries
 describe('GET /api/v1/countries/Canada', () => {
   test('It should respond with a 200 response code', async () => {
     const expectedVal = [{"_id":"6551714e913bddc62950eb5f","type":"Feature","properties":{"ADMIN":"Canada","ISO_A3":"CAN"}}];
@@ -232,6 +236,7 @@ describe('GET /api/v1/countriessdf/aapfoa', () => {
   });
 });
 
+//Test getting list of countries
 describe('GET /api/v1/countries', () => {
   test('It should respond with a json array', async () => {
     const expectedVal =

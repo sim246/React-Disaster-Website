@@ -174,6 +174,9 @@ app.get('/api/v1/countries/:country', async (req, res) => {
   }
 });
 
+/**
+ * @description Gets a list of all the countries from db
+ */
 app.get('/api/v1/countries', async (req, res) => {
   res.type('json');
   if (db) {
