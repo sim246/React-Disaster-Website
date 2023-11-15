@@ -216,8 +216,8 @@ describe('GET /api/v1/countries/coordinatessdlkgj', () => {
 //Test getting coordinates for specific countries
 describe('GET /api/v1/countries/Canada', () => {
   test('It should respond with a 200 response code', async () => {
-    const expectedVal = [{'_id':'6551714e913bddc62950eb5f','type':'Feature','properties':
-      {'ADMIN':'Canada','ISO_A3':'CAN'}}];
+    const expectedVal = [{'_id':'6551714e913bddc62950eb5f', 'type':'Feature', 'properties':
+      {'ADMIN':'Canada', 'ISO_A3':'CAN'}}];
     jest.spyOn(DB.prototype, 'readCountry').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/countries/Canada');
     expect(response.statusCode).toBe(200);
@@ -242,8 +242,8 @@ describe('GET /api/v1/countries', () => {
   test('It should respond with a json array', async () => {
     const expectedVal =
       ['Afghanistan', 'Akrotiri Sovereign Base Area', 'Aland', 'Albania', 'Algeria',
-      'American Samoa','Andorra', 'Angola', 'Anguilla', 'Antarctica',
-      'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Ashmore and Cartier Islands',];
+        'American Samoa','Andorra', 'Angola', 'Anguilla', 'Antarctica',
+        'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Ashmore and Cartier Islands',];
     jest.spyOn(DB.prototype, 'readCountries').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/countries');
     //if plain text, use text, if json use body
