@@ -46,8 +46,8 @@ function DisplayInfo({year, country}) {
       }
     }
   }, [year, country]);
-
-  if (disasters !== null && gdp !== null){
+  
+  if (disasters !== null){
     const groupTypes = disasters.map((disaster) => {
       return <>
         <li>Subgroup: {disaster.subgroup}
@@ -78,19 +78,35 @@ function DisplayInfo({year, country}) {
       return damages;
     }
 
-    return(
-      <div className="disaster">
-        <h3>{country}</h3>
-        <p><b>Year: </b>{year}</p>
-        <p><b>Total Number of Disasters: </b>{disasters.length}</p>
-        <ul>
-          {groupTypes}
-        </ul>
-        <p><b>GDP: </b>{gdp.gdp} USD</p>
-        <p><b>GDP per Capita: </b>{gdp.gdpPerCapita} USD</p>
-        <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
-        <p><b>Total Damages: </b>{addDamages()} USD</p>
-      </div>);
+    if (gdp === undefined){
+      return(
+        <div className="disaster">
+          <h3>{country}</h3>
+          <p><b>Year: </b>{year}</p>
+          <p><b>Total Number of Disasters: </b>{disasters.length}</p>
+          <ul>
+            {groupTypes}
+          </ul>
+          <p><b>GDP: </b>Not Defined</p>
+          <p><b>GDP per Capita: </b>Not Defined</p>
+          <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
+          <p><b>Total Damages: </b>{addDamages()} USD</p>
+        </div>);
+    } else if (gdp !== null){
+      return(
+        <div className="disaster">
+          <h3>{country}</h3>
+          <p><b>Year: </b>{year}</p>
+          <p><b>Total Number of Disasters: </b>{disasters.length}</p>
+          <ul>
+            {groupTypes}
+          </ul>
+          <p><b>GDP: </b>{gdp.gdp} USD</p>
+          <p><b>GDP per Capita: </b>{gdp.gdpPerCapita} USD</p>
+          <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
+          <p><b>Total Damages: </b>{addDamages()} USD</p>
+        </div>);
+    }
   } else {
     return<p>Select a year and country!</p>;
   }
