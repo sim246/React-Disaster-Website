@@ -12,7 +12,7 @@ const disasters = [];
  *  add it to gdp array 
  */
 fs.createReadStream('../../data/world_country_gdp_usd.csv').
-  pipe(parse({ delimiter: ',', from_line: 2 })).
+  pipe(parse({ delimiter: ',', fromLine: 2 })).
   on('data', function (row) {
     const obj = {};
     obj['conutry'] = row[0];
@@ -35,7 +35,7 @@ fs.createReadStream('../../data/world_country_gdp_usd.csv').
  *  add it to disasters array 
  */
 fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
-  pipe(parse({ delimiter: ',', from_line: 2 })).
+  pipe(parse({ delimiter: ',', fromLine: 2 })).
   on('data', function (row) {
     const obj = {};
     obj['id'] = row[0];
@@ -67,11 +67,11 @@ let countriesObj;
   try {
     const data = await fs.promises.readFile('../../data/countries.geojson', 'utf-8');
     countriesObj = await JSON.parse(data);
-    console.log('finished parsing countries json')
+    console.log('finished parsing countries json');
     countriesObj.features.forEach(feature => {
       swapCoordinates(feature.geometry);
     });
-    console.log('finished swapping coordinates')
+    console.log('finished swapping coordinates');
   } catch (err) {
     console.error(err.message);
     process.exit(9);
