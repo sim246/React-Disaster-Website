@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function DisplayInfo({year, country}) {
+function DisplayInfo({year, country, type}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
 

@@ -4,6 +4,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard.js';
 import DisplayInfo from  './components/DisplayInfo.js';
+import DisplayInfoType from  './components/Type.js';
 import Map from './components/Map.js';
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
 
       <div className="displayinfo">
         <DisplayInfo year={selectedYear} country={selectedCountry} />
+      </div>
+
+      <div className="displayinfo">
+        <DisplayInfoType year={selectedYear} type={selectedDisaster} />
       </div>
     </div>
   );

@@ -20,6 +20,8 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
+  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+  margin-bottom: 20px;
 }
 
 .map{
