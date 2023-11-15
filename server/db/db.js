@@ -65,7 +65,7 @@ module.exports = class DB {
    * @description Read all countries with their borders info
    */
   async readCountries() {
-    return await instance.countriesColl.find().toArray();
+    return await instance.countriesColl.distinct('properties.ADMIN');
   }
 
   /**
