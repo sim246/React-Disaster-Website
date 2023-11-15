@@ -70,7 +70,7 @@ function Map({selectedCountry, setSelectedCountry}) {
           throw new Error(`Got response ${response.status}`);
         }
         const data = await response.json();
-        console.log('fetched allCountries');
+        //console.log('fetched allCountries');
         setAllCountriesData(data);
       } catch (error) {
         console.error(`Fetch error: ${error.message}`);
@@ -121,7 +121,7 @@ function Map({selectedCountry, setSelectedCountry}) {
                   <Popup><p>⚠️</p></Popup>
                 </Marker>
               );
-            }
+            } else return null;
           })
         }
         <Legend map={map} />
