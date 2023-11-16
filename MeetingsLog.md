@@ -1,6 +1,6 @@
 # Meetings Log
 
-## Tuseday November 14 2023 @ lab time
+## Tuseday November 15 2023 @ lab time
 
 ### Attendees
 Full attendance
