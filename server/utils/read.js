@@ -29,6 +29,7 @@ const DB = require('../db/db.js');
   }
 })();
 
+// eslint-disable-next-line no-unused-vars
 function swapCoordinates(geometry) {
   if (geometry.type === 'Polygon') {
     // For Polygons
