@@ -15,7 +15,7 @@ fs.createReadStream('../../data/world_country_gdp_usd.csv').
   pipe(parse({ delimiter: ',', fromLine: 2 })).
   on('data', function (row) {
     const obj = {};
-    obj['conutry'] = row[0];
+    obj['country'] = row[0];
     obj['countryCode'] = row[1];
     obj['year'] = row[2];
     obj['gdp'] = row[3];

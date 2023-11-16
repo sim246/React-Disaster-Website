@@ -70,7 +70,7 @@ function Map({selectedCountry, setSelectedCountry}) {
           throw new Error(`Got response ${response.status}`);
         }
         const data = await response.json();
-        console.log('fetched allCountries');
+        //console.log('fetched allCountries');
         setAllCountriesData(data);
       } catch (error) {
         console.error(`Fetch error: ${error.message}`);
@@ -91,6 +91,7 @@ function Map({selectedCountry, setSelectedCountry}) {
               setSelectedCountry(item.properties.ADMIN);
             }
           }}
+          key={item.properties.ADMIN}
         />);
     });
   }
@@ -117,11 +118,14 @@ function Map({selectedCountry, setSelectedCountry}) {
           earthquakes.map((earthquake) => {
             if (earthquake.country === selectedCountry) {
               return (
-                <Marker position={[earthquake.latitude, earthquake.longitude]} icon={customIcon} >
+                <Marker
+                  position={[earthquake.latitude, earthquake.longitude]}
+                  icon={customIcon}
+                  key={earthquake} >
                   <Popup><p>⚠️</p></Popup>
                 </Marker>
               );
-            }
+            } else return null;
           })
         }
         <Legend map={map} />

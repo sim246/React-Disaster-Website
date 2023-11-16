@@ -83,8 +83,12 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
         </div>
         <div>
           <label> Country
-            <select className="child-select" id="countrySelect" onChange={
-              (e) => setSelectedCountry(e.target.value)}>
+            <select 
+              className="child-select"
+              id="countrySelect"
+              value={selectedCountry ? selectedCountry : undefined}
+              onChange={
+                (e) => setSelectedCountry(e.target.value)}>
               {countries.map((country) => {
                 return (
                   <option value={country} key={country}>{country}</option>

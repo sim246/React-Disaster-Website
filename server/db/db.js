@@ -71,6 +71,36 @@ module.exports = class DB {
     return await instance.countriesColl.find({}, options).toArray();
   }
 
+  /**
+   * WIP on the query, does not work as intended yet!
+   * @description Read all countries with their borders info and GDP
+   */
+  async readCountriesWithCoordsGDP() {
+    return await instance.countriesColl.aggregate([
+      {
+        '$lookup': {
+          'from': 'gdp', 
+          'localField': 'properties.ADMIN', 
+          'foreignField': 'country', 
+          'as': 'result'
+        }
+      }, {
+        '$match': {
+          'result.year': {
+            '$eq': '2010'
+          }
+        }
+      }, {
+        '$project': {
+          '_id': 0, 
+          'properties.ADMIN': 1, 
+          'geometry.coordinates': 1, 
+          'result': 1
+        }
+      }
+    ]).toArray();
+  }
+
   async readCountries() {
     return await instance.countriesColl.distinct('properties.ADMIN');
   }
@@ -84,7 +114,6 @@ module.exports = class DB {
     }).toArray();
   }
 
-  //ADD ASYNC readGdp FUNCTION HERE
   /**
    * @description Add provided gdp array to the db
    * @param {array<Object>} gdp array of gdp values objects
