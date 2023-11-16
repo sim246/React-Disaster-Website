@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../api');
+const app = require('../server');
 const DB = require('../db/db');
 
 jest.mock('../db/db');
@@ -202,11 +202,11 @@ describe('GET /api/v1/countries/coordinates', () => {
   });
 });
 
-describe('GET /api/v1/countries/coordinatessdlkgj', () => {
+describe('GET /api/v1/countriess/coordinatessdlkgj', () => {
   test('It should have failed', async () => {
-    const expectedVal = {status: '404', message: 'Not found: Error: 404'};
+    const expectedVal = {status: '404', message: 'Sorry cant find that!'};
     jest.spyOn(DB.prototype, 'readCountriesWithCoords').mockResolvedValue(expectedVal);
-    const response = await request(app).get('/api/v1/countries/coordinatessdlkgj');
+    const response = await request(app).get('/api/v1/countriess/coordinatessdlkgj');
     //if plain text, use text, if json use body
     expect(response.body).toEqual(expectedVal);
     expect(response.statusCode).toBe(404);

@@ -1,11 +1,11 @@
 const express = require('express');
-const apioutes = require('./api/routes.js');
+const apiroutes = require('./api/routes.js');
 
 function registerMiddlewares(app) {
   app.use(express.json());
 }
 function registerApiRoutes(app) {
-  app.use(apioutes);
+  app.use(apiroutes);
 }
 
 function registerErrorHandlers(app) {

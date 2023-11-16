@@ -125,6 +125,9 @@ async function getCountriesCoordinates(req, res) {
     let countryData;
     try {
       countryData = await db.readCountriesWithCoords();
+      if (!countryData || countryData.length === 0) {
+        throw new Error(404);
+      }
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
     }
