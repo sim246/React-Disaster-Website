@@ -29,7 +29,9 @@ const DB = require('../db/db.js');
   }
 })();
 
-// eslint-disable-next-line no-unused-vars
+
+//This was unused so I guess we can delete this (?)
+/*
 function swapCoordinates(geometry) {
   if (geometry.type === 'Polygon') {
     // For Polygons
@@ -46,4 +48,4 @@ function swapCoordinates(geometry) {
   } else {
     console.error('Unsupported geometry type:', geometry.type);
   }
-}
+}*/

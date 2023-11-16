@@ -1,9 +1,6 @@
 const express = require('express');
 const registerRoutes = require('./api.js');
 
-// eslint-disable-next-line no-unused-vars
-const DB = require('./db/db.js');
-
 const app = express();
 
 app.use(express.static('../client/build'));
