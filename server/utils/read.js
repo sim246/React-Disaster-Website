@@ -14,9 +14,6 @@ const DB = require('../db/db.js');
     await db.connect(dbName);
     const countries = await db.readCountriesWithCoordsGDP();
     //console.log(countries);
-    // countries.forEach(feature => {
-    //   swapCoordinates(feature.geometry);
-    // });
     console.log(countries);
   } catch (e) {
     console.error('could not read');
@@ -28,21 +25,3 @@ const DB = require('../db/db.js');
     process.exit();
   }
 })();
-
-function swapCoordinates(geometry) {
-  if (geometry.type === 'Polygon') {
-    // For Polygons
-    geometry.coordinates = geometry.coordinates.map(ring =>
-      ring.map(coord => [coord[1], coord[0]])
-    );
-  } else if (geometry.type === 'MultiPolygon') {
-    // For MultiPolygons
-    geometry.coordinates = geometry.coordinates.map(polygon =>
-      polygon.map(ring =>
-        ring.map(coord => [coord[1], coord[0]])
-      )
-    );
-  } else {
-    console.error('Unsupported geometry type:', geometry.type);
-  }
-}

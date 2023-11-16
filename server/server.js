@@ -1,7 +1,5 @@
-const express = require("express");
-const registerRoutes = require("./api.js");
-
-const DB = require('./db/db.js');
+const express = require('express');
+const registerRoutes = require('./api.js');
 
 const app = express();
 

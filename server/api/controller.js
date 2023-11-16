@@ -27,7 +27,7 @@ async function getNaturalDisastersByCountries(req, res) {
   } else {
     res.status(500).send({status: '500', message: 'Database connection not established'});
   }
-};
+}
 
 /**
  * @description Gets from db the natural disasters by parameter year by parameter type
@@ -58,7 +58,7 @@ async function getNaturalDisastersByType(req, res) {
   } else {
     res.status(404).send({ status: 404, message: 'invalid request parameters' });
   }
-};
+}
 
 /**
  * @description Gets from db the natural disaster types
@@ -77,7 +77,7 @@ async function getNaturalDisasters(req, res) {
   } else {
     res.status(500).send({status: 500, message: 'Database connection not established'});
   }
-};
+}
 
 /**
  * @description Gets from db the gdp by parameter year 
@@ -113,7 +113,7 @@ async function getGDPs(req, res) {
   } else {
     res.status(500).send({status: '500', message: 'Database connection not established'});
   }
-};
+}
 
 /**
  * THIS IS VERY SLOW
@@ -125,6 +125,9 @@ async function getCountriesCoordinates(req, res) {
     let countryData;
     try {
       countryData = await db.readCountriesWithCoords();
+      if (!countryData || countryData.length === 0) {
+        throw new Error(404);
+      }
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
     }
@@ -134,7 +137,7 @@ async function getCountriesCoordinates(req, res) {
   } else {
     res.status(500).send({status: '500', message: 'Database connection not established'});
   }
-};
+}
 
 /**
  * @description Gets from db information about geographical borders of a given country
@@ -155,7 +158,7 @@ async function getCountry(req, res) {
   } else {
     res.status(500).send({status: '500', message: 'Database connection not established'});
   }
-};
+}
 
 async function getCountries(req, res) {
   res.type('json');
@@ -172,6 +175,7 @@ async function getCountries(req, res) {
   } else {
     res.status(500).send({status: '500', message: 'Database connection not established'});
   }
-};
+}
 
-module.exports = {getNaturalDisastersByCountries, getNaturalDisastersByType, getNaturalDisasters, getGDPs, getCountriesCoordinates, getCountry, getCountries};
+module.exports = {getNaturalDisastersByCountries, getNaturalDisastersByType, 
+  getNaturalDisasters, getGDPs, getCountriesCoordinates, getCountry, getCountries};
