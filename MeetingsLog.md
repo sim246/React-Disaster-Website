@@ -1,5 +1,29 @@
 # Meetings Log
 
+## Thursday November 23 2023 @ 1:00pm - 2:00pm
+
+### Attendees
+Full attendance
+
+### Tasks assigned 
+
+- Stuff to fix from phase 2
+- General tasks for phase 3
+
+### Topics discussed
+
+- Phase 3 
+- Tasks to assign
+- Swagger
+- Deployment
+
+### Problems dicussed
+
+- Performance issues
+- Colors on the map 
+- Fetching information
+- Views
+
 ## Tuseday November 15 2023 @ lab time
 
 ### Attendees
