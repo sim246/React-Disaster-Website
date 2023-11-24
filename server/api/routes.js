@@ -26,8 +26,21 @@ router.get('/api/v1/countries/:country', getCountry);
  * @swagger
  * /api/v1/countries:
  *   get:
- *     summary: Retrieve a list of countries
+ *     summary: Retrieve a list of mongoDB countries
  *     description: Retrieve a list of countries from MongoDB. Can be used to populate the map.
+ *     responses:
+ *       200:
+ *         description: A list of countries.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items: 
+ *                     type: string
+ *                   example: ["Canada","Japan","Mexico"]
 */
 router.get('/api/v1/countries', getCountries);
 
