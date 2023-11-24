@@ -12,7 +12,7 @@ import 'leaflet/dist/leaflet.css';
 import './Map.css';
 import markerImage from '../img/marker-icon.png';
 
-function Map({selectedCountry, setSelectedCountry}) {
+function Map({selectedCountry, setSelectedCountry, selectedYear}) {
   const [map, setMap] = useState(null);
   const [countryData, setCountryData] = useState(null);
   const [allCountriesData, setAllCountriesData] = useState(null);
@@ -41,7 +41,7 @@ function Map({selectedCountry, setSelectedCountry}) {
     
     async function fetchEarthquakes() {
       //year set automatically for now
-      fetch('/api/v1/2012/natural-disasters/type/Earthquake', {
+      fetch(`/api/v1/${selectedYear}/natural-disasters/type/Earthquake`, {
         method: 'GET',
       }).then((response) => {
         if (!response.ok) {
@@ -59,7 +59,7 @@ function Map({selectedCountry, setSelectedCountry}) {
     }
     fetchEarthquakes();
 
-  }, [selectedCountry]);
+  }, [selectedCountry, selectedYear]);
 
   useEffect(() => {
     // slow for now

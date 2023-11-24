@@ -27,6 +27,7 @@ function App() {
         <Map
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
+          selectedYear={selectedYear}
         />
       </div>
 
