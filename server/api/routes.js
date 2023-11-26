@@ -18,6 +18,40 @@ router.get('/api/v1/natural-disasters', getNaturalDisasters);
 
 router.get('/api/v1/:year/gdp', getGDPs);
 
+/**
+ * @swagger
+ * /api/v1/countries/coordinates:
+ *   get:
+ *     summary: Retrieve a list of mongoDB coordinates for all countries
+ *     description: Retrieve a list of coordinates for all countries from MongoDB. Can be used to populate a map.
+ *     responses:
+ *       200:
+ *         description: A list of coordinates for all countries
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   properties:
+ *                     type: object
+ *                     properties:
+ *                       ADMIN:
+ *                         type: string
+ *                         example: "Canada"
+ *                   geometry:
+ *                     type: object
+ *                     properties:
+ *                       coordinates:
+ *                         type: array
+ *                         items:
+ *                           type: array
+ *                           items:
+ *                             type: float
+ *                             example: [1.22334353, -2.3482758947]
+ */
+
 router.get('/api/v1/countries/coordinates', getCountriesCoordinates);
 
 /**
