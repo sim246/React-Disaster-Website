@@ -17,15 +17,15 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
   const [countryData, setCountryData] = useState(null);
   const [allCountriesData, setAllCountriesData] = useState(null);
   const [earthquakes, setEarthquakes] = useState([]);
-
-  const customIcon = new Icon({
-    iconUrl: markerImage,
-    iconSize: [38, 38],
-    iconAnchor: [22, 30]
-  });
   
 
   useEffect(() => {
+    const customIcon = new Icon({
+      iconUrl: markerImage,
+      iconSize: [38, 38],
+      iconAnchor: [22, 30]
+    });
+
     async function fetchCountry() {
       try {
         const response = await fetch(`/api/v1/countries/${selectedCountry}`);
@@ -49,7 +49,18 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
         }
         return response.json();
       }).then((data) => {
-        setEarthquakes(data);
+        setEarthquakes(data.map((earthquake) => {
+          if (earthquake.country === selectedCountry) {
+            return (
+              <Marker
+                position={[earthquake.latitude, earthquake.longitude]}
+                icon={customIcon}
+                key={earthquake.id} >
+                <Popup><p>⚠️</p></Popup>
+              </Marker>
+            );
+          } else return null;
+        }));
       }).catch((error) => {
         return error;
       });
@@ -57,6 +68,9 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
     if (selectedCountry){
       fetchCountry();
     }
+
+    // Clear previous earthquake markers
+
     fetchEarthquakes();
 
   }, [selectedCountry, selectedYear]);
@@ -115,17 +129,8 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {earthquakes.length > 0 && 
-          earthquakes.map((earthquake) => {
-            if (earthquake.country === selectedCountry) {
-              return (
-                <Marker
-                  position={[earthquake.latitude, earthquake.longitude]}
-                  icon={customIcon}
-                  key={earthquake} >
-                  <Popup><p>⚠️</p></Popup>
-                </Marker>
-              );
-            } else return null;
+          earthquakes.map((earthquake)=>{
+            return earthquake;
           })
         }
         <Legend map={map} />
