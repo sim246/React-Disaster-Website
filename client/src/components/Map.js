@@ -10,22 +10,24 @@ import {
 import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
+import { unmountComponentAtNode } from 'react-dom';
+import DisplayInfo from  './DisplayInfo.js';
 import markerImage from '../img/marker-icon.png';
 
-function Map({selectedCountry, setSelectedCountry, selectedYear}) {
+function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) {
   const [map, setMap] = useState(null);
   const [countryData, setCountryData] = useState(null);
   const [allCountriesData, setAllCountriesData] = useState(null);
   const [earthquakes, setEarthquakes] = useState([]);
+
+  const customIcon = new Icon({
+    iconUrl: markerImage,
+    iconSize: [38, 38],
+    iconAnchor: [22, 30]
+  });
   
 
   useEffect(() => {
-    const customIcon = new Icon({
-      iconUrl: markerImage,
-      iconSize: [38, 38],
-      iconAnchor: [22, 30]
-    });
-
     async function fetchCountry() {
       try {
         const response = await fetch(`/api/v1/countries/${selectedCountry}`);
@@ -49,18 +51,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
         }
         return response.json();
       }).then((data) => {
-        setEarthquakes(data.map((earthquake) => {
-          if (earthquake.country === selectedCountry) {
-            return (
-              <Marker
-                position={[earthquake.latitude, earthquake.longitude]}
-                icon={customIcon}
-                key={earthquake.id} >
-                <Popup><p>⚠️</p></Popup>
-              </Marker>
-            );
-          } else return null;
-        }));
+        setEarthquakes(data);
       }).catch((error) => {
         return error;
       });
@@ -68,10 +59,17 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
     if (selectedCountry){
       fetchCountry();
     }
+    if (selectedYear) {
+      /*var markers = React.Children.toArray(this.props.children).filter((item) => 
+        item.props.className === 'snap').length;*/
 
-    // Clear previous earthquake markers
-
-    fetchEarthquakes();
+      /*for (var marker in markers) {
+        console.log(marker);
+        unmountComponentAtNode(marker);
+        //document.removeChild(marker);
+      }*/
+      fetchEarthquakes();
+    }
 
   }, [selectedCountry, selectedYear]);
 
@@ -106,7 +104,14 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
             }
           }}
           key={item.properties.ADMIN}
-        />);
+        >
+          <Popup className="country-popup">{selectedCountry}
+            <DisplayInfo year={selectedYear}
+              country={selectedCountry}
+              type={selectedType}>
+            </DisplayInfo>
+          </Popup>
+        </Polygon>);
     });
   }
 
@@ -129,8 +134,18 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {earthquakes.length > 0 && 
-          earthquakes.map((earthquake)=>{
-            return earthquake;
+          earthquakes.map((earthquake) => {
+            if (earthquake.country === selectedCountry) {
+              return (
+                <Marker
+                  position={[earthquake.latitude, earthquake.longitude]}
+                  icon={customIcon}
+                  key={earthquake.id} 
+                  className="earthquake">
+                  <Popup><p>⚠️</p></Popup>
+                </Marker>
+              );
+            } else return null;
           })
         }
         <Legend map={map} />

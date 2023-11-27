@@ -28,6 +28,7 @@ function App() {
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
           selectedYear={selectedYear}
+          selectedType={selectedDisaster}
         />
       </div>
 
