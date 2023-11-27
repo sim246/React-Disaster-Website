@@ -9,9 +9,134 @@ const {
   getCountries
 } = require('./controller.js');
 
-
+/**
+ * @swagger
+ * /api/v1/{year}/natural-disasters/country/{country}:
+ *   get:
+ *     summary: Retrieve a list of all the natusal disaters for a given country and year.
+ *     description: Retrieve a list of all the possible natural disater for a given country and year from MongoDB. The information is displayed in the application.
+ *     parameters:
+ *     - name: year
+ *       in: path
+ *       description: 'the given year'
+ *       required: true
+ *       type: int
+ *       default: 2012
+ *     - name: country
+ *       in: path
+ *       description: 'the given country'
+ *       required: true
+ *       type: string
+ *       default: Japan
+ *     responses:
+ *       200:
+ *         description: A list of all the natusal disaters for a given country and year.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                    type: string
+ *                    example: "6542c9a56c21ed88f1120260"
+ *                   id:
+ *                    type: string
+ *                    example: "2012-0034-DZA"
+ *                   year:
+ *                    type: string
+ *                    example: "2012"
+ *                   subgroup:
+ *                    type: string
+ *                    example: "Hydrological"
+ *                   type:
+ *                    type: string
+ *                    example: "Flood"
+ *                   country:
+ *                    type: string
+ *                    example: "Canada"
+ *                   countryCode:
+ *                    type: string
+ *                    example: "CAN"
+ *                   latitude:
+ *                    type: string
+ *                    example: "46.5994"
+ *                   longitude:
+ *                    type: string
+ *                    example: "-67.5"
+ *                   insuredDamages:
+ *                    type: string
+ *                    example: "200"
+ *                   damages:
+ *                    type: string
+ *                    example: "1200"
+ */
 router.get('/api/v1/:year/natural-disasters/country/:country', getNaturalDisastersByCountries);
 
+/**
+ * @swagger
+ * /api/v1/{year}/natural-disasters/type/{type}:
+ *   get:
+ *     summary: Retrieve a list of all the natusal disaters for a given type and year.
+ *     description: Retrieve a list of all the possible natural disater for a given type and year from MongoDB. The information is displayed in the application.
+ *     parameters:
+ *     - name: year
+ *       in: path
+ *       description: 'the given year'
+ *       required: true
+ *       type: int
+ *       default: 2012
+ *     - name: type
+ *       in: path
+ *       description: 'the given type'
+ *       required: true
+ *       type: string
+ *       default: Flood
+ *     responses:
+ *       200:
+ *         description: A list of all the natusal disaters for a given type and year.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                    type: string
+ *                    example: "6542c9a56c21ed88f1120260"
+ *                   id:
+ *                    type: string
+ *                    example: "2012-0034-DZA"
+ *                   year:
+ *                    type: string
+ *                    example: "2012"
+ *                   subgroup:
+ *                    type: string
+ *                    example: "Hydrological"
+ *                   type:
+ *                    type: string
+ *                    example: "Flood"
+ *                   country:
+ *                    type: string
+ *                    example: "Canada"
+ *                   countryCode:
+ *                    type: string
+ *                    example: "CAN"
+ *                   latitude:
+ *                    type: string
+ *                    example: "46.5994"
+ *                   longitude:
+ *                    type: string
+ *                    example: "-67.5"
+ *                   insuredDamages:
+ *                    type: string
+ *                    example: "200"
+ *                   damages:
+ *                    type: string
+ *                    example: "1200"
+ */
 router.get('/api/v1/:year/natural-disasters/type/:type', getNaturalDisastersByType);
 
 /**
@@ -19,7 +144,7 @@ router.get('/api/v1/:year/natural-disasters/type/:type', getNaturalDisastersByTy
  * /api/v1/natural-disasters:
  *   get:
  *     summary: Retrieve a list of all the possible disater types.
- *     description: Retrieve a list of all the possible disater typesfrom MongoDB. The information is displayed in the application.
+ *     description: Retrieve a list of all the possible disater types from MongoDB. The information is displayed in the application.
  *     responses:
  *       200:
  *         description: A list of all the possible disater types.
