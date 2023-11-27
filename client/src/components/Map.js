@@ -60,6 +60,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
       fetchCountry();
     }
     if (selectedYear) {
+      //TO DO: Gotta get rid of the markers first
       /*var markers = React.Children.toArray(this.props.children).filter((item) => 
         item.props.className === 'snap').length;*/
 
@@ -95,6 +96,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
   const polygons = [];
   if (allCountriesData){
     allCountriesData.forEach((item) => {
+      //TO DO: Make it so the country popup aren't so tall
       polygons.push(
         <Polygon
           positions={item.geometry.coordinates}
