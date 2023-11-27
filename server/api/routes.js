@@ -14,19 +14,78 @@ router.get('/api/v1/:year/natural-disasters/country/:country', getNaturalDisaste
 
 router.get('/api/v1/:year/natural-disasters/type/:type', getNaturalDisastersByType);
 
+/**
+ * @swagger
+ * /api/v1/natural-disasters:
+ *   get:
+ *     summary: Retrieve a list of all the possible disater types.
+ *     description: Retrieve a list of all the possible disater typesfrom MongoDB. The information is displayed in the application.
+ *     responses:
+ *       200:
+ *         description: A list of all the possible disater types.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *                 example: "Flood"
+ */
 router.get('/api/v1/natural-disasters', getNaturalDisasters);
 
+/**
+ * @swagger
+ * /api/v1/{year}/gdp:
+ *   get:
+ *     summary: Retrieve a list of GDPs for all the countries for the given year from mongoDB.
+ *     description: Retrieve a list of GDPs for all for the countries for the given year from MongoDB. The information is displayed in the application.
+ *     parameters:
+ *     - name: year
+ *       in: path
+ *       description: 'the given year'
+ *       required: true
+ *       type: int
+ *       default: 2012
+ *     responses:
+ *       200:
+ *         description: A list of GDPs for all the countries.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     example: "6542c9a36c21ed88f111a231"
+ *                   conutry:
+ *                     type: string
+ *                     example: "Canada"
+ *                   contryCode:
+ *                     type: string
+ *                     example: "CAN"
+ *                   year:
+ *                     type: string
+ *                     example: "1970"
+ *                   gdp:
+ *                     type: string
+ *                     example: "87896095320.0"
+ *                   gdpPerCapita:
+ *                     type: string
+ *                     example: "87896095320.0"
+ */
 router.get('/api/v1/:year/gdp', getGDPs);
 
 /**
  * @swagger
  * /api/v1/countries/coordinates:
  *   get:
- *     summary: Retrieve a list of mongoDB coordinates for all countries
+ *     summary: Retrieve a list of mongoDB coordinates for all countries.
  *     description: Retrieve a list of coordinates for all countries from MongoDB. Can be used to populate a map.
  *     responses:
  *       200:
- *         description: A list of coordinates for all countries
+ *         description: A list of coordinates for all countries.
  *         content:
  *           application/json:
  *             schema:
@@ -51,24 +110,24 @@ router.get('/api/v1/:year/gdp', getGDPs);
  *                             type: float
  *                             example: [1.22334353, -2.3482758947]
  */
-
 router.get('/api/v1/countries/coordinates', getCountriesCoordinates);
 
 /**
  * @swagger
  * /api/v1/countries/{country}:
  *   get:
- *     summary: Retrieve a list of mongoDB coordinates for a given country
+ *     summary: Retrieve a list of mongoDB coordinates for a given country.
  *     description: Retrieve a list of coordinates for a given country from MongoDB. Can be used to populate a map.
  *     parameters:
  *     - name: country
  *       in: path
- *       description: 'country'
+ *       description: 'the name of a country'
  *       required: true
  *       type: string
+ *       default: Japan
  *     responses:
  *       200:
- *         description: A list of coordinates for a given country
+ *         description: A list of coordinates for a given country.
  *         content:
  *           application/json:
  *             schema:
@@ -113,7 +172,7 @@ router.get('/api/v1/countries/:country', getCountry);
  * @swagger
  * /api/v1/countries:
  *   get:
- *     summary: Retrieve a list of mongoDB countries
+ *     summary: Retrieve a list of mongoDB countries.
  *     description: Retrieve a list of countries from MongoDB. Can be used to populate a map.
  *     responses:
  *       200:
@@ -121,13 +180,10 @@ router.get('/api/v1/countries/:country', getCountry);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items: 
- *                     type: string
- *                   example: ["Canada","Japan","Mexico"]
+ *               type: array
+ *               items: 
+ *                 type: string
+ *                 example: "Canada"
 */
 router.get('/api/v1/countries', getCountries);
 
