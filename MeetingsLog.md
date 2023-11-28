@@ -1,5 +1,24 @@
 # Meetings Log
 
+## Monday November 27 2023 @ 2:15pm - 2:25pm
+
+### Attendees
+Full attendance
+
+### Tasks assigned
+
+- Do each of our tasks assigned in issues and finalize project by tomorrow
+
+### Topics discussed
+
+- Submission
+- Our progress with each of our tasks so far
+
+### Problems discusses
+
+- Bug to fix with earthquake markers
+- Issue with swagger 
+
 ## Thursday November 23 2023 @ 1:00pm - 2:00pm
 
 ### Attendees
@@ -24,7 +43,7 @@ Full attendance
 - Fetching information
 - Views
 
-## Tuseday November 15 2023 @ lab time
+## Tuesday November 15 2023 @ lab time
 
 ### Attendees
 Full attendance
