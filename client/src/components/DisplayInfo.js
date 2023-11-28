@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function DisplayInfo({year, country, type}) {
+function DisplayInfo({year, country, type, marker}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
 
@@ -98,9 +98,11 @@ function DisplayInfo({year, country, type}) {
           <h3>{country}</h3>
           <p><b>Year: </b>{year}</p>
           <p><b>Total Number of Disasters: </b>{disasters.length}</p>
-          <ul>
-            {groupTypes}
-          </ul>
+          { !marker &&
+            <ul>
+              {groupTypes}
+            </ul>
+          }
           <p><b>GDP: </b>{gdp.gdp} USD</p>
           <p><b>GDP per Capita: </b>{gdp.gdpPerCapita} USD</p>
           <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>

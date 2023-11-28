@@ -59,14 +59,15 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     if (selectedCountry){
       fetchCountry();
     }
-    if (selectedYear) {
+    if (selectedYear && selectedCountry) {
       //TO DO: Gotta get rid of the markers first
-      /*var markers = React.Children.toArray(this.props.children).filter((item) => 
-        item.props.className === 'snap').length;*/
-
+      /*const filteredMarkers = React.Children.toArray(Marker).filter(
+        (item) => item.props.className === 'earthquake'
+      ); */    
+    
       /*for (var marker in markers) {
-        console.log(marker);
-        unmountComponentAtNode(marker);
+        //console.log(marker);
+        //unmountComponentAtNode(marker);
         //document.removeChild(marker);
       }*/
       fetchEarthquakes();
@@ -110,7 +111,8 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
           <Popup className="country-popup">{selectedCountry}
             <DisplayInfo year={selectedYear}
               country={selectedCountry}
-              type={selectedType}>
+              type={selectedType}
+              marker={true}>
             </DisplayInfo>
           </Popup>
         </Polygon>);
