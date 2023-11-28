@@ -62,7 +62,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
               className="earthquake"
             >
               <Popup>
-                <p>⚠️</p>
+                <p>Earthquake</p>
               </Popup>
             </Marker>;
           }
