@@ -86,8 +86,12 @@ function DisplayInfo({year, country, type, marker}) {
             </ul>
           }
           <p><b>GDP: </b>Not Defined</p>
-          <p><b>GDP per Capita: </b>Not Defined</p>
-          <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
+          { !marker && 
+            <>
+              <p><b>GDP per Capita: </b>Not Defined</p>
+              <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
+            </>
+          }
           <p><b>Total Damages: </b>{addDamages()} USD</p>
         </div> );
     } else if (gdp !== null){
@@ -104,8 +108,12 @@ function DisplayInfo({year, country, type, marker}) {
             }
           </ul>
           <p className="bold">GDP: </p><p>{gdp.gdp} USD</p>
-          <p className="bold">GDP per Capita: </p><p>{gdp.gdpPerCapita} USD</p>
-          <p className="bold">Total Insured Damages: </p><p>{addInsuredDamages()} USD</p>
+          { !marker && 
+            <>
+              <p className="bold">GDP per Capita: </p><p>{gdp.gdpPerCapita} USD</p>
+              <p className="bold">Total Insured Damages: </p><p>{addInsuredDamages()} USD</p>
+            </>
+          }
           <p className="bold">Total Damages: </p><p>{addDamages()} USD</p>
         </div>);
     }
