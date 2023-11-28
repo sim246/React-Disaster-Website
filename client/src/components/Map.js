@@ -35,33 +35,6 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
       }
     }
 
-    // Function to convert coordinates in wrong format
-    function convertCoordinates(latitude, longitude) {
-      // Parse latitude and longitude values
-      const latMatch = latitude.match(/([\d.]+)\s*([NS])$/);
-      const lonMatch = longitude.match(/([\d.]+)\s*([EW])$/);
-
-      if (!latMatch || !lonMatch) {
-        if (latitude.match(/([\d.]+)([\d.]+)$/)) {
-          return [latitude, longitude];
-        }
-        return null;
-      }
-
-      const latValue = parseFloat(latMatch[1]);
-      const lonValue = parseFloat(lonMatch[1]);
-
-      // Determine the sign based on N/S and E/W
-      const latSign = latMatch[2] === 'N' ? 1 : -1;
-      const lonSign = lonMatch[2] === 'E' ? 1 : -1;
-
-      // Apply the sign to the values
-      const convertedLat = latSign * latValue;
-      const convertedLon = lonSign * lonValue;
-
-      return [convertedLat, convertedLon];
-    }
-        
     async function fetchEarthquakes() {
       const customIcon = new Icon({
         iconUrl: markerImage,
@@ -81,11 +54,9 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
         //Make the markers objects for the map
         const earthquakeMarkers = data.filter((earthquake) => 
           earthquake.country === selectedCountry).map((earthquake) => {
-          const [convertedLat, convertedLon] = convertCoordinates(earthquake.latitude, 
-            earthquake.longitude);
-          if (convertedLat !== null && convertedLon !== null) {
+          if (earthquake.latitude !== null && earthquake.longitude !== null) {
             return <Marker
-              position={[convertedLat, convertedLon]}
+              position={[earthquake.latitude, earthquake.longitude]}
               icon={customIcon}
               key={earthquake.id}
               className="earthquake"

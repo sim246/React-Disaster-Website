@@ -84,9 +84,11 @@ function DisplayInfo({year, country, type, marker}) {
           <h3>{country}</h3>
           <p><b>Year: </b>{year}</p>
           <p><b>Total Number of Disasters: </b>{disasters.length}</p>
-          <ul>
-            {groupTypes}
-          </ul>
+          { !marker &&
+            <ul>
+              {groupTypes}
+            </ul>
+          }
           <p><b>GDP: </b>Not Defined</p>
           <p><b>GDP per Capita: </b>Not Defined</p>
           <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
