@@ -80,7 +80,7 @@ function DisplayInfo({year, country, type, marker}) {
 
     if (gdp === undefined){
       return(
-        <div className="disaster">
+        <div className="disaster" id="disasterInfo"> 
           <h3>{country}</h3>
           <p><b>Year: </b>{year}</p>
           <p><b>Total Number of Disasters: </b>{disasters.length}</p>
@@ -91,10 +91,10 @@ function DisplayInfo({year, country, type, marker}) {
           <p><b>GDP per Capita: </b>Not Defined</p>
           <p><b>Total Insured Damages: </b>{addInsuredDamages()} USD</p>
           <p><b>Total Damages: </b>{addDamages()} USD</p>
-        </div>);
+        </div> );
     } else if (gdp !== null){
       return(
-        <div className="disaster">
+        <div className="disaster" id="disasterInfo">
           <h3>{country}</h3>
           <p><b>Year: </b>{year}</p>
           <p><b>Total Number of Disasters: </b>{disasters.length}</p>

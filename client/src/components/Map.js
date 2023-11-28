@@ -114,6 +114,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
               type={selectedType}
               marker={true}>
             </DisplayInfo>
+            <a href="#disasterInfo"> <p> Read more info </p> </a>
           </Popup>
         </Polygon>);
     });
