@@ -58,35 +58,35 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
     console.log(error.message);
   });
 
-  function convertCoordinates(latitude, longitude) {
+function convertCoordinates(latitude, longitude) {
 
-    // Parse latitude and longitude values
-    const latMatch = latitude.match(/([\d.]+)\s*([NS])$/);
-    const lonMatch = longitude.match(/([\d.]+)\s*([EW])$/);
+  // Parse latitude and longitude values
+  const latMatch = latitude.match(/([\d.]+)\s*([NS])$/);
+  const lonMatch = longitude.match(/([\d.]+)\s*([EW])$/);
 
-    if (!latMatch || !lonMatch) {
-      if (latitude.match(/([\d.]+)([\d.]+)$/)) {
-        return [latitude, longitude];
-      }
-      return [null, null];
+  if (!latMatch || !lonMatch) {
+    if (latitude.match(/([\d.]+)([\d.]+)$/)) {
+      return [latitude, longitude];
     }
-
-    const latValue = parseFloat(latMatch[1]);
-    const lonValue = parseFloat(lonMatch[1]);
-
-    // Determine the sign based on N/S and E/W
-    const latSign = latMatch[2] === 'N' ? 1 : -1;
-    const lonSign = lonMatch[2] === 'E' ? 1 : -1;
-
-    // Apply the sign to the values
-    const convertedLat = latSign * latValue;
-    const convertedLon = lonSign * lonValue;
-
-    const coordinates = [];
-    coordinates.push(convertedLat);
-    coordinates.push(convertedLon);
-    return coordinates;
+    return [null, null];
   }
+
+  const latValue = parseFloat(latMatch[1]);
+  const lonValue = parseFloat(lonMatch[1]);
+
+  // Determine the sign based on N/S and E/W
+  const latSign = latMatch[2] === 'N' ? 1 : -1;
+  const lonSign = lonMatch[2] === 'E' ? 1 : -1;
+
+  // Apply the sign to the values
+  const convertedLat = latSign * latValue;
+  const convertedLon = lonSign * lonValue;
+
+  const coordinates = [];
+  coordinates.push(convertedLat);
+  coordinates.push(convertedLon);
+  return coordinates;
+}
 
 let countriesObj;
 /**
