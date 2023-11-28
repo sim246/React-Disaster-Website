@@ -7,9 +7,13 @@ const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
     title: 'Express API for Impact of Natural Disasters on the Economy App',
-    version: '1.0.0',
+    version: '5.10.3',
     description:
       'This is a REST API application made with Express. It retrieves data from TODO.',
+  },
+  syntaxHighlight: {
+    activated: false,
+    theme: "agate"
   },
   servers: [
     {
@@ -28,6 +32,7 @@ const swaggerSpec = swaggerJSDoc(options);
 const app = express();
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.use(express.static('../client/build'));
 
 registerRoutes(app);
