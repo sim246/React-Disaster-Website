@@ -7,14 +7,15 @@ import {
   TileLayer,
   Polygon
 } from 'react-leaflet';
-import Legend from './Legend';
+import Legend, { getColor } from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 import markerImage from '../img/marker-icon.png';
 
 function Map({selectedCountry, setSelectedCountry, selectedYear}) {
   const [map, setMap] = useState(null);
-  //const [countryData, setCountryData] = useState(null);
+  const [polygons, setPolygons] = useState(null);
+  const [defalutPolygons, setDefaultPolygons] = useState(null);
   const [allCountriesData, setAllCountriesData] = useState(null);
   const [earthquakes, setEarthquakes] = useState([]);
   const [gdp, setGDP] = useState(null);
@@ -25,21 +26,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
     iconAnchor: [22, 30]
   });
   
-
   useEffect(() => {
-    async function fetchCountry() {
-      try {
-        const response = await fetch(`/api/v1/countries/${selectedCountry}`);
-        if (!response.ok) {
-          throw new Error(`Got response ${response.status}`);
-        }
-        const data = await response.json();
-        setCountryData(data[0]);
-      } catch (error) {
-        console.error(`Fetch error: ${error.message}`);
-      }
-    }
-    
     async function fetchEarthquakes() {
       //year set automatically for now
       fetch('/api/v1/2012/natural-disasters/type/Earthquake', {
@@ -55,11 +42,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
         return error;
       });
     }
-    // if (selectedCountry){
-    //   fetchCountry();
-    // }
     fetchEarthquakes();
-
   }, [selectedCountry]);
 
   useEffect(() => {
@@ -80,7 +63,36 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
     fetchAllCountries();
   }, []);
 
-  useEffect (() => {
+  useEffect(() => {
+    function makeDefaultPolygons() {
+      console.log('making default polygons');
+      // prepare polygons for each country
+      const polygonsArr = [];
+      allCountriesData.forEach((item) => {
+        const colour = 'grey';
+        polygonsArr.push(
+          <Polygon
+            positions={item.geometry.coordinates}
+            fillColor={colour}
+            fillOpacity={0.8}
+            color={colour}
+            eventHandlers={{
+              click: (e) => {
+                setSelectedCountry(item.properties.ADMIN);
+              }
+            }}
+            key={item.properties.ADMIN}
+          />);
+        console.log('done making default polygons');
+        setDefaultPolygons(polygonsArr);
+      });
+    }
+    if (!defalutPolygons && allCountriesData){
+      makeDefaultPolygons();
+    }
+  }, [allCountriesData, defalutPolygons, setSelectedCountry]);
+
+  useEffect(() => {
     async function fetchGDP() {
       try {
         const response = await fetch(`/api/v1/${selectedYear}/gdp`);
@@ -88,61 +100,64 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
           throw new Error(`Got response ${response.status}`);
         }
         const data = await response.json();
-        console.log(`fetched gpd for ${selectedYear}`);
+        //console.log(`fetched gpd for ${selectedYear}`);
         setGDP(data);
       } catch (error) {
         console.error(`Fetch error: ${error.message}`);
       }
     }
     fetchGDP();
+    //console.log('polygons set to default');
+    //setPolygons(defalutPolygons);
+    //return () => setPolygons(null);
   }, [selectedYear]);
 
-  // prepare polygons for each country
-  const polygons = [];
-  if (allCountriesData && gdp){
-    allCountriesData.forEach((item) => {
-      // default if no gdp data found
-      let colour = 'grey';
-      // default if country not selected
-      //let borderColour = 'grey';
-      // match country coordinates with gdp dataset
-      const gdpData = gdp.filter(gdpItem => gdpItem.country === item.properties.ADMIN)[0];
-      // avoid refering to undefined and do not add polygon for countries without data
-      if (gdpData && gdpData['gdp']){
-        // set appropriate colour
-        colour = 'red';
-        /*if (selectedCountry === item.properties.ADMIN){
-          borderColour = colour;
-          console.log(`set border for selected country ${selectedCountry} now its ${borderColour}`);
-        }*/
-        //console.log(`gdp for ${item.properties.ADMIN} == ${gdpData['gdp']}`);
-        //console.log(selectedCountry);
-        //console.log(item.properties.ADMIN);
-        //console.log(selectedCountry === item.properties.ADMIN);
-      }
-      // else return;
-      //console.log(`before push for ${item.properties.ADMIN} - ${borderColour};
-      //  selected country: ${selectedCountry}`);
-      polygons.push(
-        <Polygon
-          positions={item.geometry.coordinates}
-          fillColor={colour}
-          color={colour}
-          eventHandlers={{
-            click: (e) => {
-              setSelectedCountry(item.properties.ADMIN);
-            }
-          }}
-          key={item.properties.ADMIN}
-        />);
-    });
-  }
+  useEffect(() => {
+    function makePolygons() {
+      // prepare polygons for each country
+      const polygonsArr = [];
+      allCountriesData.forEach((item) => {
+        // default if no gdp data found
+        let colour = 'grey';
+        // match country coordinates with gdp dataset
+        const gdpData = gdp.filter(gdpItem => gdpItem.country === item.properties.ADMIN)[0];
+        // avoid refering to undefined and do not add polygon for countries without data
+        if (gdpData && gdpData['gdp']){
+          // set appropriate colour
+          colour = getColor(gdpData['gdp']);
+        }
+        polygonsArr.push(
+          <Polygon
+            positions={item.geometry.coordinates}
+            fillColor={colour}
+            fillOpacity={0.8}
+            color={colour}
+            eventHandlers={{
+              click: (e) => {
+                setSelectedCountry(item.properties.ADMIN);
+              }
+            }}
+            key={item.properties.ADMIN}
+          />);
+      });
+      console.log('setting polygons to year ' + gdp[0].year);
+      setPolygons(polygonsArr);
+    }
+    if (allCountriesData && gdp){
+      makePolygons();
+    }
+    return () => {
+      console.log('destroying');
+      setPolygons(defalutPolygons);
+    };
+  }, [allCountriesData, gdp, setSelectedCountry, defalutPolygons]);
+  
 
   return (
     <div id="map-container">
       <MapContainer 
         center={[45.5, -73.6]}
-        zoom={4}
+        zoom={2}
         zoomControl={true}
         updateWhenZooming={false}
         updateWhenIdle={true}
@@ -171,21 +186,8 @@ function Map({selectedCountry, setSelectedCountry, selectedYear}) {
           })
         }
         <Legend map={map} />
-        {/* {countryData &&
-          <Polygon
-            pathOptions={{fillColor: 'blue'}}
-            positions={countryData.geometry.coordinates}
-            eventHandlers={{
-              click: () => {
-                setCountryData(null);
-                setSelectedCountry(null);
-              }
-            }}
-          />
-        } */}
-        {allCountriesData &&
-          polygons
-        }
+        { console.log(polygons ? polygons[10].props.color : 'null')}
+        {polygons}
         
       </MapContainer>
     </div>
