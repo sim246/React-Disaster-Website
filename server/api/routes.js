@@ -14,7 +14,7 @@ const {
  * /api/v1/{year}/natural-disasters/country/{country}:
  *   get:
  *     summary: Retrieve a list of all the natusal disaters for a given country and year.
- *     description: Retrieve a list of all the possible natural disater for a given country and year from MongoDB. The information is displayed in the application.
+ *     description: Retrieve list of all natural disater for a given country and year from MongoDB.
  *     parameters:
  *     - name: year
  *       in: path
@@ -79,7 +79,7 @@ router.get('/api/v1/:year/natural-disasters/country/:country', getNaturalDisaste
  * /api/v1/{year}/natural-disasters/type/{type}:
  *   get:
  *     summary: Retrieve a list of all the natusal disaters for a given type and year.
- *     description: Retrieve a list of all the possible natural disater for a given type and year from MongoDB. The information is displayed in the application.
+ *     description: Retrieve list of all the natural disater for a given type and year from MongoDB.
  *     parameters:
  *     - name: year
  *       in: path
@@ -144,7 +144,7 @@ router.get('/api/v1/:year/natural-disasters/type/:type', getNaturalDisastersByTy
  * /api/v1/natural-disasters:
  *   get:
  *     summary: Retrieve a list of all the possible disater types.
- *     description: Retrieve a list of all the possible disater types from MongoDB. The information is displayed in the application.
+ *     description: Retrieve a list of all the possible disater types from MongoDB.
  *     responses:
  *       200:
  *         description: A list of all the possible disater types.
@@ -163,7 +163,7 @@ router.get('/api/v1/natural-disasters', getNaturalDisasters);
  * /api/v1/{year}/gdp:
  *   get:
  *     summary: Retrieve a list of GDPs for all the countries for the given year from mongoDB.
- *     description: Retrieve a list of GDPs for all for the countries for the given year from MongoDB. The information is displayed in the application.
+ *     description: Retrieve list of GDPs for all the countries for the given year from MongoDB.
  *     parameters:
  *     - name: year
  *       in: path
@@ -207,7 +207,7 @@ router.get('/api/v1/:year/gdp', getGDPs);
  * /api/v1/countries/coordinates:
  *   get:
  *     summary: Retrieve a list of mongoDB coordinates for all countries.
- *     description: Retrieve a list of coordinates for all countries from MongoDB. Can be used to populate a map.
+ *     description: Retrieve a list of coordinates for all countries from MongoDB.
  *     responses:
  *       200:
  *         description: A list of coordinates for all countries.
@@ -242,7 +242,7 @@ router.get('/api/v1/countries/coordinates', getCountriesCoordinates);
  * /api/v1/countries/{country}:
  *   get:
  *     summary: Retrieve a list of mongoDB coordinates for a given country.
- *     description: Retrieve a list of coordinates for a given country from MongoDB. Can be used to populate a map.
+ *     description: Retrieve a list of coordinates for a given country from MongoDB.
  *     parameters:
  *     - name: country
  *       in: path

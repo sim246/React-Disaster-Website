@@ -13,7 +13,7 @@ const swaggerDefinition = {
   },
   syntaxHighlight: {
     activated: false,
-    theme: "agate"
+    theme: 'agate'
   },
   servers: [
     {
