@@ -14,11 +14,7 @@ function DisplayInfoType({year, type}) {
       return response.json();
     }).then((data) => {
       setTypeCount(data.length);
-      const info = [];
-      for (let i = 0; i < data.length; i++){
-        info[i] = data[i];
-      }
-      setApiInfoDisaster(info);
+      setApiInfoDisaster(data);
     }).catch((error) => {
       console.log(error);
     });
