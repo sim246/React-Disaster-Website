@@ -10,21 +10,15 @@ import {
 import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
-import { unmountComponentAtNode } from 'react-dom';
 import DisplayInfo from  './DisplayInfo.js';
 import markerImage from '../img/marker-icon.png';
+//import clearMarkers from 'leaflet';
 
 function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) {
   const [map, setMap] = useState(null);
   const [countryData, setCountryData] = useState(null);
   const [allCountriesData, setAllCountriesData] = useState(null);
   const [earthquakes, setEarthquakes] = useState([]);
-
-  const customIcon = new Icon({
-    iconUrl: markerImage,
-    iconSize: [38, 38],
-    iconAnchor: [22, 30]
-  });
   
 
   useEffect(() => {
@@ -42,6 +36,12 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     }
     
     async function fetchEarthquakes() {
+      const customIcon = new Icon({
+        iconUrl: markerImage,
+        iconSize: [38, 38],
+        iconAnchor: [22, 30]
+      });
+
       //year set automatically for now
       fetch(`/api/v1/${selectedYear}/natural-disasters/type/Earthquake`, {
         method: 'GET',
@@ -51,7 +51,21 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
         }
         return response.json();
       }).then((data) => {
-        setEarthquakes(data);
+        //Make the markers objects for the map
+        const earthquakeMarkers = data.filter((earthquake) => 
+          earthquake.country === selectedCountry).map((earthquake) => 
+          <Marker
+            position={[earthquake.latitude, earthquake.longitude]}
+            icon={customIcon}
+            key={earthquake.id}
+            className="earthquake"
+          >
+            <Popup>
+              <p>⚠️</p>
+            </Popup>
+          </Marker>
+        );
+        setEarthquakes(earthquakeMarkers);
       }).catch((error) => {
         return error;
       });
@@ -60,19 +74,11 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
       fetchCountry();
     }
     if (selectedYear && selectedCountry) {
-      //TO DO: Gotta get rid of the markers first
-      /*const filteredMarkers = React.Children.toArray(Marker).filter(
-        (item) => item.props.className === 'earthquake'
-      ); */    
-    
-      /*for (var marker in markers) {
-        //console.log(marker);
-        //unmountComponentAtNode(marker);
-        //document.removeChild(marker);
-      }*/
       fetchEarthquakes();
     }
 
+    // Cleanup function to remove earthquake markers
+    return () => setEarthquakes([]);
   }, [selectedCountry, selectedYear]);
 
   useEffect(() => {
@@ -93,11 +99,10 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     fetchAllCountries();
   }, []);
 
-  // prepare polygons for each country
+  // prepare polygons for each country as well as their popups
   const polygons = [];
   if (allCountriesData){
     allCountriesData.forEach((item) => {
-      //TO DO: Make it so the country popup aren't so tall
       polygons.push(
         <Polygon
           positions={item.geometry.coordinates}
@@ -140,17 +145,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
         />
         {earthquakes.length > 0 && 
           earthquakes.map((earthquake) => {
-            if (earthquake.country === selectedCountry) {
-              return (
-                <Marker
-                  position={[earthquake.latitude, earthquake.longitude]}
-                  icon={customIcon}
-                  key={earthquake.id} 
-                  className="earthquake">
-                  <Popup><p>⚠️</p></Popup>
-                </Marker>
-              );
-            } else return null;
+            return earthquake;
           })
         }
         <Legend map={map} />
