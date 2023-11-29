@@ -7,7 +7,7 @@ let server;
 (async () => {
   try {
     const db = new DB();
-    await db.connect(dbName, 'quotes');
+    await db.connect(dbName);
   } catch (e) {
     console.error('could not connect');
     console.dir(e);
