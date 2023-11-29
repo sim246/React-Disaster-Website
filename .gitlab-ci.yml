@@ -70,7 +70,7 @@ build-app-archive:
     - ls -R server
     - rm -rf server/node_modules
     - rm -rf server/.npm
-    - tar -cvzf $RELEASE_FILE -C client/build . -C ../ server
+    - "tar -zcvf $RELEASE_FILE client server"
   #rules:
     #- if: '$CI_COMMIT_BRANCH == "staging" && $CI_COMMIT_TAG'
   artifacts:
