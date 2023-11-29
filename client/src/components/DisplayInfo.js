@@ -4,37 +4,37 @@ function DisplayInfo({year, country, type, marker}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
 
-  async function fetchDataDisasters() {
-    fetch('/api/v1/' + year + '/natural-disasters/country/' + country, {
-      method: 'GET',
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error('Data not found');
-      }
-      return response.json();
-    }).then((data) => {
-      setApiInfoDisaster(data);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
-  async function fetchDataGDP() {
-    fetch('/api/v1/' + year + '/gdp?country=' + country, {
-      method: 'GET',
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error('Data not found');
-      }
-      return response.json();
-    }).then((data) => {
-      setApiInfoGDP(data[0]);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
   useEffect(()=>{
+    async function fetchDataDisasters() {
+      fetch('/api/v1/' + year + '/natural-disasters/country/' + country, {
+        method: 'GET',
+      }).then((response) => {
+        if (!response.ok) {
+          throw Error('Data not found');
+        }
+        return response.json();
+      }).then((data) => {
+        setApiInfoDisaster(data);
+      }).catch((error) => {
+        return error;
+      });
+    }
+  
+    async function fetchDataGDP() {
+      fetch('/api/v1/' + year + '/gdp?country=' + country, {
+        method: 'GET',
+      }).then((response) => {
+        if (!response.ok) {
+          throw Error('Data not found');
+        }
+        return response.json();
+      }).then((data) => {
+        setApiInfoGDP(data[0]);
+      }).catch((error) => {
+        return error;
+      });
+    }
+    
     if (year !== null && country !== null){
       if (year >= 1970 && year <= 2021){
         fetchDataDisasters();
