@@ -12,6 +12,12 @@ function App() {
   const [selectedDisaster, setSelectedDisaster] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);  
 
+  function setYear(y){
+    if (y > 1969 && y < 2022) {
+      setSelectedYear(y);
+    }
+  }
+
   return (
     <div className="app">
       {/* Pass in setSelectedCountry, setSelectedDisaster, setSelectedYear once defined*/}
@@ -20,7 +26,7 @@ function App() {
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
           setSelectedDisaster={setSelectedDisaster} 
-          setSelectedYear={setSelectedYear}>
+          setSelectedYear= {(y) => setYear(y)}>
         </Dashboard>
       </div>
       <div className="map">
