@@ -1,11 +1,13 @@
 const express = require('express');
 const apiroutes = require('./api/routes.js');
+const compression = require('compression');
 
 function registerMiddlewares(app) {
   app.use(express.json());
 }
 function registerApiRoutes(app) {
   app.use(apiroutes);
+  app.use(compression());
 }
 
 function registerErrorHandlers(app) {
