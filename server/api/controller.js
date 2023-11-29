@@ -105,10 +105,10 @@ async function getGDPs(req, res) {
     if (!countryParam) {
       let gdpData;
       try {
-        gdpData = cache.get('gdp');
+        gdpData = cache.get(`gdp/${req.params.year}`);
         if (!gdpData){
           gdpData = await db.readGDPs(req.params.year);
-          cache.put('gdp', gdpData);
+          cache.put(`gdp/${req.params.year}`, gdpData);
         }
         if (!res.headersSent){
           res.send(gdpData);
