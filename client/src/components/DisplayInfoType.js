@@ -5,6 +5,7 @@ function DisplayInfoType({year, type}) {
   const [disasters, setApiInfoDisaster] = useState(null);
 
   async function fetchDataDisastersCount() {
+    let ignore = false;
     fetch('/api/v1/' + year + '/natural-disasters/type/' + type, {
       method: 'GET',
     }).then((response) => {
@@ -13,11 +14,16 @@ function DisplayInfoType({year, type}) {
       }
       return response.json();
     }).then((data) => {
-      setTypeCount(data.length);
-      setApiInfoDisaster(data);
+      if(!ignore) {
+        setTypeCount(data.length);
+        setApiInfoDisaster(data);
+      }
     }).catch((error) => {
       console.log(error);
     });
+    return () => {
+      ignore = true;
+    }
   }
 
   useEffect(()=>{

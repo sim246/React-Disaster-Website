@@ -5,6 +5,7 @@ function DisplayInfo({year, country, type, marker}) {
   const [gdp, setApiInfoGDP] = useState(null);
 
   async function fetchDataDisasters() {
+    let ignore = false;
     fetch('/api/v1/' + year + '/natural-disasters/country/' + country, {
       method: 'GET',
     }).then((response) => {
@@ -13,13 +14,19 @@ function DisplayInfo({year, country, type, marker}) {
       }
       return response.json();
     }).then((data) => {
-      setApiInfoDisaster(data);
+      if(!ignore) {
+        setApiInfoDisaster(data);
+      }
     }).catch((error) => {
       console.log(error);
     });
+    return () => {
+      ignore = true;
+    }
   }
 
   async function fetchDataGDP() {
+    let ignore = false;
     fetch('/api/v1/' + year + '/gdp?country=' + country, {
       method: 'GET',
     }).then((response) => {
@@ -28,10 +35,15 @@ function DisplayInfo({year, country, type, marker}) {
       }
       return response.json();
     }).then((data) => {
-      setApiInfoGDP(data[0]);
+      if(!ignore) {
+        setApiInfoGDP(data[0]);
+      }
     }).catch((error) => {
       console.log(error);
     });
+    return () => {
+      ignore = true;
+    }
   }
 
   useEffect(()=>{
