@@ -40,7 +40,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
       }).then((data) => {
         //Make the markers objects for the map
         const earthquakeMarkers = data.filter((earthquake) => 
-          earthquake.country === selectedCountry).map((earthquake) => {
+          earthquake.countryCode === selectedCountry).map((earthquake) => {
           if (earthquake.latitude !== null && earthquake.longitude !== null) {
             return <Marker
               position={[earthquake.latitude, earthquake.longitude]}
@@ -98,10 +98,10 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
             color={colour}
             eventHandlers={{
               click: (e) => {
-                setSelectedCountry(item.properties.ADMIN);
+                setSelectedCountry(item.properties.ISO_A3);
               }
             }}
-            key={item.properties.ADMIN}
+            key={item.properties.ISO_A3}
           />);
         setDefaultPolygons(polygonsArr);
       });
@@ -141,7 +141,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
       allCountriesData.forEach((item) => {
         let colour;
         // match country coordinates with gdp dataset
-        const gdpData = gdp.filter(gdpItem => gdpItem.country === item.properties.ADMIN)[0];
+        const gdpData = gdp.filter(gdpItem => gdpItem.countryCode === item.properties.ISO_A3)[0];
         // avoid refering to undefined and do not add polygon for countries without data
         if (gdpData && gdpData['gdp']){
           // set appropriate colour
@@ -155,14 +155,14 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
             color={colour}
             eventHandlers={{
               click: (e) => {
-                setSelectedCountry(item.properties.ADMIN);
+                setSelectedCountry(item.properties.ISO_A3);
               }
             }}
             key={item.properties.ADMIN}
           >
             <Popup className="country-popup">{item.properties.ADMIN}
               <DisplayInfo year={gdp[0].year}
-                country={item.properties.ADMIN}
+                country={item.properties.ISO_A3}
                 type={selectedType}
                 marker={true}>
               </DisplayInfo>

@@ -103,7 +103,10 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
                 (e) => setSelectedCountry(e.target.value)}>
               {countries.map((country) => {
                 return (
-                  <option value={country} key={country}>{country}</option>
+                  <option
+                    value={country.properties.ISO_A3}
+                    key={country.properties.ADMIN}
+                  >{country.properties.ADMIN}</option>
                 );
               })}
             </select>

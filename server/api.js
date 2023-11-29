@@ -8,6 +8,10 @@ function registerMiddlewares(app) {
 function registerApiRoutes(app) {
   app.use(apiroutes);
   app.use(compression());
+  app.use(function (req, res, next) {
+    res.set('Cache-control', 'public, max-age=31536000');
+    next();
+  });
 }
 
 function registerErrorHandlers(app) {
