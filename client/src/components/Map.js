@@ -161,7 +161,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
             key={item.properties.ADMIN}
           >
             <Popup className="country-popup">{item.properties.ADMIN}
-              <DisplayInfo year={selectedYear}
+              <DisplayInfo year={gdp[0].year}
                 country={item.properties.ADMIN}
                 type={selectedType}
                 marker={true}>
@@ -175,9 +175,8 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     if (allCountriesData && gdp){
       makePolygons();
     }
-    return () => setPolygons(null);
     // makes coloured polygons when borders and gdp are fetched (when year is changed)
-  }, [allCountriesData, gdp, setSelectedCountry, selectedType, selectedYear]);
+  }, [allCountriesData, gdp, setSelectedCountry, selectedType]);
 
   return (
     <div id="map-container">
