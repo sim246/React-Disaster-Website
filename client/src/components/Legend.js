@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import L from 'leaflet';
 import './Legend.css';
 
+const grades =
+  [0, 1000000, 10000000, 100000000, 1000000000, 10000000000, 100000000000, 12000000000000];
+const gradesShort = [0, 1, 10, 100, 1000, 10000, 100000, 120000];
+
 function Legend({ map }) {
   useEffect(() => {
     if (map) {
@@ -10,12 +14,15 @@ function Legend({ map }) {
       legend.onAdd = () => {
         const div = L.DomUtil.create('div');
         // TODO: update this
-        const grades = [0, 10, 20, 50, 100, 200, 500, 1000];
         div.id = 'legend-container';
+        div.innerHTML += '<h4>GDP in $1KK</h4>';
+        div.innerHTML +=
+                '<i style="background: grey"></i> No Data<br>';
         for (var i = 0; i < grades.length; i++) {
           div.innerHTML +=
                 '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                gradesShort[i] + (gradesShort[i + 1] ?
+                  '&ndash;' + gradesShort[i + 1] + '<br>' : '+');
         }
     
         return div;
@@ -27,15 +34,15 @@ function Legend({ map }) {
   return null;
 }
 // TODO: update this as well
-function getColor(d) {
-  return d > 1000 ? '#800026' :
-    d > 500  ? '#BD0026' :
-      d > 200  ? '#E31A1C' :
-        d > 100  ? '#FC4E2A' :
-          d > 50   ? '#FD8D3C' :
-            d > 20   ? '#FEB24C' :
-              d > 10   ? '#FED976' :
-                '#FFEDA0';
+export function getColor(d) {
+  return d > grades[7] ? '#005a32' :
+    d > grades[6]  ? '#238443' :
+      d > grades[5]  ? '#41ab5d' :
+        d > grades[4]  ? '#78c679' :
+          d > grades[3]   ? '#addd8e' :
+            d > grades[2]   ? '#d9f0a3' :
+              d > grades[1]   ? '#f7fcb9' :
+                '#ffffe5';
 }
 
 export default Legend;

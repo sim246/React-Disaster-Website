@@ -30,7 +30,7 @@ module.exports = class DB {
     if (inputYear !== '' && inputCountry !== '') {
       return await instance.disastersColl.find({ 
         year: { $eq: inputYear },
-        country: { $eq: inputCountry } 
+        countryCode: { $eq: inputCountry } 
       }).toArray();
     } else if (inputYear !== '' && inputType !== '') {
       return await instance.disastersColl.find({ 
@@ -53,7 +53,7 @@ module.exports = class DB {
     if (inputYear !== '' && inputCountry !== '') {
       return await instance.gdpColl.find({ 
         year: { $eq: inputYear },
-        conutry: { $eq: inputCountry } 
+        countryCode: { $eq: inputCountry } 
       }).toArray();
     } else if (inputYear !== '' && inputCountry === '') {
       return await instance.gdpColl.find({ 
@@ -66,43 +66,16 @@ module.exports = class DB {
    */
   async readCountriesWithCoords() {
     const options = {
-      projection: { _id: 0, 'properties.ADMIN': 1, 'geometry.coordinates': 1 },
+      projection: { _id: 0, 'properties.ISO_A3': 1, 'geometry.coordinates': 1 },
     };
     return await instance.countriesColl.find({}, options).toArray();
   }
 
-  /**
-   * WIP on the query, does not work as intended yet!
-   * @description Read all countries with their borders info and GDP
-   */
-  async readCountriesWithCoordsGDP() {
-    return await instance.countriesColl.aggregate([
-      {
-        '$lookup': {
-          'from': 'gdp', 
-          'localField': 'properties.ADMIN', 
-          'foreignField': 'country', 
-          'as': 'result'
-        }
-      }, {
-        '$match': {
-          'result.year': {
-            '$eq': '2010'
-          }
-        }
-      }, {
-        '$project': {
-          '_id': 0, 
-          'properties.ADMIN': 1, 
-          'geometry.coordinates': 1, 
-          'result': 1
-        }
-      }
-    ]).toArray();
-  }
-
   async readCountries() {
-    return await instance.countriesColl.distinct('properties.ADMIN');
+    const options = {
+      projection: { _id: 0, 'properties.ISO_A3': 1, 'properties.ADMIN': 1 },
+    };
+    return await instance.countriesColl.find({}, options).toArray();
   }
 
   /**
@@ -110,7 +83,7 @@ module.exports = class DB {
    */
   async readCountry(country) {
     return await instance.countriesColl.find({
-      'properties.ADMIN': { $eq: country } 
+      'properties.ISO_A3': { $eq: country } 
     }).toArray();
   }
 
