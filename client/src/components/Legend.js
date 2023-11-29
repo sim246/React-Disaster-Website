@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import L from 'leaflet';
 import './Legend.css';
 
-const grades = [0, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 150000000000];
+const grades =
+  [0, 1000000, 10000000, 100000000, 1000000000, 10000000000, 100000000000, 12000000000000];
+const gradesShort = [0, 1, 10, 100, 1000, 10000, 100000, 120000];
 
 function Legend({ map }) {
   useEffect(() => {
@@ -13,13 +15,14 @@ function Legend({ map }) {
         const div = L.DomUtil.create('div');
         // TODO: update this
         div.id = 'legend-container';
-        div.innerHTML += '<h4>GDP in $</h4>';
+        div.innerHTML += '<h4>GDP in $1KK</h4>';
         div.innerHTML +=
                 '<i style="background: grey"></i> No Data<br>';
         for (var i = 0; i < grades.length; i++) {
           div.innerHTML +=
                 '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                gradesShort[i] + (gradesShort[i + 1] ?
+                  '&ndash;' + gradesShort[i + 1] + '<br>' : '+');
         }
     
         return div;
