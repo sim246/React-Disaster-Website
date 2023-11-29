@@ -37,6 +37,7 @@ fs.createReadStream('../../data/world_country_gdp_usd.csv').
 fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   pipe(parse({ delimiter: ',', fromLine: 2 })).
   on('data', function (row) {
+    const coordinates = convertCoordinates(row[24], row[25]);
     const obj = {};
     obj['id'] = row[0];
     obj['year'] = row[1];
@@ -44,8 +45,8 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
     obj['type'] = row[6];
     obj['country'] = row[10];
     obj['countryCode'] = row[11];
-    obj['latitude'] = row[24];
-    obj['longitude'] = row[25];
+    obj['latitude'] = coordinates[0];
+    obj['longitude'] = coordinates[1];
     obj['insuredDamages'] = row[40];
     obj['damages'] = row[41];
     disasters.push(obj);
@@ -56,6 +57,36 @@ fs.createReadStream('../../data/1970-2021_DISASTERS.csv').
   on('error', function (error) {
     console.log(error.message);
   });
+
+function convertCoordinates(latitude, longitude) {
+
+  // Parse latitude and longitude values
+  const latMatch = latitude.match(/([\d.]+)\s*([NS])$/);
+  const lonMatch = longitude.match(/([\d.]+)\s*([EW])$/);
+
+  if (!latMatch || !lonMatch) {
+    if (latitude.match(/([\d.]+)([\d.]+)$/)) {
+      return [latitude, longitude];
+    }
+    return [null, null];
+  }
+
+  const latValue = parseFloat(latMatch[1]);
+  const lonValue = parseFloat(lonMatch[1]);
+
+  // Determine the sign based on N/S and E/W
+  const latSign = latMatch[2] === 'N' ? 1 : -1;
+  const lonSign = lonMatch[2] === 'E' ? 1 : -1;
+
+  // Apply the sign to the values
+  const convertedLat = latSign * latValue;
+  const convertedLon = lonSign * lonValue;
+
+  const coordinates = [];
+  coordinates.push(convertedLat);
+  coordinates.push(convertedLon);
+  return coordinates;
+}
 
 let countriesObj;
 /**

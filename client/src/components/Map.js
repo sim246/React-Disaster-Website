@@ -10,19 +10,15 @@ import {
 import Legend from './Legend';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
+import DisplayInfo from  './DisplayInfo.js';
 import markerImage from '../img/marker-icon.png';
+//import clearMarkers from 'leaflet';
 
-function Map({selectedCountry, setSelectedCountry}) {
+function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) {
   const [map, setMap] = useState(null);
   const [countryData, setCountryData] = useState(null);
   const [allCountriesData, setAllCountriesData] = useState(null);
   const [earthquakes, setEarthquakes] = useState([]);
-
-  const customIcon = new Icon({
-    iconUrl: markerImage,
-    iconSize: [38, 38],
-    iconAnchor: [22, 30]
-  });
   
 
   useEffect(() => {
@@ -38,10 +34,16 @@ function Map({selectedCountry, setSelectedCountry}) {
         console.error(`Fetch error: ${error.message}`);
       }
     }
-    
+
     async function fetchEarthquakes() {
+      const customIcon = new Icon({
+        iconUrl: markerImage,
+        iconSize: [38, 38],
+        iconAnchor: [22, 30]
+      });
+
       //year set automatically for now
-      fetch('/api/v1/2012/natural-disasters/type/Earthquake', {
+      fetch(`/api/v1/${selectedYear}/natural-disasters/type/Earthquake`, {
         method: 'GET',
       }).then((response) => {
         if (!response.ok) {
@@ -49,7 +51,24 @@ function Map({selectedCountry, setSelectedCountry}) {
         }
         return response.json();
       }).then((data) => {
-        setEarthquakes(data);
+        //Make the markers objects for the map
+        const earthquakeMarkers = data.filter((earthquake) => 
+          earthquake.country === selectedCountry).map((earthquake) => {
+          if (earthquake.latitude !== null && earthquake.longitude !== null) {
+            return <Marker
+              position={[earthquake.latitude, earthquake.longitude]}
+              icon={customIcon}
+              key={earthquake.id}
+              className="earthquake"
+            >
+              <Popup>
+                <p>Earthquake</p>
+              </Popup>
+            </Marker>;
+          }
+          return null;
+        });
+        setEarthquakes(earthquakeMarkers);
       }).catch((error) => {
         return error;
       });
@@ -57,9 +76,13 @@ function Map({selectedCountry, setSelectedCountry}) {
     if (selectedCountry){
       fetchCountry();
     }
-    fetchEarthquakes();
+    if (selectedYear && selectedCountry) {
+      fetchEarthquakes();
+    }
 
-  }, [selectedCountry]);
+    // Cleanup function to remove earthquake markers
+    return () => setEarthquakes([]);
+  }, [selectedCountry, selectedYear]);
 
   useEffect(() => {
     // slow for now
@@ -79,7 +102,7 @@ function Map({selectedCountry, setSelectedCountry}) {
     fetchAllCountries();
   }, []);
 
-  // prepare polygons for each country
+  // prepare polygons for each country as well as their popups
   const polygons = [];
   if (allCountriesData){
     allCountriesData.forEach((item) => {
@@ -92,7 +115,16 @@ function Map({selectedCountry, setSelectedCountry}) {
             }
           }}
           key={item.properties.ADMIN}
-        />);
+        >
+          <Popup className="country-popup">{selectedCountry}
+            <DisplayInfo year={selectedYear}
+              country={selectedCountry}
+              type={selectedType}
+              marker={true}>
+            </DisplayInfo>
+            <a href="#disasterInfo"> <p> Read more info </p> </a>
+          </Popup>
+        </Polygon>);
     });
   }
 
@@ -116,16 +148,7 @@ function Map({selectedCountry, setSelectedCountry}) {
         />
         {earthquakes.length > 0 && 
           earthquakes.map((earthquake) => {
-            if (earthquake.country === selectedCountry) {
-              return (
-                <Marker
-                  position={[earthquake.latitude, earthquake.longitude]}
-                  icon={customIcon}
-                  key={earthquake} >
-                  <Popup><p>⚠️</p></Popup>
-                </Marker>
-              );
-            } else return null;
+            return earthquake;
           })
         }
         <Legend map={map} />

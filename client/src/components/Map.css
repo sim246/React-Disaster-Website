@@ -17,3 +17,7 @@
     width: 100%;
   }
 }
+
+.country-popup {
+  overflow-y: scroll;
+}
