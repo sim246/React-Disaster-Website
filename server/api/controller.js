@@ -1,5 +1,6 @@
 const DB = require('../db/db.js');
 const db = new DB();
+const cache = require('memory-cache');
 
 async function getNaturalDisastersByCountries(req, res) {
   res.type('json');
@@ -9,9 +10,12 @@ async function getNaturalDisastersByCountries(req, res) {
     }
   
     //Getting disasters by year and country from db
-    let disastersData;
+    let disastersData = cache.get(`disastersData/${req.params.year}/${req.params.country}`);
     try {
-      disastersData = await db.readDisasters(req.params.year, req.params.country);
+      if (!disastersData){
+        disastersData = await db.readDisasters(req.params.year, req.params.country);
+        cache.put(`disastersData/${req.params.year}/${req.params.country}`, disastersData);
+      }
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
     }
@@ -44,7 +48,11 @@ async function getNaturalDisastersByType(req, res) {
     if (db) {
       res.type('json');
       //Ill change soon
-      var disastersData = await db.readDisasters(year, '', type);
+      let disastersData = cache.get(`disastersDataByType/${year}/${type}`);
+      if (!disastersData){
+        disastersData = await db.readDisasters(year, '', type);
+        cache.put(`disastersDataByType/${year}/${type}`, disastersData);
+      }
       if (disastersData) {
         if (!res.headersSent){
           res.send(disastersData);
@@ -66,7 +74,11 @@ async function getNaturalDisastersByType(req, res) {
 async function getNaturalDisasters(req, res) {
   res.type('json');
   if (db) {
-    var disastersData = await db.readDisasters();
+    let disastersData = cache.get('disastersData');
+    if (!disastersData){
+      disastersData = await db.readDisasters();
+      cache.put('disastersData', disastersData);
+    }
     if (disastersData) {
       if (!res.headersSent){
         res.send(disastersData);
@@ -93,7 +105,11 @@ async function getGDPs(req, res) {
     if (!countryParam) {
       let gdpData;
       try {
-        gdpData = await db.readGDPs(req.params.year);
+        gdpData = cache.get('gdp');
+        if (!gdpData){
+          gdpData = await db.readGDPs(req.params.year);
+          cache.put('gdp', gdpData);
+        }
         if (!res.headersSent){
           res.send(gdpData);
         }
@@ -102,7 +118,11 @@ async function getGDPs(req, res) {
       }
     } else if (countryParam) {
       try {
-        const gdpData = await db.readGDPs(req.params.year, countryParam);
+        let gdpData = cache.get(`gdp/${req.params.year}/${countryParam}`);
+        if (!gdpData){
+          gdpData = await db.readGDPs(req.params.year, countryParam);
+          cache.put(`gdp/${req.params.year}/${countryParam}`, gdpData);
+        }
         if (!res.headersSent){
           res.send(gdpData);
         }
@@ -122,9 +142,12 @@ async function getGDPs(req, res) {
 async function getCountriesCoordinates(req, res) {
   res.type('json');
   if (db) {
-    let countryData;
+    let countryData = cache.get('coords');
     try {
-      countryData = await db.readCountriesWithCoords();
+      if (!countryData){
+        countryData = await db.readCountriesWithCoords();
+        cache.put('coords', countryData);
+      }
       if (!countryData || countryData.length === 0) {
         throw new Error(404);
       }
@@ -146,9 +169,12 @@ async function getCountriesCoordinates(req, res) {
 async function getCountry(req, res) {
   res.type('json');
   if (db) {
-    let countryData;
+    let countryData = cache.get(`coords/${req.params.country}`);
     try {
-      countryData = await db.readCountry(req.params.country);
+      if (!countryData){
+        countryData = await db.readCountry(req.params.country);
+        cache.put(`coords/${req.params.country}`, countryData);
+      }
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
     }
@@ -163,9 +189,12 @@ async function getCountry(req, res) {
 async function getCountries(req, res) {
   res.type('json');
   if (db) {
-    let countryData;
+    let countryData = cache.get('countries');
     try {
-      countryData = await db.readCountries();
+      if (!countryData){
+        countryData = await db.readCountries();
+        cache.put('countries', countryData);
+      }
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
     }
