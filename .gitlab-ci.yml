@@ -66,6 +66,9 @@ build-app-archive:
   before_script:
     - 'cd server && npm ci --omit dev && cd ../'
   script:
+    - ls -al
+    - ls -R client
+    - ls -R server
     - rm -rf server/node_modules
     - rm -rf server/.npm
     - tar -cvzf $RELEASE_FILE client/build server/
