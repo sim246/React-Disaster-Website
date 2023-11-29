@@ -1,4 +1,4 @@
-const app = require('../api.js');
+const app = require('../server.js');
 const DB = require('../db/db.js');
 const dbName = process.env.DB_NAME;
 const port = process.env.PORT || 3000;

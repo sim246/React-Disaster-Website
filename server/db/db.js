@@ -14,6 +14,7 @@ module.exports = class DB {
       this.db = null;
       this.disastersColl = null;
       this.gdpColl = null;
+      this.countriesColl = null;
     }
     return instance;
   }
@@ -36,6 +37,9 @@ module.exports = class DB {
         year: { $eq: inputYear },
         type: { $eq: inputType } 
       }).toArray();
+    } else {
+      // Return distinct types of disasters
+      return await instance.disastersColl.distinct('type');
     }
   }
 
@@ -57,8 +61,59 @@ module.exports = class DB {
       }).toArray();
     }
   }
+  /**
+   * @description Read all countries with their borders info
+   */
+  async readCountriesWithCoords() {
+    const options = {
+      projection: { _id: 0, 'properties.ADMIN': 1, 'geometry.coordinates': 1 },
+    };
+    return await instance.countriesColl.find({}, options).toArray();
+  }
 
-  //ADD ASYNC readGdp FUNCTION HERE
+  /**
+   * WIP on the query, does not work as intended yet!
+   * @description Read all countries with their borders info and GDP
+   */
+  async readCountriesWithCoordsGDP() {
+    return await instance.countriesColl.aggregate([
+      {
+        '$lookup': {
+          'from': 'gdp', 
+          'localField': 'properties.ADMIN', 
+          'foreignField': 'country', 
+          'as': 'result'
+        }
+      }, {
+        '$match': {
+          'result.year': {
+            '$eq': '2010'
+          }
+        }
+      }, {
+        '$project': {
+          '_id': 0, 
+          'properties.ADMIN': 1, 
+          'geometry.coordinates': 1, 
+          'result': 1
+        }
+      }
+    ]).toArray();
+  }
+
+  async readCountries() {
+    return await instance.countriesColl.distinct('properties.ADMIN');
+  }
+
+  /**
+   * @description Read a given country from the db
+   */
+  async readCountry(country) {
+    return await instance.countriesColl.find({
+      'properties.ADMIN': { $eq: country } 
+    }).toArray();
+  }
+
   /**
    * @description Add provided gdp array to the db
    * @param {array<Object>} gdp array of gdp values objects
@@ -77,6 +132,14 @@ module.exports = class DB {
     return await instance.disastersColl.insertMany(disasters);
   }
   /**
+   * @description Creates many countries
+   * @param {array} countries
+   * @returns {num} number of rows that were inserted
+   */
+  async createManyCountries(countries) {
+    return await instance.countriesColl.insertMany(countries);
+  }
+  /**
    * @description Connects to the db
    * @returns if there's already an instance of db
    */
@@ -88,10 +151,12 @@ module.exports = class DB {
     instance.db = await instance.client.db(dbName);
     // Send a ping to confirm a successful connection
     await instance.client.db(dbName).command({ ping: 1 });
+    // eslint-disable-next-line no-console
     console.log('Successfully connected to MongoDB database ' + dbName);
-    // get 2 collections for gdp and disasters
+    // get collections for gdp, disasters and countries
     instance.gdpColl = await instance.db.collection('gdp');
     instance.disastersColl = await instance.db.collection('disasters');
+    instance.countriesColl = await instance.db.collection('countries');
   }
   /**
    * Opens db connection
