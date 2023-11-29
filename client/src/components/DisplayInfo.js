@@ -22,7 +22,7 @@ function DisplayInfo({year, country, type, marker}) {
     });
     return () => {
       ignore = true;
-    }
+    };
   }
 
   async function fetchDataGDP() {
@@ -43,7 +43,7 @@ function DisplayInfo({year, country, type, marker}) {
     });
     return () => {
       ignore = true;
-    }
+    };
   }
 
   useEffect(()=>{

@@ -32,7 +32,7 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
     });
     return () => {
       ignore = true;
-    }
+    };
   }
 
   async function fetchCountries() {
@@ -54,7 +54,7 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
     });
     return () => {
       ignore = true;
-    }
+    };
   }
 
   useEffect(()=> {

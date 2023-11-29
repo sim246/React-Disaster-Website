@@ -23,7 +23,7 @@ function DisplayInfoType({year, type}) {
     });
     return () => {
       ignore = true;
-    }
+    };
   }
 
   useEffect(()=>{
