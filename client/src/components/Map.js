@@ -27,7 +27,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
         iconUrl: markerImage,
         iconSize: [38, 38],
         iconAnchor: [22, 30]
-      });s
+      });
       //year set automatically for now
       fetch(`/api/v1/${selectedYear}/natural-disasters/type/Earthquake`, {
         method: 'GET',

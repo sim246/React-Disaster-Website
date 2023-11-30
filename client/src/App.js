@@ -38,7 +38,7 @@ function App() {
       </div>
 
       <div className="displayinfo">
-        <DisplayInfo year={selectedYear} country={selectedCountry}/>
+        <DisplayInfo year={selectedYear} country={selectedCountry} marker={false} />
       </div>
 
       <div className="displayinfo">

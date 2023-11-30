@@ -25,10 +25,10 @@ const {
  *       default: 2012
  *     - name: country
  *       in: path
- *       description: 'the given country'
+ *       description: 'the given country code'
  *       required: true
  *       type: string
- *       default: Japan
+ *       default: "JPN"
  *     responses:
  *       200:
  *         description: A list of all the natusal disaters for a given country and year.
@@ -294,6 +294,36 @@ router.get('/api/v1/countries/coordinates', getCountriesCoordinates);
 */
 router.get('/api/v1/countries/:country', getCountry);
 
+/**
+ * @swagger
+ * /api/v1/countries/{country}/name:
+ *   get:
+ *     summary: Retrieve the name of a country from mongoDB.
+ *     description: Retrieve the name of a country from MongoDB with the country code.
+ *     parameters:
+ *     - name: country
+ *       in: path
+ *       description: 'the given country code'
+ *       required: true
+ *       type: string
+ *       default: "CAN"
+ *     responses:
+ *       200:
+ *         description: the name of a country.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   properties:
+ *                     type: object
+ *                     properties:
+ *                       ADMIN:
+ *                         type: string
+ *                         example: "Canada"
+ */
 router.get('/api/v1/countries/:country/name', getCountryName);
 
 /**
@@ -310,8 +340,17 @@ router.get('/api/v1/countries/:country/name', getCountryName);
  *             schema:
  *               type: array
  *               items: 
- *                 type: string
- *                 example: "Canada"
+ *                 type: object
+ *                 properties:
+ *                   properties:
+ *                     type: object
+ *                     properties:
+ *                       ADMIN:
+ *                          type: string
+ *                          example: "Canada"
+ *                       ISO_A3:
+ *                          type: string
+ *                          example: "CAN"
 */
 router.get('/api/v1/countries', getCountries);
 

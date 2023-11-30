@@ -24,7 +24,7 @@ function DisplayInfo({year, country, marker}) {
       });
       return () => {
         ignore = true;
-      }
+      };
     }
   
     async function fetchDataGDP() {
@@ -45,7 +45,7 @@ function DisplayInfo({year, country, marker}) {
       });
       return () => {
         ignore = true;
-      }
+      };
     }
     
     if (year !== null && country !== null){
@@ -74,7 +74,7 @@ function DisplayInfo({year, country, marker}) {
       });
       return () => {
         ignore = true;
-      }
+      };
     }
     fetchCountryName();
   }, [country]);
