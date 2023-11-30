@@ -6,7 +6,10 @@ import Dashboard from './components/Dashboard.js';
 import DisplayInfo from  './components/DisplayInfo.js';
 import DisplayInfoType from  './components/DisplayInfoType.js';
 import Map from './components/Map.js';
-
+/**
+ * Main app component, containing Dashboard, Map, DisplayInfo and DisplayInfoType
+ * @returns 
+ */
 function App() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedDisaster, setSelectedDisaster] = useState(null);
