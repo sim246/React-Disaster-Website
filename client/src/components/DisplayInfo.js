@@ -63,13 +63,13 @@ function DisplayInfo({year, country, marker}) {
   
   if (disasters !== null){
     const groupTypes = disasters.map((disaster) => {
-      return <>
-        <li key={disaster._id.toString()}>Subgroup: {disaster.subgroup}
-          <ul key={disaster.subgroup}>
-            <li key={disaster.type}>Type: {disaster.type}</li>
+      return <React.Fragment key={disaster.id}>
+        <li>Subgroup: {disaster.subgroup}
+          <ul>
+            <li>Type: {disaster.type}</li>
           </ul>
         </li>
-      </>;
+      </React.Fragment>;
     });
 
     function addInsuredDamages(){
