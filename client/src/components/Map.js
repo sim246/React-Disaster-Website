@@ -101,7 +101,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
                 setSelectedCountry(item.properties.ISO_A3);
               }
             }}
-            key={item.properties.ADMIN}/>);
+            key={'default:' + item.properties.ISO_A3}/>);
         setDefaultPolygons(polygonsArr);
       });
     }
@@ -155,6 +155,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
             setSelectedCountry={setSelectedCountry}
             gdp={gdp}
             selectedType={selectedType}
+            key={`memo-${item.properties.ISO_A3}`}
           />
         );
       });
@@ -210,7 +211,7 @@ const MemoizedPolygon =
           setSelectedCountry(item.properties.ISO_A3);
         }
       }}
-      key={item.properties.ADMIN}
+      key={`polygon-${item.properties.ISO_A3}`}
     >
       <Popup className="country-popup">{item.properties.ADMIN}
         <DisplayInfo
@@ -218,6 +219,7 @@ const MemoizedPolygon =
           country={item.properties.ISO_A3}
           type={selectedType}
           marker={true}
+          key={`popup-${item.properties.ISO_A3}`}
         />
         <a href="#disasterInfo"> <p> Read more info </p> </a>
       </Popup>
