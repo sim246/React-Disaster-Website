@@ -4,23 +4,24 @@ function DisplayInfoType({year, type}) {
   const [typeCount, setTypeCount] = useState(0);
   const [disasters, setApiInfoDisaster] = useState(null);
 
-  async function fetchDataDisastersCount() {
-    fetch('/api/v1/' + year + '/natural-disasters/type/' + type, {
-      method: 'GET',
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error('Data not found');
-      }
-      return response.json();
-    }).then((data) => {
-      setTypeCount(data.length);
-      setApiInfoDisaster(data);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+  
 
   useEffect(()=>{
+    async function fetchDataDisastersCount() {
+      fetch('/api/v1/' + year + '/natural-disasters/type/' + type, {
+        method: 'GET',
+      }).then((response) => {
+        if (!response.ok) {
+          throw Error('Data not found');
+        }
+        return response.json();
+      }).then((data) => {
+        setTypeCount(data.length);
+        setApiInfoDisaster(data);
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
     if (year !== null && type !== null){
       if (year >= 1970 && year <= 2021){
         fetchDataDisastersCount();
