@@ -272,11 +272,11 @@ describe('GET /api/v1/countries/CAN/name', () => {
     const expectedVal =
       [
         {
-            "properties": {
-                "ADMIN": "Canada"
-            }
+          'properties': {
+            'ADMIN': 'Canada'
+          }
         }
-    ];
+      ];
     jest.spyOn(DB.prototype, 'readCountryName').mockResolvedValue(expectedVal);
     const response = await request(app).get('/api/v1/countries/CAN/name');
     //if plain text, use text, if json use body
