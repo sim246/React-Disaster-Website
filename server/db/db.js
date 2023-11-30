@@ -5,6 +5,9 @@ const { MongoClient } = require('mongodb');
 
 let instance = null;
 
+/**
+ * DB class used to access MongoDB
+ */
 module.exports = class DB {
   constructor(){
     //instance is the singleton, defined in outer scope
@@ -74,7 +77,9 @@ module.exports = class DB {
     };
     return await instance.countriesColl.find({}, options).toArray();
   }
-
+  /**
+   * @description Read all countries with name and ISO code
+   */
   async readCountries() {
     const options = {
       projection: { _id: 0, 'properties.ISO_A3': 1, 'properties.ADMIN': 1 },

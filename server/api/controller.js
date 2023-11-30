@@ -2,6 +2,11 @@ const DB = require('../db/db.js');
 const db = new DB();
 const cache = require('memory-cache');
 
+/**
+ * @description Gets from db the natural disasters by year and country
+ * @param {string} country
+ * @param {string} type
+ */
 async function getNaturalDisastersByCountries(req, res) {
   res.type('json');
   if (db) {
@@ -136,7 +141,6 @@ async function getGDPs(req, res) {
 }
 
 /**
- * THIS IS VERY SLOW
  * @description Gets from db information about geographical borders of a all countries
  */
 async function getCountriesCoordinates(req, res) {
@@ -213,6 +217,9 @@ async function getCountryName(req, res) {
   }
 }
 
+/**
+ * @description Gets from db all countries with name and ISO code
+ */
 async function getCountries(req, res) {
   res.type('json');
   if (db) {
