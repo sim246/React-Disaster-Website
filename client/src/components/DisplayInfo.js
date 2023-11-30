@@ -9,8 +9,10 @@ function DisplayInfo({year, country, marker}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
   const [countryNameFull, setCountryNameFull] = useState(null);
+  
   useEffect(()=>{
     async function fetchDataDisasters() {
+      let ignore = false;
       fetch('/api/v1/' + year + '/natural-disasters/country/' + country, {
         method: 'GET',
       }).then((response) => {
@@ -19,13 +21,19 @@ function DisplayInfo({year, country, marker}) {
         }
         return response.json();
       }).then((data) => {
-        setApiInfoDisaster(data);
+        if(!ignore) {
+          setApiInfoDisaster(data);
+        }
       }).catch((error) => {
         return error;
       });
+      return () => {
+        ignore = true;
+      };
     }
   
     async function fetchDataGDP() {
+      let ignore = false;
       fetch('/api/v1/' + year + '/gdp?country=' + country, {
         method: 'GET',
       }).then((response) => {
@@ -34,10 +42,15 @@ function DisplayInfo({year, country, marker}) {
         }
         return response.json();
       }).then((data) => {
-        setApiInfoGDP(data[0]);
+        if(!ignore) {
+          setApiInfoGDP(data[0]);
+        }
       }).catch((error) => {
         return error;
       });
+      return () => {
+        ignore = true;
+      };
     }
     
     if (year !== null && country !== null){
@@ -58,10 +71,15 @@ function DisplayInfo({year, country, marker}) {
         }
         return response.json();
       }).then((data) => {
-        setCountryNameFull(data[0]['properties']['ADMIN']);
+        if(!ignore) {
+          setCountryNameFull(data[0]['properties']['ADMIN']);
+        }
       }).catch((error) => {
         return error;
       });
+      return () => {
+        ignore = true;
+      };
     }
     fetchCountryName();
   }, [country]);

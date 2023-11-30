@@ -14,6 +14,7 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
   const [countries, setCountries] = useState([]);
 
   async function fetchNaturalDisasters() {
+    let ignore = false;
     fetch('/api/v1/natural-disasters', {
       method: 'GET',
     }).then((response) => {
@@ -22,14 +23,20 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
       }
       return response.json();
     }).then((data) => {
-      setDisasters(data);
+      if(!ignore) {
+        setDisasters(data);
+      }
     }).catch((error) => {
       //find some way to display error
       return error;
     });
+    return () => {
+      ignore = true;
+    };
   }
 
   async function fetchCountries() {
+    let ignore = false;
     fetch('/api/v1/countries', {
       method: 'GET',
     }).then((response) => {
@@ -38,11 +45,16 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
       }
       return response.json();
     }).then((data) => {
-      setCountries(data);
+      if(!ignore) {
+        setCountries(data);
+      }
     }).catch((error) => {
       //find some way to display error
       return error;
     });
+    return () => {
+      ignore = true;
+    };
   }
 
   useEffect(()=> {
