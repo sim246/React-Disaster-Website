@@ -265,3 +265,34 @@ describe('GET /api/v1/countriesanfka', () => {
     expect(response.type).toEqual('application/json');
   });
 });
+
+//Test getting a country name with a given country code
+describe('GET /api/v1/countries/CAN/name', () => {
+  test('It should respond with a json array', async () => {
+    const expectedVal =
+      [
+        {
+            "properties": {
+                "ADMIN": "Canada"
+            }
+        }
+    ];
+    jest.spyOn(DB.prototype, 'readCountryName').mockResolvedValue(expectedVal);
+    const response = await request(app).get('/api/v1/countries/CAN/name');
+    //if plain text, use text, if json use body
+    expect(response.body).toEqual(expectedVal);
+    expect(response.statusCode).toBe(200);
+    expect(response.type).toEqual('application/json');
+  });
+});
+
+describe('GET /api/v1/countries/CAD/name', () => {
+  test('It should have failed', async () => {
+    const expectedVal = {status: '404', message: 'Not found in db'};
+    jest.spyOn(DB.prototype, 'readCountryName').mockResolvedValue(expectedVal);
+    const response = await request(app).get('/api/v1/countries/CAD/name');
+    //if plain text, use text, if json use body
+    await expect(response.body).toEqual(expectedVal);
+    await expect(response.type).toEqual('application/json');
+  });
+});
