@@ -65,8 +65,8 @@ function DisplayInfo({year, country, marker}) {
     const groupTypes = disasters.map((disaster) => {
       return <>
         <li key={disaster._id.toString()}>Subgroup: {disaster.subgroup}
-          <ul>
-            <li>Type: {disaster.type}</li>
+          <ul key={disaster.subgroup}>
+            <li key={disaster.type}>Type: {disaster.type}</li>
           </ul>
         </li>
       </>;
@@ -98,7 +98,7 @@ function DisplayInfo({year, country, marker}) {
         <p className="bold">Total Number of Disasters: {disasters.length}</p>
         <ul>
           { !marker &&
-              <ul>
+              <ul key={'group-types'}>
                 {groupTypes}
               </ul>
           }

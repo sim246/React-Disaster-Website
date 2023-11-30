@@ -88,7 +88,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     function makeDefaultPolygons() {
       // prepare polygons for each country
       const polygonsArr = [];
-      allCountriesData.forEach((item) => {
+      allCountriesData.forEach((item, i) => {
         const colour = 'grey';
         polygonsArr.push(
           <Polygon
@@ -101,7 +101,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
                 setSelectedCountry(item.properties.ISO_A3);
               }
             }}
-            key={item.properties.ISO_A3}
+            key={`default-${item.properties.ISO_A3}-${i}`}
           />);
         setDefaultPolygons(polygonsArr);
       });
@@ -203,7 +203,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
           })
         }
         <Legend map={map} />
-        {defaultPolygons}
+        {selectedYear && defaultPolygons}
         {polygons}
       </MapContainer>
     </div>
