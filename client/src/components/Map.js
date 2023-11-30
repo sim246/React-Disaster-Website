@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Icon } from 'leaflet';
 import {
   MapContainer,
@@ -40,7 +40,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
       }).then((data) => {
         //Make the markers objects for the map
         const earthquakeMarkers = data.filter((earthquake) => 
-          earthquake.country === selectedCountry).map((earthquake) => {
+          earthquake.countryCode === selectedCountry).map((earthquake) => {
           if (earthquake.latitude !== null && earthquake.longitude !== null) {
             return <Marker
               position={[earthquake.latitude, earthquake.longitude]}
@@ -98,11 +98,10 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
             color={colour}
             eventHandlers={{
               click: (e) => {
-                setSelectedCountry(item.properties.ADMIN);
+                setSelectedCountry(item.properties.ISO_A3);
               }
             }}
-            key={item.properties.ADMIN}
-          />);
+            key={'default:' + item.properties.ISO_A3}/>);
         setDefaultPolygons(polygonsArr);
       });
     }
@@ -134,6 +133,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     };
   }, [selectedYear]);
 
+  
   useEffect(() => {
     function makePolygons() {
       // prepare polygons for each country as well as their popups
@@ -141,42 +141,32 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
       allCountriesData.forEach((item) => {
         let colour;
         // match country coordinates with gdp dataset
-        const gdpData = gdp.filter(gdpItem => gdpItem.country === item.properties.ADMIN)[0];
-        // avoid refering to undefined and do not add polygon for countries without data
+        const gdpData = gdp.filter(gdpItem => gdpItem.countryCode === item.properties.ISO_A3)[0];
+        // avoid referring to undefined and do not add polygon for countries without data
         if (gdpData && gdpData['gdp']){
           // set appropriate colour
           colour = getColor(gdpData['gdp']);
         } else return;
         polygonsArr.push(
-          <Polygon
-            positions={item.geometry.coordinates}
-            fillColor={colour}
-            fillOpacity={0.8}
-            color={colour}
-            eventHandlers={{
-              click: (e) => {
-                setSelectedCountry(item.properties.ADMIN);
-              }
-            }}
-            key={item.properties.ADMIN}
-          >
-            <Popup className="country-popup">{item.properties.ADMIN}
-              <DisplayInfo year={gdp[0].year}
-                country={item.properties.ADMIN}
-                type={selectedType}
-                marker={true}>
-              </DisplayInfo>
-              <a href="#disasterInfo"> <p> Read more info </p> </a>
-            </Popup>
-          </Polygon>);
+          <MemoizedPolygon
+            item={item}
+            colour={colour}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+            gdp={gdp}
+            selectedType={selectedType}
+            key={`memo-${item.properties.ISO_A3}`}
+          />
+        );
       });
       setPolygons(polygonsArr);
     }
+
     if (allCountriesData && gdp){
       makePolygons();
     }
-    // makes coloured polygons when borders and gdp are fetched (when year is changed)
-  }, [allCountriesData, gdp, setSelectedCountry, selectedType]);
+    // makes coloured polygons when borders and gdp are fetched (when the year is changed)
+  }, [allCountriesData, gdp, setSelectedCountry, selectedType, selectedCountry]);
 
   return (
     <div id="map-container">
@@ -208,5 +198,40 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     </div>
   );
 }
+
+/**
+ * @description Memoized polygons with the popup displaying country info inside
+ * @param {object} country
+ * @param {string} colour
+ * @param {function} setSelectedCountry
+ * @param {object} gdp
+ * @param {type} selectedType
+ */
+const MemoizedPolygon = 
+  React.memo(({ country, colour, selectedCountry, setSelectedCountry, gdp, selectedType }) => (
+    <Polygon
+      positions={country.geometry.coordinates}
+      fillColor={colour}
+      fillOpacity={0.8}
+      color={colour}
+      eventHandlers={{
+        click: (e) => {
+          setSelectedCountry(country.properties.ISO_A3);
+        }
+      }}
+      key={`polygon-${country.properties.ISO_A3}`}
+    >
+      <Popup className="country-popup">{country.properties.ADMIN}
+        <DisplayInfo
+          year={gdp[0].year}
+          country={country.properties.ISO_A3}
+          type={selectedType}
+          marker={true}
+          key={`popup-${country.properties.ISO_A3}`}
+        />
+        <a href="#disasterInfo"> <p> Read more info </p> </a>
+      </Popup>
+    </Polygon>
+  ));
 
 export default Map;
