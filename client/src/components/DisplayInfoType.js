@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Detailed Info component about a specific Natural Disaster type
+ * @param {Object} props year and type 
+ * @returns 
+ */
 function DisplayInfoType({year, type}) {
   const [typeCount, setTypeCount] = useState(0);
   const [disasters, setApiInfoDisaster] = useState(null);
 
-  async function fetchDataDisastersCount() {
-    fetch('/api/v1/' + year + '/natural-disasters/type/' + type, {
-      method: 'GET',
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error('Data not found');
-      }
-      return response.json();
-    }).then((data) => {
-      setTypeCount(data.length);
-      const info = [];
-      for (let i = 0; i < data.length; i++){
-        info[i] = data[i];
-      }
-      setApiInfoDisaster(info);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
-
   useEffect(()=>{
+    async function fetchDataDisastersCount() {
+      let ignore = false;
+      fetch('/api/v1/' + year + '/natural-disasters/type/' + type, {
+        method: 'GET',
+      }).then((response) => {
+        if (!response.ok) {
+          throw Error('Data not found');
+        }
+        return response.json();
+      }).then((data) => {
+        if(!ignore) {
+          setTypeCount(data.length);
+          setApiInfoDisaster(data);
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+      return () => {
+        ignore = true;
+      };
+    }
     if (year !== null && type !== null){
       if (year >= 1970 && year <= 2021){
         fetchDataDisastersCount();
@@ -55,12 +61,12 @@ function DisplayInfoType({year, type}) {
       }
 
       return <p>The total number of disaters typed {type} 
-        across the gloab in {year} was {typeCount}. 
+        across the globe in {year} was {typeCount}. 
         The total amount of insured damages was {addInsuredDamages()} USD
          and the total amount of damages was {addDamages()} USD</p>;
     } else {
       return <p>The total number of disaters typed {type} across 
-        the gloab in {year} was {typeCount}.</p>;
+        the globe in {year} was {typeCount}.</p>;
     }
   } else {
     return<p>Select a disaster type and year!</p>;

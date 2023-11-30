@@ -6,11 +6,20 @@ import Dashboard from './components/Dashboard.js';
 import DisplayInfo from  './components/DisplayInfo.js';
 import DisplayInfoType from  './components/DisplayInfoType.js';
 import Map from './components/Map.js';
-
+/**
+ * Main app component, containing Dashboard, Map, DisplayInfo and DisplayInfoType
+ * @returns 
+ */
 function App() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedDisaster, setSelectedDisaster] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);  
+
+  function setYear(y){
+    if (y > 1969 && y < 2022) {
+      setSelectedYear(y);
+    }
+  }
 
   return (
     <div className="app">
@@ -20,18 +29,19 @@ function App() {
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
           setSelectedDisaster={setSelectedDisaster} 
-          setSelectedYear={setSelectedYear}>
+          setSelectedYear= {(y) => setYear(y)}>
         </Dashboard>
       </div>
       <div className="map">
         <Map
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
+          selectedYear={selectedYear}
         />
       </div>
 
       <div className="displayinfo">
-        <DisplayInfo year={selectedYear} country={selectedCountry} />
+        <DisplayInfo year={selectedYear} country={selectedCountry} marker={false} />
       </div>
 
       <div className="displayinfo">
