@@ -38,7 +38,7 @@ function App() {
       </div>
 
       <div className="displayinfo">
-        <DisplayInfo year={selectedYear} country={selectedCountry} key={'originalDisplayInfo'} />
+        <DisplayInfo year={selectedYear} country={selectedCountry}/>
       </div>
 
       <div className="displayinfo">

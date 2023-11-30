@@ -199,27 +199,35 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
   );
 }
 
+/**
+ * @description Memoized polygons with the popup displaying country info inside
+ * @param {object} country
+ * @param {string} colour
+ * @param {function} setSelectedCountry
+ * @param {object} gdp
+ * @param {type} selectedType
+ */
 const MemoizedPolygon = 
-  React.memo(({ item, colour, selectedCountry, setSelectedCountry, gdp, selectedType }) => (
+  React.memo(({ country, colour, selectedCountry, setSelectedCountry, gdp, selectedType }) => (
     <Polygon
-      positions={item.geometry.coordinates}
+      positions={country.geometry.coordinates}
       fillColor={colour}
       fillOpacity={0.8}
       color={colour}
       eventHandlers={{
         click: (e) => {
-          setSelectedCountry(item.properties.ISO_A3);
+          setSelectedCountry(country.properties.ISO_A3);
         }
       }}
-      key={`polygon-${item.properties.ISO_A3}`}
+      key={`polygon-${country.properties.ISO_A3}`}
     >
-      <Popup className="country-popup">{item.properties.ADMIN}
+      <Popup className="country-popup">{country.properties.ADMIN}
         <DisplayInfo
           year={gdp[0].year}
-          country={item.properties.ISO_A3}
+          country={country.properties.ISO_A3}
           type={selectedType}
           marker={true}
-          key={`popup-${item.properties.ISO_A3}`}
+          key={`popup-${country.properties.ISO_A3}`}
         />
         <a href="#disasterInfo"> <p> Read more info </p> </a>
       </Popup>
