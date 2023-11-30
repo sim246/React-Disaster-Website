@@ -63,6 +63,7 @@ function DisplayInfo({year, country, marker}) {
 
   useEffect(() => {
     async function fetchCountryName() {
+      let ignore = false;
       fetch(`/api/v1/countries/${country}/name`, {
         method: 'GET',
       }).then((response) => {
