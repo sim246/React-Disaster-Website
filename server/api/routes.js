@@ -5,7 +5,8 @@ const {
   getNaturalDisasters, 
   getGDPs, 
   getCountriesCoordinates, 
-  getCountry, 
+  getCountry,
+  getCountryName,
   getCountries
 } = require('./controller.js');
 
@@ -292,6 +293,8 @@ router.get('/api/v1/countries/coordinates', getCountriesCoordinates);
  *                             example: [1.22334353, -2.3482758947]
 */
 router.get('/api/v1/countries/:country', getCountry);
+
+router.get('/api/v1/countries/:country/name', getCountryName);
 
 /**
  * @swagger

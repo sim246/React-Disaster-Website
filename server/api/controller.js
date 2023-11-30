@@ -186,6 +186,30 @@ async function getCountry(req, res) {
   }
 }
 
+/**
+ * @description Gets from db full country name given 3-letter code
+ * @param {string} country 3-letter code
+ */
+async function getCountryName(req, res) {
+  res.type('json');
+  if (db) {
+    let countryData = cache.get(`country/${req.params.country}`);
+    try {
+      if (!countryData){
+        countryData = await db.readCountryName(req.params.country);
+        cache.put(`country/${req.params.country}`, countryData);
+      }
+    } catch (error) {
+      res.status(404).send({status: '404', message: 'Not found: ' + error});
+    }
+    if (!res.headersSent){
+      res.send(countryData);
+    }
+  } else {
+    res.status(500).send({status: '500', message: 'Database connection not established'});
+  }
+}
+
 async function getCountries(req, res) {
   res.type('json');
   if (db) {
@@ -207,4 +231,4 @@ async function getCountries(req, res) {
 }
 
 module.exports = {getNaturalDisastersByCountries, getNaturalDisastersByType, 
-  getNaturalDisasters, getGDPs, getCountriesCoordinates, getCountry, getCountries};
+  getNaturalDisasters, getGDPs, getCountriesCoordinates, getCountry, getCountryName, getCountries};

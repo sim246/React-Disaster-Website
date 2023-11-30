@@ -158,10 +158,11 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
                 setSelectedCountry(item.properties.ISO_A3);
               }
             }}
-            key={item.properties.ADMIN}
+            key={item.properties.ISO_A3}
           >
-            <Popup className="country-popup">{item.properties.ADMIN}
-              <DisplayInfo year={gdp[0].year}
+            <Popup className="country-popup">
+              <DisplayInfo
+                year={gdp[0].year}
                 country={item.properties.ISO_A3}
                 type={selectedType}
                 marker={true}>
