@@ -203,7 +203,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
           })
         }
         <Legend map={map} />
-        {defaultPolygons}
+        {selectedYear && defaultPolygons}
         {polygons}
       </MapContainer>
     </div>

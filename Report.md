@@ -19,6 +19,7 @@ Added useEffect cleanup for all the fetches, stops component from re-rendering w
 Added caching for the map …
 Added set selected Year validation, stops unnecessary fetches that return 404 errors.
 Used memo to provide the cached result when it's the same input.
+remove grey colors from start of app, the clolors would render slowly at the begining and give no result since there was no year
 
 ### useEffect Cleanup
 Lead: Simona
@@ -31,6 +32,10 @@ Lead: Vasilii Iurev
 
 ### Memo
 Lead: Sila Ben Khelifa
+
+### grey colors
+Lead: Simona (idea) & Vasilii Iurev (execution)
+
 
 ## Conclusion
 The year validation had a big impact because of the unnecessary fetches. It was also surprising since it was harder to notice (needed to see it in the console and tolls used). The map was very taxing for our app which was expected and the component we needed to improve the most.
