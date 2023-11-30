@@ -6,6 +6,13 @@ const grades =
   [0, 1000000, 10000000, 100000000, 1000000000, 10000000000, 100000000000, 12000000000000];
 const gradesShort = [0, 1, 10, 100, 1000, 10000, 100000, 120000];
 
+/**
+ * Legend component to describe map colours and their mapping to GDP values
+ * 
+ * directly modifies map and appends the legend div to it
+ * @param {Object} props map parent component 
+ * @returns 
+ */
 function Legend({ map }) {
   useEffect(() => {
     if (map) {

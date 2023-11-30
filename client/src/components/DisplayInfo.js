@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Detailed Info component used to display GDP and Natural Disaster facts about a country
+ * @param {Object} props year, country and a bool indicating whether it's in a popup
+ * @returns 
+ */
 function DisplayInfo({year, country, marker}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
