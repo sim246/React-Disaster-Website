@@ -83,7 +83,7 @@ module.exports = class DB {
   }
 
   /**
-   * @description Read a given country from the db
+   * @description Read a given country name from the db
    */
   async readCountryName(country) {
     const options = {
