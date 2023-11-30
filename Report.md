@@ -18,7 +18,7 @@ Fetches were made when typing in year (ex: fetch for year 2, year 20 year 201 an
 Added useEffect cleanup for all the fetches, stops component from re-rendering when clicking on countries in the map quickly.
 Added caching for the map …
 Added set selected Year validation, stops unnecessary fetches that return 404 errors.
-Used memo to provide the cached result when it's the same input.
+Used memo so that if props for the memoed element don't change then the element isn't rendered.
 remove grey colors from start of app, the clolors would render slowly at the begining and give no result since there was no year
 
 ### useEffect Cleanup
@@ -43,6 +43,6 @@ Things we learned:
 Large data sourced like the map coordinates are more taxing to fetch from servers and need to be optimized. Caching is important since it helps improve the api’s speed.
 Separating the api into different routes helps reduce the amount of data the client needs to fetch (fetching by year and country instead of fetching the whole thing). This means that a lot of planning need to be put into all the api endpoints (planning out what we need).
 Validation is important since it can help prevent unnecessaries calls to the api.
-Memo is useful since it makes it so that the cached result are used instead of fetch when it's the same input.
+Memo is useful because if props for the memoed element don't change then the element isn't rendered
 
 screenshots of dev tool results are in ./screenshots
