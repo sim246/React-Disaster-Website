@@ -202,6 +202,9 @@ async function getCountryName(req, res) {
     } catch (error) {
       res.status(404).send({status: '404', message: 'Not found: ' + error});
     }
+    if (countryData.length === 0 || !countryData) {
+      res.status(404).send({status: '404', message: 'Not found in db'});
+    }
     if (!res.headersSent){
       res.send(countryData);
     }

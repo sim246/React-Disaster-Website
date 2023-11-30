@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Detailed Info component about a specific Natural Disaster type
+ * @param {Object} props year and type 
+ * @returns 
+ */
 function DisplayInfoType({year, type}) {
   const [typeCount, setTypeCount] = useState(0);
   const [disasters, setApiInfoDisaster] = useState(null);

@@ -13,6 +13,13 @@ import './Map.css';
 import DisplayInfo from  './DisplayInfo.js';
 import markerImage from '../img/marker-icon.png';
 
+/**
+ * Map component used to visualise GDP values for different countries
+ * 
+ * displays a Legend component and Polygons on top of countries
+ * @param {Object} props country + setter callback, year and type of Natural Disaster 
+ * @returns 
+ */
 function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) {
   const [map, setMap] = useState(null);
   const [polygons, setPolygons] = useState(null);
@@ -87,7 +94,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     function makeDefaultPolygons() {
       // prepare polygons for each country
       const polygonsArr = [];
-      allCountriesData.forEach((item) => {
+      allCountriesData.forEach((item, i) => {
         const colour = 'grey';
         polygonsArr.push(
           <Polygon
@@ -100,7 +107,8 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
                 setSelectedCountry(item.properties.ISO_A3);
               }
             }}
-            key={'default:' + item.properties.ISO_A3}/>);
+            key={`default-${item.properties.ISO_A3}-${i}`}
+          />);
         setDefaultPolygons(polygonsArr);
       });
     }

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Detailed Info component used to display GDP and Natural Disaster facts about a country
+ * @param {Object} props year, country and a bool indicating whether it's in a popup
+ * @returns 
+ */
 function DisplayInfo({year, country, marker}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
@@ -81,13 +86,13 @@ function DisplayInfo({year, country, marker}) {
   
   if (disasters !== null){
     const groupTypes = disasters.map((disaster) => {
-      return <>
-        <li key={disaster._id.toString()}>Subgroup: {disaster.subgroup}
+      return <React.Fragment key={disaster.id}>
+        <li>Subgroup: {disaster.subgroup}
           <ul>
             <li>Type: {disaster.type}</li>
           </ul>
         </li>
-      </>;
+      </React.Fragment>;
     });
 
     function addInsuredDamages(){
@@ -116,7 +121,7 @@ function DisplayInfo({year, country, marker}) {
         <p className="bold">Total Number of Disasters: {disasters.length}</p>
         <ul>
           { !marker &&
-              <ul>
+              <ul key={'group-types'}>
                 {groupTypes}
               </ul>
           }
