@@ -12,7 +12,7 @@ const DB = require('../db/db.js');
   try {
     db = new DB();
     await db.connect(dbName);
-    const countries = await db.readGDPs('2010');
+    const countries = await db.readCountryName('CAN');
     //console.log(countries);
     console.log(countries);
   } catch (e) {

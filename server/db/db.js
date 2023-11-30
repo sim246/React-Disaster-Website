@@ -66,7 +66,11 @@ module.exports = class DB {
    */
   async readCountriesWithCoords() {
     const options = {
-      projection: { _id: 0, 'properties.ISO_A3': 1, 'geometry.coordinates': 1 },
+      projection: {
+        _id: 0,
+        'properties.ISO_A3': 1,
+        'properties.ADMIN': 1,
+        'geometry.coordinates': 1 },
     };
     return await instance.countriesColl.find({}, options).toArray();
   }
@@ -76,6 +80,18 @@ module.exports = class DB {
       projection: { _id: 0, 'properties.ISO_A3': 1, 'properties.ADMIN': 1 },
     };
     return await instance.countriesColl.find({}, options).toArray();
+  }
+
+  /**
+   * @description Read a given country from the db
+   */
+  async readCountryName(country) {
+    const options = {
+      projection: { _id: 0, 'properties.ADMIN': 1 },
+    };
+    return await instance.countriesColl.find({
+      'properties.ISO_A3': { $eq: country } 
+    }, options).toArray();
   }
 
   /**

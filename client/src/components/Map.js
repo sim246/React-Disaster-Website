@@ -27,8 +27,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
         iconUrl: markerImage,
         iconSize: [38, 38],
         iconAnchor: [22, 30]
-      });
-
+      });s
       //year set automatically for now
       fetch(`/api/v1/${selectedYear}/natural-disasters/type/Earthquake`, {
         method: 'GET',
@@ -148,16 +147,28 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
           colour = getColor(gdpData['gdp']);
         } else return;
         polygonsArr.push(
-          <MemoizedPolygon
-            item={item}
-            colour={colour}
-            selectedCountry={selectedCountry}
-            setSelectedCountry={setSelectedCountry}
-            gdp={gdp}
-            selectedType={selectedType}
-            key={`memo-${item.properties.ISO_A3}`}
-          />
-        );
+          <Polygon
+            positions={item.geometry.coordinates}
+            fillColor={colour}
+            fillOpacity={0.8}
+            color={colour}
+            eventHandlers={{
+              click: (e) => {
+                setSelectedCountry(item.properties.ISO_A3);
+              }
+            }}
+            key={item.properties.ISO_A3}
+          >
+            <Popup className="country-popup">
+              <DisplayInfo
+                year={gdp[0].year}
+                country={item.properties.ISO_A3}
+                type={selectedType}
+                marker={true}>
+              </DisplayInfo>
+              <a href="#disasterInfo"> <p> Read more info </p> </a>
+            </Popup>
+          </Polygon>);
       });
       setPolygons(polygonsArr);
     }
