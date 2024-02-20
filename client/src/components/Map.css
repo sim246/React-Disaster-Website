@@ -4,10 +4,6 @@
   height: 80vh;
 }
 
-/* #map-container {
-  height: 90%;
-} */
-
 @media (orientation: portrait) {
   .ui-container {
     flex-direction: column;
@@ -17,3 +13,7 @@
     width: 100%;
   }
 }
+
+/* .country-popup {
+  overflow-y: scroll;
+} */
