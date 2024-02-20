@@ -27,8 +27,7 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
         setDisasters(data);
       }
     }).catch((error) => {
-      //find some way to display error
-      return error;
+      console.error('Error fetching natural disasters:', error.message);
     });
     return () => {
       ignore = true;
@@ -49,8 +48,7 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
         setCountries(data);
       }
     }).catch((error) => {
-      //find some way to display error
-      return error;
+      console.error('Error fetching countries:', error.message);
     });
     return () => {
       ignore = true;
@@ -113,6 +111,8 @@ export default function Dashboard({ selectedCountry, setSelectedCountry,
           </label>
         </div>
       </div>
+      {disasters.length === 0 && <p>Error fetching natural disasters. Please try again later.</p>}
+      {countries.length === 0 && <p>Error fetching countries. Please try again later.</p>}
     </>
   );
 }

@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 function DisplayInfoType({year, type}) {
   const [typeCount, setTypeCount] = useState(0);
   const [disasters, setApiInfoDisaster] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(()=>{
     async function fetchDataDisastersCount() {
@@ -25,7 +26,8 @@ function DisplayInfoType({year, type}) {
           setApiInfoDisaster(data);
         }
       }).catch((error) => {
-        console.log(error);
+        console.error('Error fetching earthquakes:', error.message);
+        setError(error.message);
       });
       return () => {
         ignore = true;
@@ -38,6 +40,14 @@ function DisplayInfoType({year, type}) {
     }
   }, [year, type]);
   
+  if (error) {
+    return (
+      <div className="error">
+        <p>Error fetching data. Please try again later.</p>
+      </div>
+    );
+  }
+
   if (type !== null && year !== null){
     if (disasters !== null) {
       function addInsuredDamages(){

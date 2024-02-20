@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon } from 'leaflet';
 import {
   MapContainer,
@@ -27,6 +27,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
   const [allCountriesData, setAllCountriesData] = useState(null);
   const [earthquakes, setEarthquakes] = useState([]);
   const [gdp, setGDP] = useState(null);
+  const [error, setError] = useState(null);
   
   useEffect(() => {
     async function fetchEarthquakes() {
@@ -63,7 +64,8 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
         });
         setEarthquakes(earthquakeMarkers);
       }).catch((error) => {
-        return error;
+        console.error('Error fetching earthquakes:', error.message);
+        setError(error.message);
       });
     }
     if (selectedYear && selectedCountry) {
@@ -85,6 +87,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
         setAllCountriesData(data);
       } catch (error) {
         console.error(`Fetch error: ${error.message}`);
+        setError(error.message);
       }
     }
     fetchAllCountries();
@@ -155,28 +158,15 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
           colour = getColor(gdpData['gdp']);
         } else return;
         polygonsArr.push(
-          <Polygon
-            positions={item.geometry.coordinates}
-            fillColor={colour}
-            fillOpacity={0.8}
-            color={colour}
-            eventHandlers={{
-              click: (e) => {
-                setSelectedCountry(item.properties.ISO_A3);
-              }
-            }}
-            key={item.properties.ISO_A3}
-          >
-            <Popup className="country-popup">
-              <DisplayInfo
-                year={gdp[0].year}
-                country={item.properties.ISO_A3}
-                type={selectedType}
-                marker={true}>
-              </DisplayInfo>
-              <a href="#disasterInfo"> <p> Read more info </p> </a>
-            </Popup>
-          </Polygon>);
+          <MemoizedPolygon
+            country={item}
+            colour={colour}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+            gdp={gdp}
+            selectedType={selectedType}
+            key={`memoized-polygon-${item.properties.ISO_A3}`}
+          />);
       });
       setPolygons(polygonsArr);
     }
@@ -186,6 +176,14 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
     }
     // makes coloured polygons when borders and gdp are fetched (when the year is changed)
   }, [allCountriesData, gdp, setSelectedCountry, selectedType, selectedCountry]);
+
+  if (error) {
+    return (
+      <div className="error">
+        <p>Error fetching data. Please try again later.</p>
+      </div>
+    );
+  }
 
   return (
     <div id="map-container">
@@ -227,7 +225,7 @@ function Map({selectedCountry, setSelectedCountry, selectedYear, selectedType}) 
  * @param {type} selectedType
  */
 const MemoizedPolygon = 
-  React.memo(({ country, colour, selectedCountry, setSelectedCountry, gdp, selectedType }) => (
+  React.memo(({ country, colour, selectedCountry, setSelectedCountry, gdp, selectedType }) =>
     <Polygon
       positions={country.geometry.coordinates}
       fillColor={colour}
@@ -251,6 +249,6 @@ const MemoizedPolygon =
         <a href="#disasterInfo"> <p> Read more info </p> </a>
       </Popup>
     </Polygon>
-  ));
+  );
 
 export default Map;

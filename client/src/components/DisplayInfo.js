@@ -9,6 +9,7 @@ function DisplayInfo({year, country, marker}) {
   const [disasters, setApiInfoDisaster] = useState(null);
   const [gdp, setApiInfoGDP] = useState(null);
   const [countryNameFull, setCountryNameFull] = useState(null);
+  const [error, setError] = useState(null);
   
   useEffect(()=>{
     async function fetchDataDisasters() {
@@ -25,7 +26,8 @@ function DisplayInfo({year, country, marker}) {
           setApiInfoDisaster(data);
         }
       }).catch((error) => {
-        return error;
+        console.error('Error fetching natural disasters for country:', error.message);
+        setError(error.message);
       });
       return () => {
         ignore = true;
@@ -46,7 +48,8 @@ function DisplayInfo({year, country, marker}) {
           setApiInfoGDP(data[0]);
         }
       }).catch((error) => {
-        return error;
+        console.error('Error fetching gdp for country:', error.message);
+        setError(error.message);
       });
       return () => {
         ignore = true;
@@ -76,7 +79,8 @@ function DisplayInfo({year, country, marker}) {
           setCountryNameFull(data[0]['properties']['ADMIN']);
         }
       }).catch((error) => {
-        return error;
+        console.error('Error fetching country name:', error.message);
+        setError(error.message);
       });
       return () => {
         ignore = true;
@@ -115,6 +119,15 @@ function DisplayInfo({year, country, marker}) {
       }
       return damages;
     }
+
+    if (error) {
+      return (
+        <div className="error">
+          <p>Error fetching data. Please try again later.</p>
+        </div>
+      );
+    }
+
     return(
       <div className="disaster" id="disasterInfo">
         <h3>{countryNameFull}</h3>
